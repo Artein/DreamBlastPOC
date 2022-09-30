@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.svermeulen.extenject": {
+      "version": "https://github.com/Artein/Zenject.git?path=/UnityProject/Assets/Plugins/Zenject#9.2.0",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "c2e33500a84f9408a809deca2af2c55494ab2482"
+    },
     "com.unity.2d.animation": {
       "version": "7.0.6",
       "depth": 1,
