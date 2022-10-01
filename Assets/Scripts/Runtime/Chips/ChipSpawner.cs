@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Game.Level;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
@@ -12,41 +13,47 @@ namespace Game.Chips
     {
         [SerializeField] private Transform _chipsContainer;
         [SerializeField] private ChipId[] _chips;
-        [SerializeField, Min(0)] private int _amount;
         [SerializeField, Min(0.01f)] private float _radius;
         [SerializeField, Min(0f)] private float _elementSpawnDelay;
 
-        [Inject] private ChipViewsStorage _chipViewsStorage;
-        [Inject] private IInstantiator _instantiator;
-        [Inject] private CancellationTokenSource _lifetimeCTS;
-        
-        private void Start()
+        [Inject] private LevelModel _levelModel;
+        [Inject] private LevelController _levelController;
+        [Inject] private ChipInstantiator _chipInstantiator;
+
+        private void OnEnable()
         {
-            SpawnChipsAsync(_lifetimeCTS.Token).Forget();
+            _levelController.ChipsSpawningRequested += OnLevelRequestedChipsSpawning;
         }
 
-        private async UniTask SpawnChipsAsync(CancellationToken ct)
+        private void OnDisable()
         {
-            for (int i = 0; i < _amount; i++)
+            _levelController.ChipsSpawningRequested -= OnLevelRequestedChipsSpawning;
+        }
+
+        private void OnLevelRequestedChipsSpawning(SpawnChipsRequest spawnRequest)
+        {
+            SpawnChipsAsync(spawnRequest.ChipsCount, this.GetCancellationTokenOnDestroy())
+                .ContinueWith(spawnRequest.MarkCompleted);
+        }
+
+        private async UniTask SpawnChipsAsync(int chipsAmount, CancellationToken ct)
+        {
+            for (int i = 0; i < chipsAmount; i++)
             {
                 var chipIdx = Random.Range(0, _chips.Length);
                 var chipId = _chips[chipIdx];
                 
-                if (_chipViewsStorage.TryGetViewPrefab(chipId, out var viewPrefab))
-                {
-                    var randomOffset = Random.insideUnitCircle * _radius;
-                    var position = transform.position;
-                    position.x += randomOffset.x;
-                    position.y += randomOffset.y;
-                    _instantiator.InstantiatePrefab(viewPrefab, position, Quaternion.identity, _chipsContainer);
-                }
-                else
-                {
-                    Debug.LogError($"{nameof(ChipViewsStorage)} missing setup for '{chipId.name}'", _chipViewsStorage);
-                }
+                var chipModel = _chipInstantiator.Instantiate(chipId, transform.position, _chipsContainer);
+                _levelModel.ChipModels.Add(chipModel);
+                
+                var randomOffset = Random.insideUnitCircle * _radius;
+                chipModel.View.transform.position += new Vector3(randomOffset.x, randomOffset.y, 0);
 
-                await UniTask.Delay(TimeSpan.FromSeconds(_elementSpawnDelay), cancellationToken: ct);
-                ct.ThrowIfCancellationRequested();
+                if (i < chipsAmount - 1) // last one spawns without delay
+                {
+                    await UniTask.Delay(TimeSpan.FromSeconds(_elementSpawnDelay), cancellationToken: ct);
+                    ct.ThrowIfCancellationRequested();
+                }
             }
         }
     }

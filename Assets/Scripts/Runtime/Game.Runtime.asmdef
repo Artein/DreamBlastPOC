@@ -5,7 +5,8 @@
         "Zenject",
         "NativeSerializableDictionary",
         "Unity.Collections",
-        "UniTask"
+        "UniTask",
+        "Unity.Mathematics"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

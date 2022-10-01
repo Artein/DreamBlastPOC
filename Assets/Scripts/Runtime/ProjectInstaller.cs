@@ -23,6 +23,7 @@ namespace Game
         {
             Container.BindInstance(_lifetimeCTS).AsSingle();
             Container.BindInstance(_chipViewsStorage).AsSingle();
+            Container.Bind<ChipInstantiator>().AsSingle();
         }
     }
 }
