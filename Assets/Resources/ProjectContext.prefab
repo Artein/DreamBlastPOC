@@ -44,7 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8cb825fee254027ad7d5380a329c0c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _chipViewsStorage: {fileID: 11400000, guid: 78b896260a8e94357a8cb323969ede7a, type: 2}
+  _chipViewsConfig: {fileID: 11400000, guid: 78b896260a8e94357a8cb323969ede7a, type: 2}
+  _ignoreRaycastsLayer: 2
+  _chipLayer: 6
 --- !u!1 &7924851729995010760
 GameObject:
   m_ObjectHideFlags: 0

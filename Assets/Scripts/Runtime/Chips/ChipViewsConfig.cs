@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace Game.Chips
 {
-    [CreateAssetMenu(fileName = nameof(ChipViewsStorage), menuName = "Game/" + nameof(ChipViewsStorage), order = 0)]
-    public class ChipViewsStorage : ScriptableObject
+    [CreateAssetMenu(fileName = nameof(ChipViewsConfig), menuName = "Game/" + nameof(ChipViewsConfig), order = 0)]
+    public class ChipViewsConfig : ScriptableObject
     {
         [SerializeField] private SerializableDictionary<ChipId, GameObject> _chipViewPrefabs;
 

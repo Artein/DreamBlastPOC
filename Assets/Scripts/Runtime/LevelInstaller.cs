@@ -25,6 +25,7 @@ namespace Game
             Container.BindInstance(_levelConfig).AsSingle();
             Container.Bind<LevelModel>().AsSingle();
             Container.BindInterfacesAndSelfTo<LevelController>().AsSingle();
+            Container.BindInterfacesTo<ChipByUserInputActivator>().AsSingle();
         }
     }
 }
