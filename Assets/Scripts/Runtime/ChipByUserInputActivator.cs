@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using Game.Input;
+using Game.Level;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -11,11 +13,10 @@ namespace Game
     public class ChipByUserInputActivator : IInitializable, IDisposable
     {
         [Inject] private GameObjectInputNotifier _layeredInputNotifier;
+        [Inject] private LevelModel _levelModel;
 
         [Inject(Id = InjectionIds.Value.ChipsLayer)]
         private int _chipsLayer;
-
-        [Inject(Id = InjectionIds.Value.IgnoreRaycastsLayer)] private int _ignoreRaycastLayer;
 
         private IDisposable _subscriptionHandle;
 
@@ -34,7 +35,8 @@ namespace Game
         private void OnChipTouched(GameObject gameobject)
         {
             UnityEngine.Debug.Log($"Touched chip '{gameobject.name}'", gameobject);
-            gameobject.layer = _ignoreRaycastLayer;
+            var touchedChipModel = _levelModel.ChipModels.First(chipModel => chipModel.View == gameobject);
+            bool isActivated = touchedChipModel.ActivationExecutor.TryActivate(touchedChipModel);
         }
     }
 }

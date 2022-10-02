@@ -1,4 +1,5 @@
 using System.Threading;
+using Game.Chips;
 using Game.Level;
 using UnityEngine;
 using Zenject;
@@ -24,6 +25,7 @@ namespace Game
             Container.BindInstance(_lifetimeCTS).AsSingle();
             Container.BindInstance(_levelConfig).AsSingle();
             Container.Bind<LevelModel>().AsSingle();
+            Container.Bind<ChipInstantiator>().AsSingle();
             Container.BindInterfacesAndSelfTo<LevelController>().AsSingle();
             Container.BindInterfacesTo<ChipByUserInputActivator>().AsSingle();
         }

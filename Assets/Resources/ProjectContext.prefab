@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _chipViewsConfig: {fileID: 11400000, guid: 78b896260a8e94357a8cb323969ede7a, type: 2}
+  _coloredChipsActivationConfig: {fileID: 11400000, guid: 2ab64903c4c70423ca2481dc4704cf2e, type: 2}
   _ignoreRaycastsLayer: 2
   _chipLayer: 6
 --- !u!1 &7924851729995010760

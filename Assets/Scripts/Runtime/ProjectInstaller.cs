@@ -10,6 +10,7 @@ namespace Game
     public class ProjectInstaller : MonoInstaller<ProjectInstaller>
     {
         [SerializeField] private ChipViewsConfig _chipViewsConfig;
+        [SerializeField] private ColoredChipsActivationConfig _coloredChipsActivationConfig;
         [SerializeField] private int _ignoreRaycastsLayer;
         [SerializeField] private int _chipLayer; // TODO: Validate value somehow (OdinInspector?)
         
@@ -26,7 +27,7 @@ namespace Game
         {
             Container.BindInstance(_lifetimeCTS).AsSingle();
             Container.BindInstance(_chipViewsConfig).AsSingle();
-            Container.Bind<ChipInstantiator>().AsSingle();
+            Container.BindInstance(_coloredChipsActivationConfig).AsSingle();
             Container.BindInterfacesAndSelfTo<TouchInputNotifier>().AsSingle();
             Container.BindInterfacesAndSelfTo<GameObjectInputNotifier>().AsSingle();
             Container.BindInstance(_chipLayer).WithId(InjectionIds.Value.ChipsLayer);
