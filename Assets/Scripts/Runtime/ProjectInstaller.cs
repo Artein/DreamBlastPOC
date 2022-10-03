@@ -1,6 +1,7 @@
 using System.Threading;
 using Game.Chips;
 using Game.Input;
+using Game.Platform;
 using UnityEngine;
 using Zenject;
 
@@ -26,6 +27,7 @@ namespace Game
         public override void InstallBindings()
         {
             Container.BindInstance(SRDebug.Instance).AsSingle();
+            Container.BindInterfacesTo<TargetFPSController>().AsSingle();
             Container.BindInstance(_lifetimeCTS).AsSingle();
             Container.BindInstance(_chipViewsConfig).AsSingle();
             Container.BindInstance(_coloredChipsActivationConfig).AsSingle();
