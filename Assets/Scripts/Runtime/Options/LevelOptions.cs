@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Game.Level;
 using JetBrains.Annotations;
+using SRDebugger;
 using SRDebugger.Services;
 using Zenject;
 
@@ -29,6 +30,7 @@ namespace Game.Options
             }
         }
 
+        [NumberRange(0, 99999), Increment(20d)]
         public int TotalChipsAmount
         {
             get => _totalChipsAmount;
@@ -42,6 +44,7 @@ namespace Game.Options
             }
         }
 
+        [NumberRange(0, 10), Increment(0.1d)]
         public float ChipsAmountCheckInterval
         {
             get => _chipsAmountCheckInterval;

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Game.Level;
 using JetBrains.Annotations;
+using Unity.Profiling;
 using UnityEngine;
 using Zenject;
 
@@ -12,13 +13,15 @@ namespace Game.Chips.Activation
     {
         [Inject] private LevelModel _levelModel;
         [Inject] private ColoredChipsActivationConfig _activationConfig;
+        private ProfilerMarker _tryActivateProfilerMarker = new($"{nameof(ColoredChipsBlobActivationExecutor)}.{nameof(TryActivate)}");
 
         private readonly List<ChipModel> _nearbySimilarChips = new();
         private readonly List<ChipModel> _nearbyChipsToCheck = new();
         
-        // TODO: Huge candidate for optimization
+        // TODO Performance: Optimize me
         public bool TryActivate(ChipModel pivotChipModel)
         {
+            using var profileScopeHandle = _tryActivateProfilerMarker.Auto();
             var allSimilarChips = _levelModel.ChipModels.Where(cm => cm.ChipId == pivotChipModel.ChipId).ToList();
             var allSimilarChipsPositions = allSimilarChips.Select(chip => chip.View.transform.position).ToList();
 
