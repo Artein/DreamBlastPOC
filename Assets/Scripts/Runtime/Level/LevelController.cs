@@ -13,7 +13,7 @@ namespace Game.Level
     public class LevelController : IInitializable
     {
         [Inject] private LevelModel _levelModel;
-        [Inject] private LevelConfig _levelConfig;
+        [Inject] private ILevelConfig _levelConfig;
         [Inject] private CancellationTokenSource _lifetimeCTS;
         private readonly List<SpawnChipsRequest> _activeSpawnChipRequests = new();
         private int ChipsRequestedToSpawn => _activeSpawnChipRequests.Select(r => r.ChipsCount).Sum();

@@ -11,7 +11,7 @@ namespace Game
     {
         [SerializeField] private ChipViewsConfig _chipViewsConfig;
         [SerializeField] private ColoredChipsActivationConfig _coloredChipsActivationConfig;
-        [SerializeField] private int _ignoreRaycastsLayer;
+        [SerializeField] private int _ignoreRaycastsLayer; // TODO: Validate value somehow (OdinInspector?)
         [SerializeField] private int _chipLayer; // TODO: Validate value somehow (OdinInspector?)
         
         private CancellationTokenSource _lifetimeCTS = new();
@@ -25,6 +25,7 @@ namespace Game
         
         public override void InstallBindings()
         {
+            Container.BindInstance(SRDebug.Instance).AsSingle();
             Container.BindInstance(_lifetimeCTS).AsSingle();
             Container.BindInstance(_chipViewsConfig).AsSingle();
             Container.BindInstance(_coloredChipsActivationConfig).AsSingle();
