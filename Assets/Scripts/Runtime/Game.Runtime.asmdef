@@ -6,7 +6,8 @@
         "NativeSerializableDictionary",
         "Unity.Collections",
         "UniTask",
-        "Unity.Mathematics"
+        "Unity.Mathematics",
+        "StompyRobot.SRDebugger"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
