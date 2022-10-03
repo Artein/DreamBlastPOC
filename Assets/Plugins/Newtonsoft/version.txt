@@ -1,0 +1,1 @@
+Newtonsoft.JSON 13.0.1
