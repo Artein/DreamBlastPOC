@@ -29,6 +29,9 @@ namespace Game.Chips
                     var activatorTypeValuePair = new TypeValuePair(typeof(IChipActivationExecutor), _instantiator.Instantiate<ColoredChipsBlobActivationExecutor>());
                     var chipModel = _instantiator.InstantiateExplicit<ChipModel>(new List<TypeValuePair>{ chipIdTypeValuePair, activatorTypeValuePair });
                     chipModel.View = chipView;
+
+                    var sizeController = _instantiator.Instantiate<ChipSizeController>(new[] { chipModel });
+                    ((IInitializable)sizeController).Initialize();
                     return chipModel;
                 }
             }
