@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Game.Chips.Activation;
 using JetBrains.Annotations;
 using Unity.Mathematics;
+using Unity.Profiling;
 using UnityEngine;
 using Zenject;
 
@@ -13,9 +14,11 @@ namespace Game.Chips
     {
         [Inject] private ChipViewsConfig _chipViewsConfig;
         [Inject] private DiContainer _instantiator;
+        private ProfilerMarker _instantiateProfilerMarker = new($"{nameof(ChipInstantiator)}.{nameof(Instantiate)}");
 
         public ChipModel Instantiate(ChipId chipId, float3 position, Transform parent)
         {
+            using var profileScopeHandle = _instantiateProfilerMarker.Auto();
             try
             {
                 if (_chipViewsConfig.TryGetViewPrefab(chipId, out var viewPrefab))
