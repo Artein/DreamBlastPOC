@@ -12,6 +12,8 @@ namespace Game.Chips.Activation
     public class ColoredChipsBlobActivationExecutor : IChipActivationExecutor
     {
         [Inject] private LevelModel _levelModel;
+        [Inject(Id = InjectionIds.Transform.ChipsContainer)] private Transform _chipsContainer;
+        [Inject] private ChipInstantiator _chipInstantiator;
         [Inject] private ColoredChipsActivationConfig _activationConfig;
         private ProfilerMarker _tryActivateProfilerMarker = new($"{nameof(ColoredChipsBlobActivationExecutor)}.{nameof(TryActivate)}");
 
@@ -57,15 +59,27 @@ namespace Game.Chips.Activation
 
             if (_nearbySimilarChips.Count >= _activationConfig.SimilarColorMinMatchSize)
             {
-                _nearbySimilarChips.ForEach(chipModel =>
-                {
-                    _levelModel.ChipModels.Remove(chipModel);
-                    chipModel.Destroy();
-                });
+                PerformMatch(_nearbySimilarChips, pivotChipModel);
                 return true;
             }
 
             return false;
+        }
+
+        private void PerformMatch(IReadOnlyList<ChipModel> chips, ChipModel pivotChip)
+        {
+            for (int i = 0; i < chips.Count; i++)
+            {
+                var chip = chips[i];
+                _levelModel.ChipModels.Remove(chip);
+                chip.Destroy();
+            }
+
+            if (_activationConfig.TryGetChipToCreateAfterMatch(chips.Count, out var chipIdToCreate))
+            {
+                var newChip = _chipInstantiator.Instantiate(chipIdToCreate, pivotChip.View.transform.position, _chipsContainer);
+                _levelModel.ChipModels.Add(newChip);
+            }
         }
     }
 }

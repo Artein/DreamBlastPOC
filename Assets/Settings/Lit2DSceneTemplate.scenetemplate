@@ -71,6 +71,10 @@ MonoBehaviour:
     instantiationMode: 0
   - dependency: {fileID: 12800000, guid: 76ed11d84beb10846a746b4259e26d39, type: 3}
     instantiationMode: 1
+  - dependency: {fileID: 11400000, guid: 13b1629f615784017b73de6123547055, type: 2}
+    instantiationMode: 1
+  - dependency: {fileID: 11400000, guid: 897d799bb0d934a619a658a8d0d4ef32, type: 2}
+    instantiationMode: 1
   - dependency: {fileID: 2100000, guid: 6b025b045db969e4988a6267cc04938d, type: 2}
     instantiationMode: 0
   - dependency: {fileID: 2100000, guid: cb5c252f19f1cd2448f88d7f9dd989e8, type: 2}
@@ -81,9 +85,9 @@ MonoBehaviour:
     instantiationMode: 0
   - dependency: {fileID: 2100000, guid: 61a418be8e5d13c448865432314f8277, type: 2}
     instantiationMode: 0
-  - dependency: {fileID: 2800000, guid: 87527920fa7ad4d449ce322f52e14dbd, type: 3}
-    instantiationMode: 0
   - dependency: {fileID: 11400000, guid: 3268f5a8751ec44129ed308709e28c14, type: 2}
+    instantiationMode: 1
+  - dependency: {fileID: 11400000, guid: 40b943df9eac546a08289efc514f217d, type: 2}
     instantiationMode: 1
   - dependency: {fileID: 12800000, guid: 9568ece128856a54cbc1060379ab498d, type: 3}
     instantiationMode: 1
@@ -97,10 +101,14 @@ MonoBehaviour:
     instantiationMode: 0
   - dependency: {fileID: 11400000, guid: 5c7b0b9db2645401cb98dbedc40e7346, type: 2}
     instantiationMode: 1
-  - dependency: {fileID: 11400000, guid: 75a8c2ea9a3ce4689a15fa2da4f413b6, type: 2}
+  - dependency: {fileID: 11400000, guid: 82d5711488bd642b8af2cac55031e2d3, type: 2}
     instantiationMode: 1
   - dependency: {fileID: 824167088398773255, guid: 6387d68cbe02d2d4fb8912f794606585, type: 3}
     instantiationMode: 0
+  - dependency: {fileID: 11400000, guid: 75a8c2ea9a3ce4689a15fa2da4f413b6, type: 2}
+    instantiationMode: 1
+  - dependency: {fileID: 11400000, guid: 43e5a2d2d5b384810b769d6b453da830, type: 2}
+    instantiationMode: 1
   - dependency: {fileID: 2100000, guid: 8a88e148dbc2d0f45a027f72e59aee4d, type: 2}
     instantiationMode: 0
   - dependency: {fileID: 2100000, guid: a65c67e8efa392e4faaf526ab060ac88, type: 2}

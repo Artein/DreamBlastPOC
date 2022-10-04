@@ -1,6 +1,5 @@
 using System;
 using System.Threading;
-using Game.Chips;
 using Game.Level;
 using Game.Options;
 using UnityEngine;
@@ -29,9 +28,7 @@ namespace Game
             Container.Bind(typeof(LevelOptions), typeof(IInitializable), typeof(IDisposable)).To<LevelOptions>().AsSingle();
             Container.Bind(typeof(ILevelConfig), typeof(IInitializable), typeof(IDisposable)).To<LevelConfigProxy>().AsSingle();
             Container.Bind<LevelModel>().AsSingle();
-            Container.Bind<ChipInstantiator>().AsSingle();
             Container.BindInterfacesAndSelfTo<LevelController>().AsSingle();
-            Container.BindInterfacesTo<ChipByUserInputActivator>().AsSingle();
         }
     }
 }

@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bfad02f99c64ffcb4475ef3d23f3667, type: 3}
   m_Name: RedChip
   m_EditorClassIdentifier: 
-  _color: {fileID: 11400000, guid: 327e7ba1ca79e4a8799cd1d772864178, type: 2}
+  _tags:
+  - {fileID: 11400000, guid: 13b1629f615784017b73de6123547055, type: 2}

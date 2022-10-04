@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using Zenject;
 
-namespace Game
+namespace Game.Chips.Activation
 {
     [UsedImplicitly]
     public class ChipByUserInputActivator : IInitializable, IDisposable
@@ -15,7 +15,7 @@ namespace Game
         [Inject] private GameObjectInputNotifier _layeredInputNotifier;
         [Inject] private LevelModel _levelModel;
 
-        [Inject(Id = InjectionIds.Value.ChipsLayer)]
+        [Inject(Id = InjectionIds.Int.ChipsLayer)]
         private int _chipsLayer;
 
         private IDisposable _subscriptionHandle;
@@ -35,7 +35,8 @@ namespace Game
         private void OnChipTouched(GameObject gameobject)
         {
             UnityEngine.Debug.Log($"Touched chip '{gameobject.name}'", gameobject);
-            var touchedChipModel = _levelModel.ChipModels.First(chipModel => chipModel.View == gameobject);
+            var touchedChipView = gameobject.GetComponentInParent<ChipView>();
+            var touchedChipModel = _levelModel.ChipModels.First(chipModel => chipModel.View == touchedChipView);
             bool isActivated = touchedChipModel.ActivationExecutor.TryActivate(touchedChipModel);
         }
     }

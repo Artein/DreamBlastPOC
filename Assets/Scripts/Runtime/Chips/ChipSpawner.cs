@@ -11,7 +11,6 @@ namespace Game.Chips
     [DisallowMultipleComponent]
     public class ChipSpawner : MonoBehaviour
     {
-        [SerializeField] private Transform _chipsContainer;
         [SerializeField] private ChipId[] _chips;
         [SerializeField, Min(0.01f)] private float _radius;
         [SerializeField, Min(0f)] private float _elementSpawnDelay;
@@ -19,6 +18,7 @@ namespace Game.Chips
         [Inject] private LevelModel _levelModel;
         [Inject] private LevelController _levelController;
         [Inject] private ChipInstantiator _chipInstantiator;
+        [Inject(Id = InjectionIds.Transform.ChipsContainer)] private Transform _chipsContainer;
 
         private void OnEnable()
         {

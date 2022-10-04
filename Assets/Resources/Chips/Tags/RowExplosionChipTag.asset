@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49ee268bf1ea4d328bfc6798ca1c2ee1, type: 3}
-  m_Name: ColoredChipsActivationConfig
+  m_Script: {fileID: 11500000, guid: 73109c5625334be49e57da604624f803, type: 3}
+  m_Name: RowExplosionChipTag
   m_EditorClassIdentifier: 
-  _similarColorMinMatchSize: 2
-  _chipMatchRadius: 0.7

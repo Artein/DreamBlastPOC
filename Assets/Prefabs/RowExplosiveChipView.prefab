@@ -1,12 +1,20 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &2791522180044505961
+--- !u!1001 &6628402637824297189
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1377766540737333953, guid: 00565c5b57d484280a1de2a4548e4af8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1377766540737333953, guid: 00565c5b57d484280a1de2a4548e4af8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7610891798227937586, guid: 00565c5b57d484280a1de2a4548e4af8, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -25,19 +33,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7610891798227937587, guid: 00565c5b57d484280a1de2a4548e4af8, type: 3}
       propertyPath: m_Name
-      value: RedChipView
+      value: RowExplosiveChipView
       objectReference: {fileID: 0}
     - target: {fileID: 7610891798987584613, guid: 00565c5b57d484280a1de2a4548e4af8, type: 3}
       propertyPath: m_Color.b
-      value: 0.13932894
+      value: 0.25802773
       objectReference: {fileID: 0}
     - target: {fileID: 7610891798987584613, guid: 00565c5b57d484280a1de2a4548e4af8, type: 3}
       propertyPath: m_Color.g
-      value: 0.30303022
+      value: 0.033775367
       objectReference: {fileID: 0}
     - target: {fileID: 7610891798987584613, guid: 00565c5b57d484280a1de2a4548e4af8, type: 3}
       propertyPath: m_Color.r
-      value: 0.9528302
+      value: 0.6509434
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00565c5b57d484280a1de2a4548e4af8, type: 3}

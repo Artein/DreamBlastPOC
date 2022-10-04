@@ -33,8 +33,8 @@ namespace Game
             Container.BindInstance(_coloredChipsActivationConfig).AsSingle();
             Container.BindInterfacesAndSelfTo<TouchInputNotifier>().AsSingle();
             Container.BindInterfacesAndSelfTo<GameObjectInputNotifier>().AsSingle();
-            Container.BindInstance(_chipLayer).WithId(InjectionIds.Value.ChipsLayer);
-            Container.BindInstance(_ignoreRaycastsLayer).WithId(InjectionIds.Value.IgnoreRaycastsLayer);
+            Container.BindInstance(_chipLayer).WithId(InjectionIds.Int.ChipsLayer);
+            Container.BindInstance(_ignoreRaycastsLayer).WithId(InjectionIds.Int.IgnoreRaycastsLayer);
         }
     }
 }

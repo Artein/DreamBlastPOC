@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bfad02f99c64ffcb4475ef3d23f3667, type: 3}
-  m_Name: BlueChip
+  m_Script: {fileID: 11500000, guid: 7e89247ea7ed4dcb94cd190b674cd03f, type: 3}
+  m_Name: RedChipTag
   m_EditorClassIdentifier: 
-  _color: {fileID: 11400000, guid: 75a8c2ea9a3ce4689a15fa2da4f413b6, type: 2}
+  _color: {fileID: 11400000, guid: 327e7ba1ca79e4a8799cd1d772864178, type: 2}

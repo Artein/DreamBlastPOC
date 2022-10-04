@@ -23,7 +23,7 @@ namespace Game.Chips
             {
                 if (_chipViewsConfig.TryGetViewPrefab(chipId, out var viewPrefab))
                 {
-                    var chipView = _instantiator.InstantiatePrefab(viewPrefab, position, Quaternion.identity, parent);
+                    var chipView = _instantiator.InstantiatePrefabForComponent<ChipView>(viewPrefab, position, Quaternion.identity, parent);
                     var chipIdTypeValuePair = new TypeValuePair(typeof(ChipId), chipId);
                     // TODO: Update when new chip types will be added
                     var activatorTypeValuePair = new TypeValuePair(typeof(IChipActivationExecutor), _instantiator.Instantiate<ColoredChipsBlobActivationExecutor>());

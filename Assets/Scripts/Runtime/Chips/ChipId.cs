@@ -1,12 +1,14 @@
+using System.Collections.Generic;
+using Game.Chips.Tags;
 using UnityEngine;
 
 namespace Game.Chips
 {
-    [CreateAssetMenu(fileName = nameof(ChipId), menuName = "Game/" + nameof(ChipId), order = 0)]
+    [CreateAssetMenu(fileName = nameof(ChipId), menuName = "Game/Chips/" + nameof(ChipId), order = 0)]
     public class ChipId : ScriptableObject
     {
-        [SerializeField] private ColorId _color;
+        [SerializeField] private List<ChipTag> _tags;
 
-        public ColorId Color => _color;
+        public IReadOnlyList<ChipTag> Tags => _tags;
     }
 }
