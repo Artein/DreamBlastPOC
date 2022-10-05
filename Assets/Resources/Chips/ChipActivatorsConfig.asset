@@ -31,6 +31,13 @@ MonoBehaviour:
     ExecutorTypeRef:
       GuidAssignmentFailed: 0
       GUID: 9b64e7dd24444ef88ae9363167ee1678
-      _typeNameAndAssembly: Game.Chips.Explosion.RowExplosionChipActivationExecutor,
+      _typeNameAndAssembly: Game.Chips.Explosion.ExplosionChipActivationExecutor,
+        Game.Runtime
+      _suppressLogs: 0
+  - ChipId: {fileID: 11400000, guid: d79cc79c6610240e3b403e1f023b8d2d, type: 2}
+    ExecutorTypeRef:
+      GuidAssignmentFailed: 0
+      GUID: 9b64e7dd24444ef88ae9363167ee1678
+      _typeNameAndAssembly: Game.Chips.Explosion.ExplosionChipActivationExecutor,
         Game.Runtime
       _suppressLogs: 0

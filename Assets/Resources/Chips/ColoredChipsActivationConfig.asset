@@ -18,3 +18,5 @@ MonoBehaviour:
     _keys:
     - _key: 4
       _value: {fileID: 11400000, guid: 058702cbbcf2847898e53bd4fd8507ad, type: 2}
+    - _key: 7
+      _value: {fileID: 11400000, guid: d79cc79c6610240e3b403e1f023b8d2d, type: 2}
