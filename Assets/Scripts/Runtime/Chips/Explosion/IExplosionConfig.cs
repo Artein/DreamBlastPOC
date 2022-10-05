@@ -1,10 +1,9 @@
-using JetBrains.Annotations;
-using Zenject;
+using System;
 
 namespace Game.Chips.Explosion
 {
     public interface IExplosionConfig
     {
-        IExplosionController InstantiateExplosionController([NotNull] IInstantiator instantiator);
+        Type ChipsCollectorType { get; }
     }
 }

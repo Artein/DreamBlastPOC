@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _configsDic:
     _keys:
-    - _key: {fileID: 11400000, guid: 40b943df9eac546a08289efc514f217d, type: 2}
+    - _key: {fileID: 11400000, guid: 058702cbbcf2847898e53bd4fd8507ad, type: 2}
       _value: {fileID: 11400000, guid: 897d799bb0d934a619a658a8d0d4ef32, type: 2}

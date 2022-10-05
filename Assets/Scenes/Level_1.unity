@@ -866,6 +866,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _chipsContainer: {fileID: 74776992}
+  _chipActivatorsConfig: {fileID: 11400000, guid: 5b7383d58ed3844f2a5d607dcdf11d6b, type: 2}
   _explosionChipsConfig: {fileID: 11400000, guid: 43e5a2d2d5b384810b769d6b453da830, type: 2}
 --- !u!4 &1434170502
 Transform:

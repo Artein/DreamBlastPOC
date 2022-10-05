@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 using Unity.Mathematics;
 using Unity.Profiling;
 using UnityEngine;
+using UnityEngine.Assertions;
 using Zenject;
 
 namespace Game.Chips
@@ -13,6 +14,7 @@ namespace Game.Chips
     public class ChipInstantiator
     {
         [Inject] private ChipViewsConfig _chipViewsConfig;
+        [Inject] private ChipActivatorsConfig _chipActivatorsConfig;
         [Inject] private DiContainer _instantiator;
         private ProfilerMarker _instantiateProfilerMarker = new($"{nameof(ChipInstantiator)}.{nameof(Instantiate)}");
 
@@ -24,9 +26,11 @@ namespace Game.Chips
                 if (_chipViewsConfig.TryGetViewPrefab(chipId, out var viewPrefab))
                 {
                     var chipView = _instantiator.InstantiatePrefabForComponent<ChipView>(viewPrefab, position, Quaternion.identity, parent);
+                    var chipActivationExecutorType = _chipActivatorsConfig.FindExecutorType(chipId);
+                    Assert.IsNotNull(chipActivationExecutorType); // TODO: Handle the case when chip can't be activated (executor == null)
+                    
                     var chipIdTypeValuePair = new TypeValuePair(typeof(ChipId), chipId);
-                    // TODO: Update when new chip types will be added
-                    var activatorTypeValuePair = new TypeValuePair(typeof(IChipActivationExecutor), _instantiator.Instantiate<ColoredChipsBlobActivationExecutor>());
+                    var activatorTypeValuePair = new TypeValuePair(typeof(IChipActivationExecutor), _instantiator.Instantiate(chipActivationExecutorType));
                     var chipModel = _instantiator.InstantiateExplicit<ChipModel>(new List<TypeValuePair>{ chipIdTypeValuePair, activatorTypeValuePair });
                     chipModel.View = chipView;
 

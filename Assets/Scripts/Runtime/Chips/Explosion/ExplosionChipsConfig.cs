@@ -1,4 +1,3 @@
-using Game.Chips.Tags;
 using JetBrains.Annotations;
 using NativeSerializableDictionary;
 using UnityEngine;
@@ -8,11 +7,11 @@ namespace Game.Chips.Explosion
     [CreateAssetMenu(fileName = nameof(ExplosionChipsConfig), menuName = "Game/Chips/Behaviour/Explosion/" + nameof(ExplosionChipsConfig), order = 0)]
     public class ExplosionChipsConfig : ScriptableObject
     {
-        [SerializeField] private SerializableDictionary<ExplosionChipTag, BaseExplosionConfig> _configsDic;
+        [SerializeField] private SerializableDictionary<ChipId, BaseExplosionConfig> _configsDic;
 
-        public bool TryGetExplosionConfig([NotNull] ExplosionChipTag chipTag, out IExplosionConfig explosionConfig)
+        public bool TryGetExplosionConfig([NotNull] ChipId chipId, out IExplosionConfig explosionConfig)
         {
-            if (_configsDic.TryGetValue(chipTag, out var configPair))
+            if (_configsDic.TryGetValue(chipId, out var configPair))
             {
                 explosionConfig = configPair.Value;
                 return true;

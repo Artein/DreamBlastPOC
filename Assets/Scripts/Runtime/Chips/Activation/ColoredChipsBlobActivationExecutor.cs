@@ -4,6 +4,7 @@ using Game.Level;
 using JetBrains.Annotations;
 using Unity.Profiling;
 using UnityEngine;
+using UnityEngine.Assertions;
 using Zenject;
 
 namespace Game.Chips.Activation
@@ -24,12 +25,13 @@ namespace Game.Chips.Activation
         public bool TryActivate(ChipModel pivotChipModel)
         {
             using var profileScopeHandle = _tryActivateProfilerMarker.Auto();
+            Assert.IsTrue(_nearbySimilarChips.Count == 0);
+            Assert.IsTrue(_nearbyChipsToCheck.Count == 0);
+            
             var allSimilarChips = _levelModel.ChipModels.Where(cm => cm.ChipId == pivotChipModel.ChipId).ToList();
             var allSimilarChipsPositions = allSimilarChips.Select(chip => chip.View.transform.position).ToList();
-
-            _nearbySimilarChips.Clear();
+            
             _nearbySimilarChips.Add(pivotChipModel);
-            _nearbyChipsToCheck.Clear();
             _nearbyChipsToCheck.Add(pivotChipModel);
             
             while (_nearbyChipsToCheck.Count > 0)
@@ -57,13 +59,16 @@ namespace Game.Chips.Activation
                 _nearbyChipsToCheck.Remove(chipToCheck);
             }
 
-            if (_nearbySimilarChips.Count >= _activationConfig.SimilarColorMinMatchSize)
+            bool performMatch = _nearbySimilarChips.Count >= _activationConfig.SimilarColorMinMatchSize;
+            if (performMatch)
             {
                 PerformMatch(_nearbySimilarChips, pivotChipModel);
-                return true;
             }
+            
+            _nearbySimilarChips.Clear();
+            _nearbyChipsToCheck.Clear();
 
-            return false;
+            return performMatch;
         }
 
         private void PerformMatch(IReadOnlyList<ChipModel> chips, ChipModel pivotChip)

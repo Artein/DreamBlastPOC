@@ -26,7 +26,7 @@ namespace Game.Input
                     }
                 }
             }
-            else if (UnityEngine.Input.GetMouseButton(0))
+            else if (UnityEngine.Input.GetMouseButtonDown(0))
             {
                 position = UnityEngine.Input.mousePosition;
                 // Note: Input.mousePosition reports the position of the mouse even when it is not inside the Game View, such as when Cursor.lockState

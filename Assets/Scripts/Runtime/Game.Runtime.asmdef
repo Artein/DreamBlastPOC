@@ -7,7 +7,8 @@
         "Unity.Collections",
         "UniTask",
         "Unity.Mathematics",
-        "StompyRobot.SRDebugger"
+        "StompyRobot.SRDebugger",
+        "TypeReferences"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

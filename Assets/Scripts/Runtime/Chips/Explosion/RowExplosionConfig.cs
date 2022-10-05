@@ -1,5 +1,7 @@
+using System;
+using Game.Chips.Explosion.ChipsCollecting;
+using TypeReferences;
 using UnityEngine;
-using Zenject;
 
 namespace Game.Chips.Explosion
 {
@@ -8,13 +10,12 @@ namespace Game.Chips.Explosion
     {
         [SerializeField, Min(0)] private float _impactWidth;
         [SerializeField, Min(0)] private float _impactHeight;
+        
+        [SerializeField, Inherits(typeof(IExplosionChipsCollector), ShortName = true)] 
+        private TypeReference _explosionChipsCollectorType;
 
         public float ImpactWidth => _impactWidth;
         public float ImpactHeight => _impactHeight;
-
-        public override IExplosionController InstantiateExplosionController(IInstantiator instantiator)
-        {
-            return instantiator.Instantiate<RowExplosionController>(new []{ this });
-        }
+        public override Type ChipsCollectorType => _explosionChipsCollectorType.Type;
     }
 }

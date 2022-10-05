@@ -1,10 +1,10 @@
+using System;
 using UnityEngine;
-using Zenject;
 
 namespace Game.Chips.Explosion
 {
     public abstract class BaseExplosionConfig : ScriptableObject, IExplosionConfig
     {
-        public abstract IExplosionController InstantiateExplosionController(IInstantiator instantiator);
+        public abstract Type ChipsCollectorType { get; }
     }
 }

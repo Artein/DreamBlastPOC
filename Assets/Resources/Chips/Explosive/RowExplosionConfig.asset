@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0bfb8cbd5eb4f6cbdd0741db92534cb, type: 3}
   m_Name: RowExplosionConfig
   m_EditorClassIdentifier: 
-  _impactWidth: 10
-  _impactHeight: 2
+  _impactWidth: 5
+  _impactHeight: 1.2
+  _explosionChipsCollectorType:
+    GuidAssignmentFailed: 0
+    GUID: 4bc3858400b249dda8180a7497de4397
+    _typeNameAndAssembly: Game.Chips.Explosion.ChipsCollecting.RowExplosionChipsCollector,
+      Game.Runtime
+    _suppressLogs: 0
