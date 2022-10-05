@@ -5,6 +5,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Game.Chips;
 using JetBrains.Annotations;
+using UnityEngine;
 using Zenject;
 
 namespace Game.Level
@@ -14,6 +15,8 @@ namespace Game.Level
     {
         [Inject] private LevelModel _levelModel;
         [Inject] private ILevelConfig _levelConfig;
+        [Inject] private IInstantiator _instantiator;
+        [Inject(Id = InjectionIds.Transform.LevelContainer)] private Transform _levelContainer;
         [Inject] private CancellationTokenSource _lifetimeCTS;
         private readonly List<SpawnChipsRequest> _activeSpawnChipRequests = new();
         private int ChipsRequestedToSpawn => _activeSpawnChipRequests.Select(r => r.ChipsCount).Sum();
@@ -22,6 +25,8 @@ namespace Game.Level
         
         void IInitializable.Initialize()
         {
+            _instantiator.InstantiatePrefab(_levelConfig.LevelTopologyPrefab, _levelContainer);
+            
             SpawnLevelChipsAsync().Forget();
         }
 

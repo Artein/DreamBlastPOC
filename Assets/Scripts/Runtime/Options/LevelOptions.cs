@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Game.Level;
 using JetBrains.Annotations;
 using SRDebugger;
 using SRDebugger.Services;
@@ -10,7 +9,7 @@ using Zenject;
 namespace Game.Options
 {
     [UsedImplicitly]
-    public class LevelOptions : ILevelConfig, IInitializable, IDisposable, INotifyPropertyChanged
+    public class LevelOptions : IInitializable, IDisposable, INotifyPropertyChanged
     {
         [Inject] private IDebugService _debugService;
         private bool _overrideLevelConfig;

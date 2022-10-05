@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using Game.Options;
 using JetBrains.Annotations;
+using UnityEngine;
 using Zenject;
 
 namespace Game.Level
@@ -11,6 +12,7 @@ namespace Game.Level
     {
         public int TotalChipsAmount => _options.OverrideLevelConfig ? _options.TotalChipsAmount : _config.TotalChipsAmount;
         public float ChipsAmountCheckInterval => _options.OverrideLevelConfig ? _options.ChipsAmountCheckInterval : _config.ChipsAmountCheckInterval;
+        public GameObject LevelTopologyPrefab => _config.LevelTopologyPrefab;
 
         [Inject] private LevelConfig _config;
         [Inject] private LevelOptions _options;

@@ -1,16 +1,17 @@
 using System;
 using System.Threading;
-using Game.Level;
 using Game.Options;
 using UnityEngine;
 using Zenject;
 
-namespace Game
+namespace Game.Level
 {
     [DisallowMultipleComponent]
     public class LevelInstaller : MonoInstaller<LevelInstaller>
     {
-        [SerializeField] private LevelConfig _levelConfig;
+        [SerializeField] private Transform _levelContainer;
+
+        [Inject] private LevelsController _levelsController;
         
         private CancellationTokenSource _lifetimeCTS = new();
 
@@ -24,7 +25,8 @@ namespace Game
         public override void InstallBindings()
         {
             Container.BindInstance(_lifetimeCTS).AsSingle();
-            Container.BindInstance(_levelConfig).AsSingle();
+            Container.BindInstance(_levelsController.CurrentLevel).AsSingle();
+            Container.BindInstance(_levelContainer).WithId(InjectionIds.Transform.LevelContainer);
             Container.Bind(typeof(LevelOptions), typeof(IInitializable), typeof(IDisposable)).To<LevelOptions>().AsSingle();
             Container.Bind(typeof(ILevelConfig), typeof(IInitializable), typeof(IDisposable)).To<LevelConfigProxy>().AsSingle();
             Container.Bind<LevelModel>().AsSingle();

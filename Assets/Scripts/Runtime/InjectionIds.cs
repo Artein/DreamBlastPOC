@@ -4,13 +4,14 @@ namespace Game
     {
         public enum Int : byte
         {
-            ChipsLayer = 0,
-            IgnoreRaycastsLayer = 1,
+            ChipsLayer,
+            IgnoreRaycastsLayer,
         }
 
         public enum Transform : byte
         {
-            ChipsContainer = 0,
+            ChipsContainer,
+            LevelContainer,
         }
     }
 }

@@ -2,13 +2,16 @@ using UnityEngine;
 
 namespace Game.Level
 {
-    [CreateAssetMenu(fileName = nameof(LevelConfig), menuName = "Game/" + nameof(LevelConfig), order = 0)]
+    [CreateAssetMenu(fileName = nameof(LevelConfig), menuName = "Game/Levels/" + nameof(LevelConfig), order = 0)]
     public class LevelConfig : ScriptableObject, ILevelConfig
     {
-        [SerializeField, Min(0)] private int _totalChipsAmount;
-        [SerializeField, Min(0)] private float _chipsAmountCheckInterval;
+        [field: SerializeField, Min(0)]
+        public int TotalChipsAmount { get; set; } = 20;
 
-        public int TotalChipsAmount => _totalChipsAmount;
-        public float ChipsAmountCheckInterval => _chipsAmountCheckInterval;
+        [field: SerializeField, Min(0)]
+        public float ChipsAmountCheckInterval { get; set; } = 1;
+
+        [field: SerializeField] 
+        public GameObject LevelTopologyPrefab { get; set; }
     }
 }
