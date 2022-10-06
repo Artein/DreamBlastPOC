@@ -14,10 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _chipViewPrefabs:
     _keys:
-    - _key: {fileID: 11400000, guid: 0941bd95005294b13bea68d0f45ac9a6, type: 2}
-      _value: {fileID: 1584301077921028022, guid: 4f9fbf104dea74a41a1a0573a3764a7c, type: 3}
+    - _key: {fileID: 11400000, guid: d0f0c6acc4dcb4e329e8421fd4fdfda2, type: 2}
+      _value: {fileID: 1584301077921028022, guid: 199fe7785cc4d4d71bd466891d1118dd, type: 3}
     - _key: {fileID: 11400000, guid: 3268f5a8751ec44129ed308709e28c14, type: 2}
       _value: {fileID: 1584301077921028022, guid: 5d521180e011941099a1372b8691d8ba, type: 3}
+    - _key: {fileID: 11400000, guid: bfaeab4cf8fa84353b979710a98536b1, type: 2}
+      _value: {fileID: 1584301077921028022, guid: 2941cd92091c64797ab350c24f585e9d, type: 3}
+    - _key: {fileID: 11400000, guid: 0941bd95005294b13bea68d0f45ac9a6, type: 2}
+      _value: {fileID: 1584301077921028022, guid: 4f9fbf104dea74a41a1a0573a3764a7c, type: 3}
+    - _key: {fileID: 11400000, guid: 8275720c39c764adb9a1812bdffa4da8, type: 2}
+      _value: {fileID: 1584301077921028022, guid: e17d01d67075044879e306bf4e465d11, type: 3}
     - _key: {fileID: 11400000, guid: 058702cbbcf2847898e53bd4fd8507ad, type: 2}
       _value: {fileID: 7547253261962222650, guid: 6b97e790af1ad4d448f23777d85ab725, type: 3}
     - _key: {fileID: 11400000, guid: d79cc79c6610240e3b403e1f023b8d2d, type: 2}

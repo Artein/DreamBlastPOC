@@ -13,7 +13,28 @@ MonoBehaviour:
   m_Name: ChipActivatorsConfig
   m_EditorClassIdentifier: 
   _activationExecutors:
+  - ChipId: {fileID: 11400000, guid: d0f0c6acc4dcb4e329e8421fd4fdfda2, type: 2}
+    ExecutorTypeRef:
+      GuidAssignmentFailed: 0
+      GUID: 36f6af48563841f3a2156955bfe51b69
+      _typeNameAndAssembly: Game.Chips.Activation.ColoredChipsBlobActivationExecutor,
+        Game.Runtime
+      _suppressLogs: 0
   - ChipId: {fileID: 11400000, guid: 3268f5a8751ec44129ed308709e28c14, type: 2}
+    ExecutorTypeRef:
+      GuidAssignmentFailed: 0
+      GUID: 36f6af48563841f3a2156955bfe51b69
+      _typeNameAndAssembly: Game.Chips.Activation.ColoredChipsBlobActivationExecutor,
+        Game.Runtime
+      _suppressLogs: 0
+  - ChipId: {fileID: 11400000, guid: bfaeab4cf8fa84353b979710a98536b1, type: 2}
+    ExecutorTypeRef:
+      GuidAssignmentFailed: 0
+      GUID: 36f6af48563841f3a2156955bfe51b69
+      _typeNameAndAssembly: Game.Chips.Activation.ColoredChipsBlobActivationExecutor,
+        Game.Runtime
+      _suppressLogs: 0
+  - ChipId: {fileID: 11400000, guid: 8275720c39c764adb9a1812bdffa4da8, type: 2}
     ExecutorTypeRef:
       GuidAssignmentFailed: 0
       GUID: 36f6af48563841f3a2156955bfe51b69
