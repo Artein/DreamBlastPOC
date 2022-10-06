@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3323322379600980516}
   - component: {fileID: 3883736973290446875}
+  - component: {fileID: 6770288174432835400}
   m_Layer: 7
   m_Name: Chain_2L_Fixed
   m_TagString: Untagged
@@ -56,6 +57,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!232 &6770288174432835400
+DistanceJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7759673111519600791}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 2677041670046992905}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureDistance: 1
+  m_Distance: 0.628
+  m_MaxDistanceOnly: 1
 --- !u!1 &9054133101785896667
 GameObject:
   m_ObjectHideFlags: 0
