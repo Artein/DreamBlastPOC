@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1774d4fcce748438884b7440e49c95d, type: 3}
   m_Name: CrossExplosionConfig
   m_EditorClassIdentifier: 
-  <Size>k__BackingField: 5
+  <Size>k__BackingField: 20
   <Thickness>k__BackingField: 1.2
   _chipsCollectorType:
     GuidAssignmentFailed: 0
