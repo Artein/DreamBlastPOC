@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3678a44ca8f84229bcbe248e2ef51377, type: 3}
-  m_Name: Level_2
+  m_Name: L3 Chains
   m_EditorClassIdentifier: 
-  <TotalChipsAmount>k__BackingField: 50
+  <TotalChipsAmount>k__BackingField: 100
   <ChipsAmountCheckInterval>k__BackingField: 1
-  <LevelTopologyPrefab>k__BackingField: {fileID: 3059719326636222029, guid: ef9f41fb500664e91bec15fd1d7ba130, type: 3}
+  <LevelTopologyPrefab>k__BackingField: {fileID: 3059719326636222029, guid: 5d01f83b491c445f7b4612c204ee5c4d, type: 3}
