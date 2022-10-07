@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3678a44ca8f84229bcbe248e2ef51377, type: 3}
-  m_Name: Level_3
+  m_Name: Level_3_Chains
   m_EditorClassIdentifier: 
   <TotalChipsAmount>k__BackingField: 100
   <ChipsAmountCheckInterval>k__BackingField: 1
