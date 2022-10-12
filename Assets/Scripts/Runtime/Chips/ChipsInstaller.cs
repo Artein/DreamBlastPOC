@@ -13,6 +13,7 @@ namespace Game.Chips
         
         public override void InstallBindings()
         {
+            Container.DeclareSignal<ChipsMatchPerformedSignal>();
             Container.Bind<ChipInstantiator>().AsSingle();
             Container.BindInterfacesTo<ChipByUserInputActivator>().AsSingle();
             Container.BindInstance(_chipsContainer).WithId(InjectionIds.Transform.ChipsContainer);

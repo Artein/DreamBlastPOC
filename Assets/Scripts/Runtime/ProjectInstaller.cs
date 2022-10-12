@@ -29,6 +29,7 @@ namespace Game
         
         public override void InstallBindings()
         {
+            SignalBusInstaller.Install(Container);
             Container.BindInstance(SRDebug.Instance).AsSingle();
             Container.BindInterfacesAndSelfTo<LevelsController>().AsSingle();
             Container.BindInterfacesTo<GameLevelsOptions>().AsSingle();

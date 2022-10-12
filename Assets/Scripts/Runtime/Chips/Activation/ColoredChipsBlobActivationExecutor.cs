@@ -12,6 +12,7 @@ namespace Game.Chips.Activation
     [UsedImplicitly]
     public class ColoredChipsBlobActivationExecutor : IChipActivationExecutor
     {
+        [Inject] private SignalBus _signalBus;
         [Inject] private LevelModel _levelModel;
         [Inject(Id = InjectionIds.Transform.ChipsContainer)] private Transform _chipsContainer;
         [Inject] private ChipInstantiator _chipInstantiator;
@@ -73,12 +74,15 @@ namespace Game.Chips.Activation
 
         private void PerformMatch(IReadOnlyList<ChipModel> chips, ChipModel pivotChip)
         {
+            Assert.IsTrue(chips.Count > 0);
             for (int i = 0; i < chips.Count; i++)
             {
                 var chip = chips[i];
                 _levelModel.ChipModels.Remove(chip);
                 chip.Destroy();
             }
+            
+            _signalBus.Fire(new ChipsMatchPerformedSignal(chips.Count));
 
             if (_activationConfig.TryGetChipToCreateAfterMatch(chips.Count, out var chipIdToCreate))
             {
