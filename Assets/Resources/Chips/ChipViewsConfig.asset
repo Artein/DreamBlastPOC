@@ -15,16 +15,30 @@ MonoBehaviour:
   _chipViewPrefabs:
     _keys:
     - _key: {fileID: 11400000, guid: d0f0c6acc4dcb4e329e8421fd4fdfda2, type: 2}
-      _value: {fileID: 1584301077921028022, guid: 199fe7785cc4d4d71bd466891d1118dd, type: 3}
+      _value:
+        RegularView: {fileID: 1584301077921028022, guid: 199fe7785cc4d4d71bd466891d1118dd, type: 3}
+        AnimatedView: {fileID: 2856447691223511783, guid: 8e9971d6d54ef494aa1fdcffcab75f46, type: 3}
     - _key: {fileID: 11400000, guid: 3268f5a8751ec44129ed308709e28c14, type: 2}
-      _value: {fileID: 1584301077921028022, guid: 5d521180e011941099a1372b8691d8ba, type: 3}
+      _value:
+        RegularView: {fileID: 1584301077921028022, guid: 5d521180e011941099a1372b8691d8ba, type: 3}
+        AnimatedView: {fileID: 2856447691223511783, guid: e14dc43b96e2246b583dc58622578e0f, type: 3}
     - _key: {fileID: 11400000, guid: bfaeab4cf8fa84353b979710a98536b1, type: 2}
-      _value: {fileID: 1584301077921028022, guid: 2941cd92091c64797ab350c24f585e9d, type: 3}
+      _value:
+        RegularView: {fileID: 1584301077921028022, guid: 2941cd92091c64797ab350c24f585e9d, type: 3}
+        AnimatedView: {fileID: 7464476218100459952, guid: 7b576026b9d2542a083be0f5c3b0e463, type: 3}
     - _key: {fileID: 11400000, guid: 0941bd95005294b13bea68d0f45ac9a6, type: 2}
-      _value: {fileID: 1584301077921028022, guid: 4f9fbf104dea74a41a1a0573a3764a7c, type: 3}
+      _value:
+        RegularView: {fileID: 1584301077921028022, guid: 4f9fbf104dea74a41a1a0573a3764a7c, type: 3}
+        AnimatedView: {fileID: 2856447691223511783, guid: 5c17d33fb119b4ee8a69709488b6cee4, type: 3}
     - _key: {fileID: 11400000, guid: 8275720c39c764adb9a1812bdffa4da8, type: 2}
-      _value: {fileID: 1584301077921028022, guid: e17d01d67075044879e306bf4e465d11, type: 3}
+      _value:
+        RegularView: {fileID: 1584301077921028022, guid: e17d01d67075044879e306bf4e465d11, type: 3}
+        AnimatedView: {fileID: 2856447691223511783, guid: 1462d46674891477b920cbeb99c5582c, type: 3}
     - _key: {fileID: 11400000, guid: 058702cbbcf2847898e53bd4fd8507ad, type: 2}
-      _value: {fileID: 7547253261962222650, guid: 6b97e790af1ad4d448f23777d85ab725, type: 3}
+      _value:
+        RegularView: {fileID: 7547253261962222650, guid: 6b97e790af1ad4d448f23777d85ab725, type: 3}
+        AnimatedView: {fileID: 7547253261962222650, guid: 6b97e790af1ad4d448f23777d85ab725, type: 3}
     - _key: {fileID: 11400000, guid: d79cc79c6610240e3b403e1f023b8d2d, type: 2}
-      _value: {fileID: 7547253261962222650, guid: 0feefad05aae543f3965fd0cb570b509, type: 3}
+      _value:
+        RegularView: {fileID: 7547253261962222650, guid: 0feefad05aae543f3965fd0cb570b509, type: 3}
+        AnimatedView: {fileID: 7547253261962222650, guid: 0feefad05aae543f3965fd0cb570b509, type: 3}
