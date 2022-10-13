@@ -1640,7 +1640,7 @@ GameObject:
   - component: {fileID: 3883736973290446875}
   - component: {fileID: 4228008438939610722}
   m_Layer: 7
-  m_Name: Chain_6L_Fixed
+  m_Name: Chain_V6_Fixed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
