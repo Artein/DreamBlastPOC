@@ -1,5 +1,4 @@
 using System.ComponentModel;
-using Game.Options;
 using JetBrains.Annotations;
 using UnityEngine;
 using Zenject;
@@ -9,25 +8,25 @@ namespace Game.Chips
     [UsedImplicitly]
     public class ChipSizeController : IInitializable
     {
-        [Inject] private LevelOptions _levelOptions;
+        [Inject] private ChipsOptions _chipsOptions;
         [Inject] private ChipModel _chipModel;
 
         void IInitializable.Initialize()
         {
             UpdateSize();
-            _levelOptions.PropertyChanged += OnLevelOptionsPropertyChanged;
+            _chipsOptions.PropertyChanged += OnChipsOptionsPropertyChanged;
             _chipModel.Destroying += OnChipModelDestroying;
         }
 
         private void OnChipModelDestroying(ChipModel chipModel)
         {
             _chipModel.Destroying -= OnChipModelDestroying;
-            _levelOptions.PropertyChanged -= OnLevelOptionsPropertyChanged;
+            _chipsOptions.PropertyChanged -= OnChipsOptionsPropertyChanged;
         }
 
-        private void OnLevelOptionsPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void OnChipsOptionsPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(_levelOptions.ChipsSize))
+            if (e.PropertyName == nameof(_chipsOptions.ChipsSize))
             {
                 UpdateSize();
             }
@@ -35,7 +34,7 @@ namespace Game.Chips
 
         private void UpdateSize()
         {
-            _chipModel.View.transform.localScale = new Vector3(_levelOptions.ChipsSize, _levelOptions.ChipsSize);
+            _chipModel.View.transform.localScale = new Vector3(_chipsOptions.ChipsSize, _chipsOptions.ChipsSize);
         }
     }
 }

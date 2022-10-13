@@ -15,7 +15,6 @@ namespace Game.Options
         private bool _overrideLevelConfig;
         private int _totalChipsAmount;
         private float _chipsAmountCheckInterval;
-        private float _chipsSize = 1f;
 
         public bool OverrideLevelConfig
         {
@@ -53,20 +52,6 @@ namespace Game.Options
                 if (_chipsAmountCheckInterval != value)
                 {
                     _chipsAmountCheckInterval = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        [NumberRange(0.1d, 100d), Increment(0.1d)]
-        public float ChipsSize
-        {
-            get => _chipsSize;
-            set
-            {
-                if (_chipsSize != value)
-                {
-                    _chipsSize = value;
                     OnPropertyChanged();
                 }
             }

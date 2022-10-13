@@ -1,3 +1,4 @@
+using System;
 using Game.Chips.Activation;
 using Game.Chips.Explosion;
 using UnityEngine;
@@ -19,6 +20,7 @@ namespace Game.Chips
             Container.BindInstance(_chipsContainer).WithId(InjectionIds.Transform.ChipsContainer);
             Container.BindInstance(_chipActivatorsConfig).AsSingle();
             Container.BindInstance(_explosionChipsConfig).AsSingle();
+            Container.Bind(typeof(ChipsOptions), typeof(IInitializable), typeof(IDisposable)).To<ChipsOptions>().AsSingle();
         }
     }
 }
