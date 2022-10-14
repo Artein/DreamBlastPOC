@@ -6,7 +6,7 @@ using SRDebugger;
 using SRDebugger.Services;
 using Zenject;
 
-namespace Game.Options
+namespace Game.Level
 {
     [UsedImplicitly]
     public class LevelOptions : IInitializable, IDisposable, INotifyPropertyChanged
@@ -49,7 +49,7 @@ namespace Game.Options
             get => _chipsAmountCheckInterval;
             set
             {
-                if (_chipsAmountCheckInterval != value)
+                if (Math.Abs(_chipsAmountCheckInterval - value) > 0.0001f)
                 {
                     _chipsAmountCheckInterval = value;
                     OnPropertyChanged();

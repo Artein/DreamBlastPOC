@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel;
-using Game.Options;
 using JetBrains.Annotations;
 using UnityEngine;
 using Zenject;

@@ -12,6 +12,7 @@ namespace Game
         {
             ChipsContainer,
             LevelContainer,
+            CameraRig,
         }
     }
 }

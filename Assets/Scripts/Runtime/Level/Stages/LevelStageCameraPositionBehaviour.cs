@@ -13,7 +13,8 @@ namespace Game.Level.Stages
         [SerializeField, Min(0.1f)] private float _transitionDuration;
         
         [Inject] private LevelStagesController _levelStagesController;
-        private static Camera Camera => Camera.main;
+        [Inject(Id = InjectionIds.Transform.CameraRig)] private Transform _cameraRig;
+        
         private CancellationTokenSource _movementCTS;
 
         private void OnEnable()
@@ -45,23 +46,22 @@ namespace Game.Level.Stages
 
         private async UniTask MoveCameraAsync(CancellationToken cancellationToken)
         {
-            var cameraTransform = Camera.transform;
-            var distanceVector = (Vector2)(transform.position - cameraTransform.position);
+            var distanceVector = (Vector2)(transform.position - _cameraRig.position);
             var speedVector = distanceVector / _transitionDuration;
             var speedLength = math.length(speedVector);
 
             while (math.length(distanceVector) > speedLength * 0.016f)
             {
-                distanceVector = transform.position - Camera.transform.position;
+                distanceVector = transform.position - _cameraRig.position;
                 var shiftVector = speedVector * Time.deltaTime;
-                cameraTransform.position += new Vector3(shiftVector.x, shiftVector.y, 0);
+                _cameraRig.position += new Vector3(shiftVector.x, shiftVector.y, 0);
                 
                 await UniTask.NextFrame(cancellationToken);
                 cancellationToken.ThrowIfCancellationRequested();
             }
             
             cancellationToken.ThrowIfCancellationRequested();
-            cameraTransform.position = new Vector3(transform.position.x, transform.position.y, cameraTransform.position.z);
+            _cameraRig.position = new Vector3(transform.position.x, transform.position.y, _cameraRig.position.z);
         }
     }
 }

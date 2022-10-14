@@ -9,7 +9,8 @@
         "Unity.Mathematics",
         "StompyRobot.SRDebugger",
         "TypeReferences",
-        "StompyRobot.SRF"
+        "StompyRobot.SRF",
+        "MoreMountains.Feedbacks"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

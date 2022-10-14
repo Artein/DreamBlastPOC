@@ -1,6 +1,6 @@
 namespace Game.Chips
 {
-    public class ChipsMatchPerformedSignal
+    public class ChipsMatchPerformedSignal : ISignal
     {
         public int MatchSize { get; }
         
