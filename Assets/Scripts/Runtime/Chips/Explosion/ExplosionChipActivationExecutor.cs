@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using Game.Chips.Activation;
 using Game.Chips.Explosion.ChipsCollecting;
 using Game.Level;
 using JetBrains.Annotations;
-using UnityEngine.Assertions;
+using UnityEngine;
 using Zenject;
 
 namespace Game.Chips.Explosion
@@ -14,8 +16,7 @@ namespace Game.Chips.Explosion
         [Inject] private ExplosionChipsConfig _explosionChipsConfig;
         [Inject] private LevelModel _levelModel;
         [Inject] private IInstantiator _instantiator;
-
-        private readonly List<ChipModel> _hitChipModels = new();
+        [Inject] private CancellationTokenSource _lifetimeCTS;
         
         // TODO Optimization: Use jobs
         public bool TryActivate(ChipModel pivotChipModel)
@@ -23,23 +24,40 @@ namespace Game.Chips.Explosion
             var foundExplosionConfig = _explosionChipsConfig.TryGetExplosionConfig(pivotChipModel.ChipId, out var explosionConfig);
             if (foundExplosionConfig)
             {
-                Assert.IsTrue(_hitChipModels.Count == 0);
-                var chipsCollector = (IExplosionChipsCollector)_instantiator.Instantiate(explosionConfig.ChipsCollectorType, new[] { explosionConfig });
-                chipsCollector.Collect(pivotChipModel.View.transform.position, _hitChipModels);
-
-                for (int i = 0; i < _hitChipModels.Count; i++)
-                {
-                    var chipModel = _hitChipModels[i];
-                    _levelModel.ChipModels.Remove(chipModel);
-                    
-                    // TODO: Usually we would like to Impact those chips. After impact it might be activated too, but for now just Destroy
-                    chipModel.Destroy();
-                }
+                PlayExplosionSequenceAsync(pivotChipModel, explosionConfig, _lifetimeCTS.Token).Forget();
             }
-            
-            _hitChipModels.Clear();
 
             return foundExplosionConfig;
+        }
+
+        private async UniTask PlayExplosionSequenceAsync(ChipModel explosiveChip, IExplosionConfig explosionConfig, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            
+            bool explosiveChipDestroyed = false;
+            var explosionPivotPosition = Vector3.zero;
+            explosiveChip.Destroyed += () =>
+            {
+                explosionPivotPosition = explosiveChip.View.transform.position;
+                explosiveChipDestroyed = true;
+            }; // TODO: Multiple subscription issue in case using pools
+            _levelModel.ChipModels.Remove(explosiveChip);
+            explosiveChip.Destroy();
+
+            await UniTask.WaitUntil(() => explosiveChipDestroyed, cancellationToken: cancellationToken);
+            cancellationToken.ThrowIfCancellationRequested();
+            
+            List<ChipModel> hitChips = new();
+            var chipsCollector = (IExplosionChipsCollector)_instantiator.Instantiate(explosionConfig.ChipsCollectorType, new[] { explosionConfig });
+            chipsCollector.Collect(explosionPivotPosition, hitChips);
+
+            foreach (var hitChip in hitChips)
+            {
+                _levelModel.ChipModels.Remove(hitChip);
+                    
+                // TODO: Usually we would like to Impact those chips. After impact it might be activated too, but for now just Destroy
+                hitChip.Destroy();
+            }
         }
     }
 }

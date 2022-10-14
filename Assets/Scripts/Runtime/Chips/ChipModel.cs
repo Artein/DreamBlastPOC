@@ -1,3 +1,4 @@
+using System;
 using Game.Chips.Activation;
 using Game.Utils;
 using JetBrains.Annotations;
@@ -17,6 +18,7 @@ namespace Game.Chips
         private int _ignoreRaycastsLayer;
 
         public event DestroyingHandle Destroying;
+        public event Action Destroyed;
 
         public ChipModel(ChipId chipId, IChipActivationExecutor activationExecutor)
         {
@@ -30,7 +32,9 @@ namespace Game.Chips
             {
                 View.gameObject.layer = _ignoreRaycastsLayer;
                 Object.Destroy(View.gameObject);
-                View = null;
+                Destroyed?.Invoke();
+                
+                View = null; // TODO: Actually would be better to NULL all the values
             });
             Destroying?.Invoke(this, destroyDI);
         }
