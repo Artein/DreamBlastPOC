@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using Game.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
 using Zenject;
@@ -18,7 +19,7 @@ namespace Game.Chips
             _chipModel.Destroying += OnChipModelDestroying;
         }
 
-        private void OnChipModelDestroying(ChipModel chipModel)
+        private void OnChipModelDestroying(ChipModel chipModel, IDeferredInvocation destroyDI)
         {
             _chipModel.Destroying -= OnChipModelDestroying;
             _chipsOptions.PropertyChanged -= OnChipsOptionsPropertyChanged;

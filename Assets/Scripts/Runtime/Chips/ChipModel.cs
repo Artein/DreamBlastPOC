@@ -1,5 +1,5 @@
-using System;
 using Game.Chips.Activation;
+using Game.Utils;
 using JetBrains.Annotations;
 using Zenject;
 using Object = UnityEngine.Object;
@@ -16,7 +16,7 @@ namespace Game.Chips
         [Inject(Id = InjectionIds.Int.IgnoreRaycastsLayer)]
         private int _ignoreRaycastsLayer;
 
-        public event Action<ChipModel> Destroying;
+        public event DestroyingHandle Destroying;
 
         public ChipModel(ChipId chipId, IChipActivationExecutor activationExecutor)
         {
@@ -26,9 +26,15 @@ namespace Game.Chips
 
         public void Destroy()
         {
-            View.gameObject.layer = _ignoreRaycastsLayer;
-            Destroying?.Invoke(this);
-            Object.Destroy(View.gameObject);
+            using var destroyDI = new DeferredInvocation(() =>
+            {
+                View.gameObject.layer = _ignoreRaycastsLayer;
+                Object.Destroy(View.gameObject);
+                View = null;
+            });
+            Destroying?.Invoke(this, destroyDI);
         }
+
+        public delegate void DestroyingHandle(ChipModel chipModel, IDeferredInvocation destroyDI);
     }
 }

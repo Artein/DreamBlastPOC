@@ -37,14 +37,13 @@ namespace Game.Chips
                 
                 if (foundViewPrefab)
                 {
-                    var chipView = _instantiator.InstantiatePrefabForComponent<ChipView>(viewPrefab, position, Quaternion.identity, parent);
                     var chipActivationExecutorType = _chipActivatorsConfig.FindExecutorType(chipId);
                     Assert.IsNotNull(chipActivationExecutorType); // TODO: Handle the case when chip can't be activated (executor == null)
                     
                     var chipIdTypeValuePair = new TypeValuePair(typeof(ChipId), chipId);
                     var activatorTypeValuePair = new TypeValuePair(typeof(IChipActivationExecutor), _instantiator.Instantiate(chipActivationExecutorType));
                     var chipModel = _instantiator.InstantiateExplicit<ChipModel>(new List<TypeValuePair>{ chipIdTypeValuePair, activatorTypeValuePair });
-                    chipModel.View = chipView;
+                    chipModel.View = _instantiator.InstantiatePrefabForComponent<ChipView>(viewPrefab, position, Quaternion.identity, parent, new [] { chipModel });
 
                     var sizeController = _instantiator.Instantiate<ChipSizeController>(new[] { chipModel });
                     ((IInitializable)sizeController).Initialize();
