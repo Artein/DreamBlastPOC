@@ -14,7 +14,7 @@ namespace Game.Chips
         [Inject] private ChipInstantiator _chipInstantiator;
         [Inject(Id = InjectionIds.Transform.ChipsContainer)] private Transform _chipsContainer;
 
-        private void Awake()
+        private void Start()
         {
             var chipModel = _chipInstantiator.Instantiate(_chipId, transform.position, _chipsContainer);
             chipModel.View.name += "_FromPlaceholder";
