@@ -10,7 +10,8 @@
         "StompyRobot.SRDebugger",
         "TypeReferences",
         "StompyRobot.SRF",
-        "MoreMountains.Feedbacks"
+        "MoreMountains.Feedbacks",
+        "NaughtyAttributes.Core"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

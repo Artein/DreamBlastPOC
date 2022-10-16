@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2580470874799233008
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 551544639425452802}
+    m_Modifications:
+    - target: {fileID: 5702167794710358618, guid: 2941cd92091c64797ab350c24f585e9d, type: 3}
+      propertyPath: m_Name
+      value: GreenChipView
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702167794710358618, guid: 2941cd92091c64797ab350c24f585e9d, type: 3}
+      propertyPath: m_TagString
+      value: EditorOnly
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702167794710358619, guid: 2941cd92091c64797ab350c24f585e9d, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702167794710358619, guid: 2941cd92091c64797ab350c24f585e9d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702167794710358619, guid: 2941cd92091c64797ab350c24f585e9d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702167794710358619, guid: 2941cd92091c64797ab350c24f585e9d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702167794710358619, guid: 2941cd92091c64797ab350c24f585e9d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702167794710358619, guid: 2941cd92091c64797ab350c24f585e9d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702167794710358619, guid: 2941cd92091c64797ab350c24f585e9d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702167794710358619, guid: 2941cd92091c64797ab350c24f585e9d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702167794710358619, guid: 2941cd92091c64797ab350c24f585e9d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702167794710358619, guid: 2941cd92091c64797ab350c24f585e9d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702167794710358619, guid: 2941cd92091c64797ab350c24f585e9d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1584301077921028022, guid: 2941cd92091c64797ab350c24f585e9d, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 2941cd92091c64797ab350c24f585e9d, type: 3}
+--- !u!1001 &4096976232354641235
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2666638054215199259, guid: 9dffeaf9aa0f94a52a5aaf85d3df071d, type: 3}
+      propertyPath: _chipId
+      value: 
+      objectReference: {fileID: 11400000, guid: bfaeab4cf8fa84353b979710a98536b1, type: 2}
+    - target: {fileID: 4574558535757524561, guid: 9dffeaf9aa0f94a52a5aaf85d3df071d, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4574558535757524561, guid: 9dffeaf9aa0f94a52a5aaf85d3df071d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4574558535757524561, guid: 9dffeaf9aa0f94a52a5aaf85d3df071d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4574558535757524561, guid: 9dffeaf9aa0f94a52a5aaf85d3df071d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321221955283470588, guid: 9dffeaf9aa0f94a52a5aaf85d3df071d, type: 3}
+      propertyPath: m_Name
+      value: GreenChipPlaceholder
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9dffeaf9aa0f94a52a5aaf85d3df071d, type: 3}
+--- !u!4 &551544639425452802 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4574558535757524561, guid: 9dffeaf9aa0f94a52a5aaf85d3df071d, type: 3}
+  m_PrefabInstance: {fileID: 4096976232354641235}
+  m_PrefabAsset: {fileID: 0}
