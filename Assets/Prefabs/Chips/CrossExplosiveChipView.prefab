@@ -194,6 +194,410 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c674e38999f4e4d92b4e7b2f24f9a12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1965914990219232088
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7894266918803022917}
+  - component: {fileID: 4063565589074334664}
+  m_Layer: 6
+  m_Name: SpriteBlink
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7894266918803022917
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965914990219232088}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8930368468105946827}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4063565589074334664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965914990219232088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39cb364c2dfacad469e5df86d6ec5e92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Method: 1
+  TargetGameObject: {fileID: 0}
+  TargetRenderer: {fileID: 3630887359078284416}
+  ShaderPropertyName: _Color
+  OffValue: 0.7
+  OnValue: 1
+  LerpValue: 1
+  Curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.3
+      value: 1.05
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  UseMaterialPropertyBlocks: 1
+  Blinking: 0
+  ForceStateOnExit: 0
+  StateOnExit: 0
+  TimescaleMode: 0
+  RepeatCount: 15
+  Phases:
+  - PhaseDuration: 0.2
+    OffDuration: 0.1
+    OnDuration: 0.1
+    OffLerpDuration: 0.1
+    OnLerpDuration: 0.2
+  ToggleBlinkingButton: 0
+  StartBlinkingButton: 0
+  StopBlinkingButton: 0
+  Active: 0
+  CurrentPhaseIndex: 0
+--- !u!1 &3028587691234304427
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6536107106260513315}
+  - component: {fileID: 2099762748478494830}
+  m_Layer: 6
+  m_Name: ArrowUpBlink
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6536107106260513315
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3028587691234304427}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8930368468105946827}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2099762748478494830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3028587691234304427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39cb364c2dfacad469e5df86d6ec5e92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Method: 1
+  TargetGameObject: {fileID: 0}
+  TargetRenderer: {fileID: 1365300886736980641}
+  ShaderPropertyName: _Color
+  OffValue: 0.7
+  OnValue: 1
+  LerpValue: 1
+  Curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.3
+      value: 1.05
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  UseMaterialPropertyBlocks: 1
+  Blinking: 0
+  ForceStateOnExit: 0
+  StateOnExit: 0
+  TimescaleMode: 0
+  RepeatCount: 15
+  Phases:
+  - PhaseDuration: 0.2
+    OffDuration: 0.1
+    OnDuration: 0.1
+    OffLerpDuration: 0.1
+    OnLerpDuration: 0.2
+  ToggleBlinkingButton: 0
+  StartBlinkingButton: 0
+  StopBlinkingButton: 0
+  Active: 0
+  CurrentPhaseIndex: 0
+--- !u!1 &4601182410283932084
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4232420802599901255}
+  - component: {fileID: 4951971675719856986}
+  m_Layer: 6
+  m_Name: ArrowLeftBlink
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4232420802599901255
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4601182410283932084}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8930368468105946827}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4951971675719856986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4601182410283932084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39cb364c2dfacad469e5df86d6ec5e92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Method: 1
+  TargetGameObject: {fileID: 0}
+  TargetRenderer: {fileID: 6834490939348746669}
+  ShaderPropertyName: _Color
+  OffValue: 0.7
+  OnValue: 1
+  LerpValue: 1
+  Curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.3
+      value: 1.05
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  UseMaterialPropertyBlocks: 1
+  Blinking: 0
+  ForceStateOnExit: 0
+  StateOnExit: 0
+  TimescaleMode: 0
+  RepeatCount: 15
+  Phases:
+  - PhaseDuration: 0.2
+    OffDuration: 0.1
+    OnDuration: 0.1
+    OffLerpDuration: 0.1
+    OnLerpDuration: 0.2
+  ToggleBlinkingButton: 0
+  StartBlinkingButton: 0
+  StopBlinkingButton: 0
+  Active: 0
+  CurrentPhaseIndex: 0
+--- !u!1 &4887305543477749922
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7526127593938590300}
+  - component: {fileID: 3486645612198985696}
+  m_Layer: 6
+  m_Name: ArrowRightBlink
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7526127593938590300
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4887305543477749922}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8930368468105946827}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3486645612198985696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4887305543477749922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39cb364c2dfacad469e5df86d6ec5e92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Method: 1
+  TargetGameObject: {fileID: 0}
+  TargetRenderer: {fileID: 196710998271144801}
+  ShaderPropertyName: _Color
+  OffValue: 0.7
+  OnValue: 1
+  LerpValue: 1
+  Curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.3
+      value: 1.05
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  UseMaterialPropertyBlocks: 1
+  Blinking: 0
+  ForceStateOnExit: 0
+  StateOnExit: 0
+  TimescaleMode: 0
+  RepeatCount: 15
+  Phases:
+  - PhaseDuration: 0.2
+    OffDuration: 0.1
+    OnDuration: 0.1
+    OffLerpDuration: 0.1
+    OnLerpDuration: 0.2
+  ToggleBlinkingButton: 0
+  StartBlinkingButton: 0
+  StopBlinkingButton: 0
+  Active: 0
+  CurrentPhaseIndex: 0
 --- !u!1 &4943715373622352624
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,6 +792,316 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c674e38999f4e4d92b4e7b2f24f9a12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7849424443110513293
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4010574738901318598}
+  - component: {fileID: 8873656239993600014}
+  m_Layer: 6
+  m_Name: ArrowDownBlink
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4010574738901318598
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7849424443110513293}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8930368468105946827}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8873656239993600014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7849424443110513293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39cb364c2dfacad469e5df86d6ec5e92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Method: 1
+  TargetGameObject: {fileID: 0}
+  TargetRenderer: {fileID: 3722661480621142846}
+  ShaderPropertyName: _Color
+  OffValue: 0.7
+  OnValue: 1
+  LerpValue: 1
+  Curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.3
+      value: 1.05
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  UseMaterialPropertyBlocks: 1
+  Blinking: 0
+  ForceStateOnExit: 0
+  StateOnExit: 0
+  TimescaleMode: 0
+  RepeatCount: 15
+  Phases:
+  - PhaseDuration: 0.2
+    OffDuration: 0.1
+    OnDuration: 0.1
+    OffLerpDuration: 0.1
+    OnLerpDuration: 0.2
+  ToggleBlinkingButton: 0
+  StartBlinkingButton: 0
+  StopBlinkingButton: 0
+  Active: 0
+  CurrentPhaseIndex: 0
+--- !u!1 &8607437898806453400
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8930368468105946827}
+  - component: {fileID: 1715326837266220526}
+  m_Layer: 6
+  m_Name: BlinkFeedbackPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8930368468105946827
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8607437898806453400}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7894266918803022917}
+  - {fileID: 4232420802599901255}
+  - {fileID: 6536107106260513315}
+  - {fileID: 7526127593938590300}
+  - {fileID: 4010574738901318598}
+  m_Father: {fileID: 4567255352836963873}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1715326837266220526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8607437898806453400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Feedbacks: []
+  InitializationMode: 2
+  SafeMode: 3
+  Direction: 0
+  AutoChangeDirectionOnEnd: 0
+  AutoPlayOnStart: 0
+  AutoPlayOnEnable: 0
+  ForceTimescaleMode: 0
+  ForcedTimescaleMode: 0
+  DurationMultiplier: 1
+  RandomizeDuration: 0
+  RandomDurationMultiplier: {x: 0.5, y: 1.5}
+  DisplayFullDurationDetails: 1
+  PlayerTimescaleMode: 1
+  CooldownDuration: 0
+  InitialDelay: 0
+  CanPlay: 1
+  CanPlayWhileAlreadyPlaying: 1
+  ChanceToPlay: 100
+  FeedbacksIntensity: 1
+  Events:
+    TriggerMMFeedbacksEvents: 0
+    TriggerUnityEvents: 1
+    OnPlay:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPause:
+      m_PersistentCalls:
+        m_Calls: []
+    OnResume:
+      m_PersistentCalls:
+        m_Calls: []
+    OnRevert:
+      m_PersistentCalls:
+        m_Calls: []
+    OnComplete:
+      m_PersistentCalls:
+        m_Calls: []
+  DebugActive: 0
+  FeedbacksList:
+  - rid: 2877103398045876229
+  - rid: 2877103401741844480
+  - rid: 2877103401741844481
+  KeepPlayModeChanges: 0
+  PerformanceMode: 0
+  ForceStopFeedbacksOnDisable: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 2877103398045876229
+      type: {class: MMF_Blink, ns: MoreMountains.Feedbacks, asm: MoreMountains.Feedbacks.MMTools}
+      data:
+        Active: 1
+        UniqueID: 2137484101
+        Label: SpriteBlink
+        Channel: 0
+        Chance: 100
+        DisplayColor: {r: 0, g: 0, b: 0, a: 1}
+        Timing:
+          TimescaleMode: 0
+          ExcludeFromHoldingPauses: 0
+          ContributeToTotalDuration: 1
+          InitialDelay: 0
+          CooldownDuration: 0
+          InterruptsOnStop: 1
+          NumberOfRepeats: 0
+          RepeatForever: 0
+          DelayBetweenRepeats: 1
+          MMFeedbacksDirectionCondition: 0
+          PlayDirection: 0
+          ConstantIntensity: 0
+          UseIntensityInterval: 0
+          IntensityIntervalMin: 0
+          IntensityIntervalMax: 0
+          Sequence: {fileID: 0}
+          TrackID: 0
+          Quantized: 0
+          TargetBPM: 120
+        RandomizeOutput: 0
+        RandomMultiplier: {x: 0.8, y: 1}
+        RandomizeDuration: 0
+        RandomDurationMultiplier: {x: 0.5, y: 2}
+        Owner: {fileID: 1715326837266220526}
+        DebugActive: 0
+        TargetBlink: {fileID: 4063565589074334664}
+        BlinkMode: 1
+    - rid: 2877103401741844480
+      type: {class: MMF_Blink, ns: MoreMountains.Feedbacks, asm: MoreMountains.Feedbacks.MMTools}
+      data:
+        Active: 1
+        UniqueID: 1706731957
+        Label: ArrowLeftBlink
+        Channel: 0
+        Chance: 100
+        DisplayColor: {r: 0, g: 0, b: 0, a: 1}
+        Timing:
+          TimescaleMode: 0
+          ExcludeFromHoldingPauses: 0
+          ContributeToTotalDuration: 1
+          InitialDelay: 0
+          CooldownDuration: 0
+          InterruptsOnStop: 1
+          NumberOfRepeats: 0
+          RepeatForever: 0
+          DelayBetweenRepeats: 1
+          MMFeedbacksDirectionCondition: 0
+          PlayDirection: 0
+          ConstantIntensity: 0
+          UseIntensityInterval: 0
+          IntensityIntervalMin: 0
+          IntensityIntervalMax: 0
+          Sequence: {fileID: 0}
+          TrackID: 0
+          Quantized: 0
+          TargetBPM: 120
+        RandomizeOutput: 0
+        RandomMultiplier: {x: 0.8, y: 1}
+        RandomizeDuration: 0
+        RandomDurationMultiplier: {x: 0.5, y: 2}
+        Owner: {fileID: 1715326837266220526}
+        DebugActive: 0
+        TargetBlink: {fileID: 4951971675719856986}
+        BlinkMode: 1
+    - rid: 2877103401741844481
+      type: {class: MMF_Blink, ns: MoreMountains.Feedbacks, asm: MoreMountains.Feedbacks.MMTools}
+      data:
+        Active: 1
+        UniqueID: -760024676
+        Label: ArrowRightBlink
+        Channel: 0
+        Chance: 100
+        DisplayColor: {r: 0, g: 0, b: 0, a: 1}
+        Timing:
+          TimescaleMode: 0
+          ExcludeFromHoldingPauses: 0
+          ContributeToTotalDuration: 1
+          InitialDelay: 0
+          CooldownDuration: 0
+          InterruptsOnStop: 1
+          NumberOfRepeats: 0
+          RepeatForever: 0
+          DelayBetweenRepeats: 1
+          MMFeedbacksDirectionCondition: 0
+          PlayDirection: 0
+          ConstantIntensity: 0
+          UseIntensityInterval: 0
+          IntensityIntervalMin: 0
+          IntensityIntervalMax: 0
+          Sequence: {fileID: 0}
+          TrackID: 0
+          Quantized: 0
+          TargetBPM: 120
+        RandomizeOutput: 0
+        RandomMultiplier: {x: 0.8, y: 1}
+        RandomizeDuration: 0
+        RandomDurationMultiplier: {x: 0.5, y: 2}
+        Owner: {fileID: 1715326837266220526}
+        DebugActive: 0
+        TargetBlink: {fileID: 3486645612198985696}
+        BlinkMode: 1
 --- !u!1001 &6628402637824297189
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -402,6 +1116,10 @@ PrefabInstance:
     - target: {fileID: 1377766540737333953, guid: 00565c5b57d484280a1de2a4548e4af8, type: 3}
       propertyPath: m_LocalScale.y
       value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6097778206112093128, guid: 00565c5b57d484280a1de2a4548e4af8, type: 3}
+      propertyPath: m_Mass
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7610891798227937586, guid: 00565c5b57d484280a1de2a4548e4af8, type: 3}
       propertyPath: m_RootOrder
@@ -435,10 +1153,66 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.23880112
       objectReference: {fileID: 0}
+    - target: {fileID: 8930435602944116227, guid: 00565c5b57d484280a1de2a4548e4af8, type: 3}
+      propertyPath: managedReferences[2877103398045876228].Players.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8930435602944116227, guid: 00565c5b57d484280a1de2a4548e4af8, type: 3}
+      propertyPath: managedReferences[2877103398045876228].Players.Array.data[0].Delay.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8930435602944116227, guid: 00565c5b57d484280a1de2a4548e4af8, type: 3}
+      propertyPath: managedReferences[2877103398045876228].Players.Array.data[1].Delay.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8930435602944116227, guid: 00565c5b57d484280a1de2a4548e4af8, type: 3}
+      propertyPath: managedReferences[2877103398045876228].Players.Array.data[0].TargetPlayer
+      value: 
+      objectReference: {fileID: 1715326837266220526}
+    - target: {fileID: 8930435602944116227, guid: 00565c5b57d484280a1de2a4548e4af8, type: 3}
+      propertyPath: managedReferences[2877103398045876228].Players.Array.data[1].TargetPlayer
+      value: 
+      objectReference: {fileID: 2404805744551642125}
+    - target: {fileID: 8930435602944116227, guid: 00565c5b57d484280a1de2a4548e4af8, type: 3}
+      propertyPath: managedReferences[2877103398045876228].Players.Array.data[2].TargetPlayer
+      value: 
+      objectReference: {fileID: 3867578931855395428}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00565c5b57d484280a1de2a4548e4af8, type: 3}
+--- !u!114 &2404805744551642125 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8836984966976261352, guid: 00565c5b57d484280a1de2a4548e4af8, type: 3}
+  m_PrefabInstance: {fileID: 6628402637824297189}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!212 &3630887359078284416 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7610891798987584613, guid: 00565c5b57d484280a1de2a4548e4af8, type: 3}
+  m_PrefabInstance: {fileID: 6628402637824297189}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3630887359078284419 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7610891798987584614, guid: 00565c5b57d484280a1de2a4548e4af8, type: 3}
+  m_PrefabInstance: {fileID: 6628402637824297189}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3867578931855395428 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7949055208351400577, guid: 00565c5b57d484280a1de2a4548e4af8, type: 3}
+  m_PrefabInstance: {fileID: 6628402637824297189}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &4567255352836963873 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7250504712512779972, guid: 00565c5b57d484280a1de2a4548e4af8, type: 3}
   m_PrefabInstance: {fileID: 6628402637824297189}
   m_PrefabAsset: {fileID: 0}
