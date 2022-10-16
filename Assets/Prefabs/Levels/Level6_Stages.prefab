@@ -211,7 +211,7 @@ EdgeCollider2D:
   m_GameObject: {fileID: 1077512327602473170}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: f8d4115f5c9c14d4eab8c582542218dc, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -689,11 +689,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2591694625510135425, guid: 9dc89ac95d1ca4a47b3a4051c115efb5, type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: -0.000000042682693
+      value: -0.000000007713595
       objectReference: {fileID: 0}
     - target: {fileID: 2591694625510135425, guid: 9dc89ac95d1ca4a47b3a4051c115efb5, type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: -0.97646624
+      value: -0.17646648
       objectReference: {fileID: 0}
     - target: {fileID: 3323322379600980516, guid: 9dc89ac95d1ca4a47b3a4051c115efb5, type: 3}
       propertyPath: m_RootOrder
@@ -940,11 +940,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2591694625510135425, guid: 9dc89ac95d1ca4a47b3a4051c115efb5, type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: -0.000000042682693
+      value: -0.000000007713595
       objectReference: {fileID: 0}
     - target: {fileID: 2591694625510135425, guid: 9dc89ac95d1ca4a47b3a4051c115efb5, type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: -0.97646624
+      value: -0.17646648
       objectReference: {fileID: 0}
     - target: {fileID: 3323322379600980516, guid: 9dc89ac95d1ca4a47b3a4051c115efb5, type: 3}
       propertyPath: m_RootOrder
@@ -1127,11 +1127,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2591694625510135425, guid: 9dc89ac95d1ca4a47b3a4051c115efb5, type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: -0.000000042682693
+      value: -0.000000007713595
       objectReference: {fileID: 0}
     - target: {fileID: 2591694625510135425, guid: 9dc89ac95d1ca4a47b3a4051c115efb5, type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: -0.97646624
+      value: -0.17646648
       objectReference: {fileID: 0}
     - target: {fileID: 3323322379600980516, guid: 9dc89ac95d1ca4a47b3a4051c115efb5, type: 3}
       propertyPath: m_RootOrder
@@ -1314,11 +1314,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2591694625510135425, guid: 9dc89ac95d1ca4a47b3a4051c115efb5, type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: -0.000000042682693
+      value: -0.000000007713595
       objectReference: {fileID: 0}
     - target: {fileID: 2591694625510135425, guid: 9dc89ac95d1ca4a47b3a4051c115efb5, type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: -0.97646624
+      value: -0.17646648
       objectReference: {fileID: 0}
     - target: {fileID: 3323322379600980516, guid: 9dc89ac95d1ca4a47b3a4051c115efb5, type: 3}
       propertyPath: m_RootOrder

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3678a44ca8f84229bcbe248e2ef51377, type: 3}
   m_Name: L7 DM108
   m_EditorClassIdentifier: 
-  <TotalChipsAmount>k__BackingField: 50
+  <TotalChipsAmount>k__BackingField: 70
   <ChipsAmountCheckInterval>k__BackingField: 1
   <LevelTopologyPrefab>k__BackingField: {fileID: 3059719326636222029, guid: 8bb3012c573364c63aa0d678774f23b1, type: 3}
