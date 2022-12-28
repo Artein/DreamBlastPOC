@@ -1,3 +1,6 @@
 [submodule "Assets/Plugins/Feel"]
 	path = Assets/Plugins/Feel
 	url = git@github.com:Artein/DreamBlastPOC_FeelPlugin.git
+[submodule "Assets/Plugins/SRDebugger"]
+	path = Assets/Plugins/SRDebugger
+	url = git@github.com:Artein/DreamBlastPOC_SRDebuggerPlugin.git
