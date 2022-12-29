@@ -53,11 +53,11 @@
       "url": "https://package.openupm.com"
     },
     "com.svermeulen.extenject": {
-      "version": "https://github.com/Artein/Zenject.git?path=/UnityProject/Assets/Plugins/Zenject#9.2.0",
+      "version": "https://github.com/Artein/Zenject.git?path=/UnityProject/Assets/Plugins/Zenject#9.2.1-Artein",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "c2e33500a84f9408a809deca2af2c55494ab2482"
+      "hash": "4daa0b7bd19f0e4a084c118b63279a061327b296"
     },
     "com.tayx.graphy": {
       "version": "https://github.com/Tayx94/graphy.git#v3.0.2",
