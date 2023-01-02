@@ -1,5 +1,3 @@
-using Cysharp.Threading.Tasks;
-using Game.Level;
 using Game.Loading;
 using Game.Utils;
 using Game.Utils.Addressable;
@@ -13,15 +11,13 @@ namespace Game.Bootstrap
     public class BootstrapExecutor : IInitializable
     {
         private readonly SceneLoadingTask _sceneLoadingTask;
-        private readonly LevelsController _levelsController;
         private readonly ICancellationTokenProvider _lifetimeCTProvider;
         private readonly PreloadAddressableLabelTask _preloadAddressableLabelTask;
         private readonly ProjectInstallerAddressablesLoadingTask _projectInstallerAddressablesLoadingTask;
 
-        public BootstrapExecutor(AssetReferenceScene targetSceneRef, ICancellationTokenProvider lifetimeCTProvider, LevelsController levelsController,
+        public BootstrapExecutor(AssetReferenceScene targetSceneRef, ICancellationTokenProvider lifetimeCTProvider,
             AssetLabelReference preLoadAssetLabel, ProjectInstallerAddressablesLoadingTask projectInstallerAddressablesLoadingTask)
         {
-            _levelsController = levelsController;
             _lifetimeCTProvider = lifetimeCTProvider;
             _sceneLoadingTask = new SceneLoadingTask(targetSceneRef);
             _preloadAddressableLabelTask = new PreloadAddressableLabelTask(preLoadAssetLabel);
