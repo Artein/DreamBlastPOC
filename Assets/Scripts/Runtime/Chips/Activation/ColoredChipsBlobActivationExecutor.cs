@@ -16,11 +16,12 @@ namespace Game.Chips.Activation
         [Inject] private LevelModel _levelModel;
         [Inject(Id = InjectionIds.Transform.ChipsContainer)] private Transform _chipsContainer;
         [Inject] private ChipInstantiator _chipInstantiator;
-        [Inject] private ColoredChipsActivationConfig _activationConfig;
+        [Inject] private AddressableInject<ColoredChipsActivationConfig> _activationConfigAddressable;
         private ProfilerMarker _tryActivateProfilerMarker = new($"{nameof(ColoredChipsBlobActivationExecutor)}.{nameof(TryActivate)}");
 
         private readonly List<ChipModel> _nearbySimilarChips = new();
         private readonly List<ChipModel> _nearbyChipsToCheck = new();
+        private ColoredChipsActivationConfig ActivationConfig => _activationConfigAddressable.Result;
         
         // TODO Performance: Optimize me
         public bool TryActivate(ChipModel pivotChipModel)
@@ -28,6 +29,7 @@ namespace Game.Chips.Activation
             using var profileScopeHandle = _tryActivateProfilerMarker.Auto();
             Assert.IsTrue(_nearbySimilarChips.Count == 0);
             Assert.IsTrue(_nearbyChipsToCheck.Count == 0);
+            Assert.IsTrue(_activationConfigAddressable.HasResult);
             
             var allSimilarChips = _levelModel.ChipModels.Where(cm => cm.ChipId == pivotChipModel.ChipId).ToList();
             var allSimilarChipsPositions = allSimilarChips.Select(chip => chip.View.transform.position).ToList();
@@ -42,7 +44,7 @@ namespace Game.Chips.Activation
                 for (int i = 0; i < allSimilarChipsPositions.Count; i++)
                 {
                     var similarChipPosition = allSimilarChipsPositions[i];
-                    if (Vector3.Distance(position, similarChipPosition) <= _activationConfig.ChipMatchRadius && position != similarChipPosition)
+                    if (Vector3.Distance(position, similarChipPosition) <= ActivationConfig.ChipMatchRadius && position != similarChipPosition)
                     {
                         var possibleChip = allSimilarChips[i];
                         
@@ -60,7 +62,7 @@ namespace Game.Chips.Activation
                 _nearbyChipsToCheck.Remove(chipToCheck);
             }
 
-            bool performMatch = _nearbySimilarChips.Count >= _activationConfig.SimilarColorMinMatchSize;
+            bool performMatch = _nearbySimilarChips.Count >= ActivationConfig.SimilarColorMinMatchSize;
             if (performMatch)
             {
                 PerformMatch(_nearbySimilarChips, pivotChipModel);
@@ -84,7 +86,7 @@ namespace Game.Chips.Activation
             
             _signalBus.Fire(new ChipsMatchPerformedSignal(chips.Count));
 
-            if (_activationConfig.TryGetChipToCreateAfterMatch(chips.Count, out var chipIdToCreate))
+            if (ActivationConfig.TryGetChipToCreateAfterMatch(chips.Count, out var chipIdToCreate))
             {
                 var newChip = _chipInstantiator.Instantiate(chipIdToCreate, pivotChip.View.transform.position, _chipsContainer);
                 _levelModel.ChipModels.Add(newChip);

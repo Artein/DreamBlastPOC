@@ -8,8 +8,6 @@ namespace Game.Loading
     {
         bool IsLoading { get; }
         IProgressProvider Progress { get; }
-        UniTask<bool> LoadAsync(CancellationToken cancellationToken);
-
-        public delegate void ProgressO1ChangedHandler(float value, float prevValue);
+        UniTask<bool> ExecuteAsync(CancellationToken cancellationToken);
     }
 }

@@ -16,33 +16,33 @@ namespace Game.Bootstrap
         private readonly LevelsController _levelsController;
         private readonly ICancellationTokenProvider _lifetimeCTProvider;
         private readonly PreloadAddressableLabelTask _preloadAddressableLabelTask;
+        private readonly ProjectInstallerAddressablesLoadingTask _projectInstallerAddressablesLoadingTask;
 
         public BootstrapExecutor(AssetReferenceScene targetSceneRef, ICancellationTokenProvider lifetimeCTProvider, LevelsController levelsController,
-            AssetLabelReference preLoadAssetLabel)
+            AssetLabelReference preLoadAssetLabel, ProjectInstallerAddressablesLoadingTask projectInstallerAddressablesLoadingTask)
         {
             _levelsController = levelsController;
             _lifetimeCTProvider = lifetimeCTProvider;
             _sceneLoadingTask = new SceneLoadingTask(targetSceneRef);
             _preloadAddressableLabelTask = new PreloadAddressableLabelTask(preLoadAssetLabel);
+            _projectInstallerAddressablesLoadingTask = projectInstallerAddressablesLoadingTask;
         }
         
         public async void Initialize()
         {
             var addressablesInitializationTask = new AddressablesInitializationTask();
-            await addressablesInitializationTask.LoadAsync(_lifetimeCTProvider.Token);
-            
-            // TODO: Hack. Ideally I would like to receive Initialize when all AddressableInject were resolved.
-            // Right now LevelsController is not initialized but we starting to load next scene
-            await UniTask.WaitUntil(() => _levelsController.Initialized, cancellationToken: _lifetimeCTProvider.Token);
+            await addressablesInitializationTask.ExecuteAsync(_lifetimeCTProvider.Token);
+
+            await _projectInstallerAddressablesLoadingTask.ExecuteAsync(_lifetimeCTProvider.Token);
             
             _preloadAddressableLabelTask.Progress.Changed += LogPreloadAddressableLabelProgress;
             
-            await _preloadAddressableLabelTask.LoadAsync(_lifetimeCTProvider.Token);
+            await _preloadAddressableLabelTask.ExecuteAsync(_lifetimeCTProvider.Token);
             
             _preloadAddressableLabelTask.Progress.Changed -= LogPreloadAddressableLabelProgress;
             _sceneLoadingTask.Progress.Changed += LogSceneLoadingProgress;
             
-            await _sceneLoadingTask.LoadAsync(_lifetimeCTProvider.Token);
+            await _sceneLoadingTask.ExecuteAsync(_lifetimeCTProvider.Token);
             
             _sceneLoadingTask.Progress.Changed -= LogSceneLoadingProgress;
         }

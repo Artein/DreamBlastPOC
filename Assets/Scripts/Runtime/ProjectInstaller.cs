@@ -9,6 +9,7 @@ using Game.Utils;
 using Game.Utils.Addressable;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using Zenject;
 
 namespace Game
@@ -16,14 +17,21 @@ namespace Game
     [DisallowMultipleComponent]
     public class ProjectInstaller : MonoInstaller<ProjectInstaller>
     {
-        [SerializeField] private ChipViewsConfig _chipViewsConfig;
-        [SerializeField] private ColoredChipsActivationConfig _coloredChipsActivationConfig;
-        [SerializeField] private LevelsConfig.AssetRef _levelsConfigRef;
+        [SerializeField] private AssetReferenceT<ChipViewsConfig> _chipViewsConfigRef;
+        [SerializeField] private AssetReferenceT<ColoredChipsActivationConfig> _coloredChipsActivationConfigRef;
+        [SerializeField] private AssetReferenceT<LevelsConfig> _levelsConfigRef;
         [SerializeField] private AssetReferenceScene _levelSceneRef;
         [SerializeField, Layer] private int _ignoreRaycastsLayer;
         [SerializeField, Layer] private int _chipLayer;
         
         private CancellationTokenSource _lifetimeCTS = new();
+
+        private void OnValidate()
+        {
+            _chipViewsConfigRef.RuntimeKeyIsValid();
+            _coloredChipsActivationConfigRef.RuntimeKeyIsValid();
+            _levelsConfigRef.RuntimeKeyIsValid();
+        }
 
         private void OnDestroy()
         {
@@ -38,6 +46,7 @@ namespace Game
             ProjectLoadingInstaller.Install(Container);
             
             Container.Bind<ICancellationTokenProvider>().FromInstance(new CancellationTokenProvider(_lifetimeCTS)).AsSingle();
+            Container.Bind<ProjectInstallerAddressablesLoadingTask>().AsSingle();
             Container.BindInterfacesTo<TargetFPSController>().AsSingle();
             
             BindOptions();
@@ -58,8 +67,8 @@ namespace Game
 
         private void BindChipsConfigs()
         {
-            Container.BindInstance(_chipViewsConfig).AsSingle();
-            Container.BindInstance(_coloredChipsActivationConfig).AsSingle();
+            Container.BindAsync<ChipViewsConfig>().FromAssetReferenceT(_chipViewsConfigRef).AsCached();
+            Container.BindAsync<ColoredChipsActivationConfig>().FromAssetReferenceT(_coloredChipsActivationConfigRef).AsCached();
         }
 
         private void BindInput()
@@ -71,7 +80,7 @@ namespace Game
         private void BindLevels()
         {
             Container.BindInterfacesAndSelfTo<LevelsController>().AsSingle();
-            Container.BindAsync<LevelsConfig>().FromAssetReferenceT(_levelsConfigRef).AsSingle();
+            Container.BindAsync<LevelsConfig>().FromAssetReferenceT(_levelsConfigRef).AsCached();
         }
 
         private void BindLayers()

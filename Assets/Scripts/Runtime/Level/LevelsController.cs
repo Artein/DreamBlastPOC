@@ -13,8 +13,6 @@ namespace Game.Level
         [Inject] private AddressableInject<LevelsConfig> _levelsConfigAddressable;
         private LevelsConfig _levelsConfig;
         private IReadOnlyList<LevelConfig> Levels => _levelsConfig.Levels;
-
-        public bool Initialized { get; private set; }
         
         public int CurrentLevelIdx => PlayerPrefs.GetInt(CurrentLevelIdxKey, 0);
         
@@ -66,8 +64,6 @@ namespace Game.Level
             
             ValidateInitialState();
             Debug.Log($"Levels initialization, {nameof(CurrentLevelIdx)}={CurrentLevelIdx}, CurrentLevel.name='{CurrentLevel.name}'");
-
-            Initialized = true;
         }
 
         private void ValidateInitialState()

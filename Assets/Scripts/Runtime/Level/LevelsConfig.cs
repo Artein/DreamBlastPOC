@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace Game.Level
 {
@@ -22,11 +20,6 @@ namespace Game.Level
                     Debug.LogError($"NULL level found (index: {i}). Remove entry or assign some level", this);
                 }
             }
-        }
-        
-        [Serializable] public class AssetRef : AssetReferenceT<LevelsConfig>
-        {
-            public AssetRef(string guid) : base(guid) { }
         }
     }
 }

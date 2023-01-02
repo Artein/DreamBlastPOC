@@ -20,7 +20,7 @@ namespace Game.Helpers
         
         public async UniTask ExecuteAsync(CancellationToken cancellationToken = default)
         {
-            await _sceneLoadingTask.LoadAsync(cancellationToken);
+            await _sceneLoadingTask.ExecuteAsync(cancellationToken);
         }
     }
 }

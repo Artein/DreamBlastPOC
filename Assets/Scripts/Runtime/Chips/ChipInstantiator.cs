@@ -13,26 +13,29 @@ namespace Game.Chips
     [UsedImplicitly]
     public class ChipInstantiator
     {
-        [Inject] private ChipViewsConfig _chipViewsConfig;
+        [Inject] private AddressableInject<ChipViewsConfig> _chipViewsConfigAddressable;
         [Inject] private ChipActivatorsConfig _chipActivatorsConfig;
         [Inject] private DiContainer _instantiator;
         [Inject] private ChipsOptions _chipsOptions;
         private ProfilerMarker _instantiateProfilerMarker = new($"{nameof(ChipInstantiator)}.{nameof(Instantiate)}");
+        private ChipViewsConfig ChipViewsConfig => _chipViewsConfigAddressable.Result;
 
         public ChipModel Instantiate(ChipId chipId, float3 position, Transform parent)
         {
             using var profileScopeHandle = _instantiateProfilerMarker.Auto();
+            Assert.IsTrue(_chipViewsConfigAddressable.HasResult);
+            
             try
             {
                 ChipView viewPrefab = null;
                 bool foundViewPrefab = false;
                 if (_chipsOptions.AnimatedChips)
                 {
-                    foundViewPrefab = _chipViewsConfig.TryGetAnimatedViewPrefab(chipId, out viewPrefab);
+                    foundViewPrefab = ChipViewsConfig.TryGetAnimatedViewPrefab(chipId, out viewPrefab);
                 }
                 else
                 {
-                    foundViewPrefab = _chipViewsConfig.TryGetViewPrefab(chipId, out viewPrefab);
+                    foundViewPrefab = ChipViewsConfig.TryGetViewPrefab(chipId, out viewPrefab);
                 }
                 
                 if (foundViewPrefab)
@@ -56,7 +59,7 @@ namespace Game.Chips
                 throw;
             }
 
-            Debug.LogError($"{nameof(ChipViewsConfig)} missing setup for '{chipId.name}'", _chipViewsConfig);
+            Debug.LogError($"{nameof(ChipViewsConfig)} missing setup for '{chipId.name}'", ChipViewsConfig);
             throw new InvalidOperationException();
         }
     }
