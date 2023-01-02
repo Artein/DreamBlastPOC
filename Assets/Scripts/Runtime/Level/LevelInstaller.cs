@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using Game.Utils;
 using UnityEngine;
 using Zenject;
 
@@ -24,7 +25,7 @@ namespace Game.Level
 
         public override void InstallBindings()
         {
-            Container.BindInstance(_lifetimeCTS).AsSingle();
+            Container.Bind<ICancellationTokenProvider>().FromInstance(new CancellationTokenProvider(_lifetimeCTS)).AsSingle();
             Container.BindInstance(_levelsController.CurrentLevel).AsSingle();
             Container.BindInstance(_levelContainer).WithId(InjectionIds.Transform.LevelContainer);
             Container.BindInstance(_cameraRig).WithId(InjectionIds.Transform.CameraRig);

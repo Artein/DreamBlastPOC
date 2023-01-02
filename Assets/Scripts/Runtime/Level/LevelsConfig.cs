@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace Game.Level
 {
@@ -12,13 +14,19 @@ namespace Game.Level
 
         private void OnValidate()
         {
-            foreach (var level in Levels)
+            for (int i = 0; i < Levels.Count; i += 1)
             {
+                var level = Levels[i];
                 if (level == null)
                 {
-                    Debug.LogError("NULL level found. Remove entry or assign some level", this);
+                    Debug.LogError($"NULL level found (index: {i}). Remove entry or assign some level", this);
                 }
             }
+        }
+        
+        [Serializable] public class AssetRef : AssetReferenceT<LevelsConfig>
+        {
+            public AssetRef(string guid) : base(guid) { }
         }
     }
 }

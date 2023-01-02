@@ -11,7 +11,12 @@
         "TypeReferences",
         "StompyRobot.SRF",
         "MoreMountains.Feedbacks",
-        "NaughtyAttributes.Core"
+        "NaughtyAttributes.Core",
+        "Eflatun.SceneReference",
+        "Unity.Addressables",
+        "UniTask.Addressables",
+        "Unity.ResourceManager",
+        "Extenject-Async"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using Game.Chips.Activation;
 using Game.Chips.Explosion.ChipsCollecting;
 using Game.Level;
+using Game.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
 using Zenject;
@@ -16,7 +17,7 @@ namespace Game.Chips.Explosion
         [Inject] private ExplosionChipsConfig _explosionChipsConfig;
         [Inject] private LevelModel _levelModel;
         [Inject] private IInstantiator _instantiator;
-        [Inject] private CancellationTokenSource _lifetimeCTS;
+        [Inject] private ICancellationTokenProvider _lifetimeCTProvider;
         
         // TODO Optimization: Use jobs
         public bool TryActivate(ChipModel pivotChipModel)
@@ -24,7 +25,7 @@ namespace Game.Chips.Explosion
             var foundExplosionConfig = _explosionChipsConfig.TryGetExplosionConfig(pivotChipModel.ChipId, out var explosionConfig);
             if (foundExplosionConfig)
             {
-                PlayExplosionSequenceAsync(pivotChipModel, explosionConfig, _lifetimeCTS.Token).Forget();
+                PlayExplosionSequenceAsync(pivotChipModel, explosionConfig, _lifetimeCTProvider.Token).Forget();
             }
 
             return foundExplosionConfig;

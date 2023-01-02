@@ -3,7 +3,11 @@ using Game.Chips;
 using Game.Helpers;
 using Game.Input;
 using Game.Level;
+using Game.Loading;
 using Game.Platform;
+using Game.Utils;
+using Game.Utils.Addressable;
+using NaughtyAttributes;
 using UnityEngine;
 using Zenject;
 
@@ -14,9 +18,10 @@ namespace Game
     {
         [SerializeField] private ChipViewsConfig _chipViewsConfig;
         [SerializeField] private ColoredChipsActivationConfig _coloredChipsActivationConfig;
-        [SerializeField] private LevelsConfig _levelsConfig;
-        [SerializeField] private int _ignoreRaycastsLayer; // TODO: Validate value somehow (OdinInspector?)
-        [SerializeField] private int _chipLayer; // TODO: Validate value somehow (OdinInspector?)
+        [SerializeField] private LevelsConfig.AssetRef _levelsConfigRef;
+        [SerializeField] private AssetReferenceScene _levelSceneRef;
+        [SerializeField, Layer] private int _ignoreRaycastsLayer;
+        [SerializeField, Layer] private int _chipLayer;
         
         private CancellationTokenSource _lifetimeCTS = new();
 
@@ -30,17 +35,47 @@ namespace Game
         public override void InstallBindings()
         {
             SignalBusInstaller.Install(Container);
-            Container.BindInstance(SRDebug.Instance).AsSingle();
-            Container.BindInterfacesAndSelfTo<LevelsController>().AsSingle();
-            Container.BindInterfacesTo<GameLevelsOptions>().AsSingle();
+            ProjectLoadingInstaller.Install(Container);
+            
+            Container.Bind<ICancellationTokenProvider>().FromInstance(new CancellationTokenProvider(_lifetimeCTS)).AsSingle();
             Container.BindInterfacesTo<TargetFPSController>().AsSingle();
-            Container.BindInstance(_lifetimeCTS).AsSingle();
+            
+            BindOptions();
+            BindInput();
+            BindLayers();
+            BindChipsConfigs();
+            BindLevels();
+
+            Container.BindInstance(_levelSceneRef).WithId(InjectionIds.AssetReferenceScene.Level).AsSingle().NonLazy();
+            Container.Bind<LoadLevelsSceneCommand>().AsSingle();
+        }
+
+        private void BindOptions()
+        {
+            Container.BindInstance(SRDebug.Instance).AsSingle();
+            Container.BindInterfacesTo<GameLevelsOptions>().AsSingle();
+        }
+
+        private void BindChipsConfigs()
+        {
             Container.BindInstance(_chipViewsConfig).AsSingle();
-            Container.BindInstance(_levelsConfig).AsSingle();
             Container.BindInstance(_coloredChipsActivationConfig).AsSingle();
+        }
+
+        private void BindInput()
+        {
             Container.BindInterfacesAndSelfTo<TouchInputNotifier>().AsSingle();
             Container.BindInterfacesAndSelfTo<GameObjectInputNotifier>().AsSingle();
-            Container.Bind<ActiveSceneReloadCommand>().AsSingle();
+        }
+
+        private void BindLevels()
+        {
+            Container.BindInterfacesAndSelfTo<LevelsController>().AsSingle();
+            Container.BindAsync<LevelsConfig>().FromAssetReferenceT(_levelsConfigRef).AsSingle();
+        }
+
+        private void BindLayers()
+        {
             Container.BindInstance(_chipLayer).WithId(InjectionIds.Int.ChipsLayer);
             Container.BindInstance(_ignoreRaycastsLayer).WithId(InjectionIds.Int.IgnoreRaycastsLayer);
         }

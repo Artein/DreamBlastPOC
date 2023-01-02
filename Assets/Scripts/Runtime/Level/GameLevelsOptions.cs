@@ -13,24 +13,28 @@ namespace Game.Level
     [UsedImplicitly]
     public class GameLevelsOptions : IInitializable, IDisposable
     {
-        [Inject] private ActiveSceneReloadCommand _activeSceneReloadCommand;
+        [Inject] private LoadLevelsSceneCommand _loadLevelsSceneCommand;
 
         private DynamicOptionContainer _container;
         [Inject] private IDebugService _debugService;
         [Inject] private LevelsController _levelsController;
-        [Inject] private LevelsConfig _levelsConfig;
+        [Inject] private AddressableInject<LevelsConfig> _levelsConfigAddressable;
 
-        void IInitializable.Initialize()
+        private LevelsConfig LevelsConfig => _levelsConfigAddressable.Result;
+
+        async void IInitializable.Initialize()
         {
+            await _levelsConfigAddressable;
+            
             _debugService.AddOptionContainer(this);
 
             Assert.IsNull(_container);
             _container = new DynamicOptionContainer();
             _debugService.AddOptionContainer(_container);
 
-            for (var i = 0; i < _levelsConfig.Levels.Count; i += 1)
+            for (var i = 0; i < LevelsConfig.Levels.Count; i += 1)
             {
-                var level = _levelsConfig.Levels[i];
+                var level = LevelsConfig.Levels[i];
                 var i1 = i;
                 var optionDefinition = new OptionDefinition(level.name, "Levels", 0, new MethodReference(args =>
                                                                                                          {
@@ -59,7 +63,7 @@ namespace Game.Level
 
             _levelsController.SetCurrentLevelIdx(levelIdx);
             _debugService.HideDebugPanel();
-            _activeSceneReloadCommand.ExecuteAsync().Forget();
+            _loadLevelsSceneCommand.ExecuteAsync().Forget();
         }
     }
 }

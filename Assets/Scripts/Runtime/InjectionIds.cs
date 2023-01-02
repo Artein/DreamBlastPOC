@@ -14,5 +14,10 @@ namespace Game
             LevelContainer,
             CameraRig,
         }
+
+        public enum AssetReferenceScene : byte
+        {
+            Level,
+        }
     }
 }
