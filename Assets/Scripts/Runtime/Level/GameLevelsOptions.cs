@@ -14,11 +14,10 @@ namespace Game.Level
     public class GameLevelsOptions : IInitializable, IDisposable
     {
         [Inject] private LoadLevelsSceneCommand _loadLevelsSceneCommand;
-
-        private DynamicOptionContainer _container;
         [Inject] private IDebugService _debugService;
         [Inject] private LevelsController _levelsController;
         [Inject] private AddressableInject<LevelsConfig> _levelsConfigAddressable;
+        private DynamicOptionContainer _container;
 
         private LevelsConfig LevelsConfig => _levelsConfigAddressable.Result;
 

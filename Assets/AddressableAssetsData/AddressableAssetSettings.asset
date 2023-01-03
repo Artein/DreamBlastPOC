@@ -147,7 +147,7 @@ MonoBehaviour:
           m_Key: HostingServiceUploadSpeed
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.String
-          m_Data: Library/com.unity.addressables/aa/iOS/iOS;ServerData/iOS
+          m_Data: Library/com.unity.addressables/aa/OSX/StandaloneOSX;ServerData/StandaloneOSX
           m_Key: ContentRoot
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.Boolean
