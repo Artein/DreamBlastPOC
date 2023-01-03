@@ -35,12 +35,12 @@ namespace Game.Loading
                 using var downloadDependenciesReleaseHandle = downloadDependenciesHandle.ReleaseInScope();
                 SetProgress(downloadDependenciesHandle.GetDownloadStatus().Percent);
                     
-                do
+                while (!downloadDependenciesHandle.IsDone)
                 {
-                    SetProgress(downloadDependenciesHandle.GetDownloadStatus().Percent);
-
                     await UniTask.DelayFrame(1, cancellationToken: cancellationToken);
-                } while (!downloadDependenciesHandle.IsDone);
+                    
+                    SetProgress(downloadDependenciesHandle.GetDownloadStatus().Percent);
+                }
                     
                 if (downloadDependenciesHandle.Status == AsyncOperationStatus.Failed)
                 {

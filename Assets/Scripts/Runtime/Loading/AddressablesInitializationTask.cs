@@ -11,12 +11,12 @@ namespace Game.Loading
             var operationHandle = Addressables.InitializeAsync(true);
             SetProgress(operationHandle.PercentComplete);
                 
-            do
+            while (!operationHandle.IsDone)
             {
                 await UniTask.DelayFrame(1, cancellationToken: cancellationToken);
                 
                 SetProgress(operationHandle.PercentComplete);
-            } while (!operationHandle.IsDone);
+            }
 
             return true;
         }

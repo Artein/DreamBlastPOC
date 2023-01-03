@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using Game.Loading;
 using Game.Utils;
 using Game.Utils.Addressable;
@@ -28,29 +29,14 @@ namespace Game.Bootstrap
         {
             var addressablesInitializationTask = new AddressablesInitializationTask();
             await addressablesInitializationTask.ExecuteAsync(_lifetimeCTProvider.Token);
+            _lifetimeCTProvider.Token.ThrowIfCancellationRequested();
 
-            await _projectInstallerAddressablesLoadingTask.ExecuteAsync(_lifetimeCTProvider.Token);
-            
-            _preloadAddressableLabelTask.Progress.Changed += LogPreloadAddressableLabelProgress;
-            
-            await _preloadAddressableLabelTask.ExecuteAsync(_lifetimeCTProvider.Token);
-            
-            _preloadAddressableLabelTask.Progress.Changed -= LogPreloadAddressableLabelProgress;
-            _sceneLoadingTask.Progress.Changed += LogSceneLoadingProgress;
+            var projectInstallerAddressablesTask = _projectInstallerAddressablesLoadingTask.ExecuteAsync(_lifetimeCTProvider.Token);
+            var preloadAddressableLabelTask = _preloadAddressableLabelTask.ExecuteAsync(_lifetimeCTProvider.Token);
+            await UniTask.WhenAll(projectInstallerAddressablesTask, preloadAddressableLabelTask);
+            _lifetimeCTProvider.Token.ThrowIfCancellationRequested();
             
             await _sceneLoadingTask.ExecuteAsync(_lifetimeCTProvider.Token);
-            
-            _sceneLoadingTask.Progress.Changed -= LogSceneLoadingProgress;
-        }
-
-        private static void LogSceneLoadingProgress(float curr, float prev)
-        {
-            UnityEngine.Debug.Log($"Scene loading: {curr * 100f}%");
-        }
-        
-        private static void LogPreloadAddressableLabelProgress(float curr, float prev)
-        {
-            UnityEngine.Debug.Log($"Preload addressable label: {curr * 100f}%");
         }
     }
 }

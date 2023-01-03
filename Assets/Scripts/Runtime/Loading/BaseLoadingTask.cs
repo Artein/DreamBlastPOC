@@ -8,10 +8,15 @@ namespace Game.Loading
 {
     public abstract class BaseLoadingTask : ILoadingTask
     {
-        private readonly Progress _progress = new();
+        private readonly Progress _progress;
         
         public bool IsLoading { get; private set; }
         public IProgressProvider Progress => _progress;
+
+        protected BaseLoadingTask()
+        {
+            _progress = new Progress(true, $"{GetType().Name}: ");
+        }
         
         public async UniTask<bool> ExecuteAsync(CancellationToken cancellationToken)
         {

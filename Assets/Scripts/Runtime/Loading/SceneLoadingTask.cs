@@ -21,14 +21,14 @@ namespace Game.Loading
         protected override async UniTask<bool> ExecuteAsync_Implementation(CancellationToken cancellationToken)
         {
             var operation = _sceneRef.LoadSceneAsync(LoadSceneMode.Single, _activateOnLoad);
-            SetProgress(operation.GetDownloadStatus().Percent);
+            SetProgress(operation.GetDownloadStatus().Percent * operation.PercentComplete);
 
-            do
+            while (!operation.IsDone)
             {
                 await UniTask.DelayFrame(1, cancellationToken: cancellationToken);
                 
-                SetProgress(operation.GetDownloadStatus().Percent);
-            } while (!operation.IsDone);
+                SetProgress(operation.GetDownloadStatus().Percent * operation.PercentComplete);
+            }
 
             return true;
         }
