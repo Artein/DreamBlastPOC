@@ -27,9 +27,10 @@ namespace Game
 
         private void OnValidate()
         {
-            _chipViewsConfigRef.RuntimeKeyIsValid();
             _coloredChipsActivationConfigRef.RuntimeKeyIsValid();
+            _chipViewsConfigRef.RuntimeKeyIsValid();
             _levelsConfigRef.RuntimeKeyIsValid();
+            _levelSceneRef.RuntimeKeyIsValid();
         }
 
         private void OnDestroy()
