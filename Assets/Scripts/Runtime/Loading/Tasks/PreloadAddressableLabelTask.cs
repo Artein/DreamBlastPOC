@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-namespace Game.Loading
+namespace Game.Loading.Tasks
 {
     public class PreloadAddressableLabelTask : BaseLoadingTask
     {

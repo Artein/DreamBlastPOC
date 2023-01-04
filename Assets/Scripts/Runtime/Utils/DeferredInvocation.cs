@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace Game.Utils
 {
@@ -7,10 +8,15 @@ namespace Game.Utils
         private int _locksCount;
         private bool _isDisposed;
         private IDisposable _actionInvocationHandle;
+
+        public bool IsLocked => _locksCount > 0;
         
-        public DeferredInvocation(Action action)
+        public DeferredInvocation([CanBeNull] Action action, bool lockByDefault = true)
         {
-            _locksCount = 1;
+            if (lockByDefault)
+            {
+                _locksCount = 1;
+            }
             _actionInvocationHandle = new DisposableAction(action);
         }
 
@@ -33,7 +39,7 @@ namespace Game.Utils
         {
             _locksCount -= 1;
 
-            if (_locksCount == 0)
+            if (!IsLocked)
             {
                 _actionInvocationHandle.Dispose();
                 _actionInvocationHandle = null;

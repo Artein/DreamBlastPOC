@@ -1,38 +1,41 @@
+using System.Globalization;
 using System.Text;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace Game.Utils
+namespace Game.Utils.Progression
 {
     public class Progress : IProgressProvider
     {
-        private float _progress;
+        private float _progress01_BF;
         private readonly bool _logProgressChange;
         private readonly string _logMessagePrefix;
         private readonly StringBuilder _logBuilder;
         
         public float Progress01
         {
-            get => _progress;
+            get => _progress01_BF;
             set
             {
-                value = math.clamp(value, 0f, 1f);
-                if (!Mathf.Approximately(_progress, value))
+                var clampedValue = math.clamp(value, 0f, 1f);
+                if (Mathf.Approximately(_progress01_BF, clampedValue))
                 {
-                    var prevValue = _progress;
-                    _progress = value;
-                    Changed?.Invoke(_progress, prevValue);
+                    return;
                 }
+                
+                var prevValue = _progress01_BF;
+                _progress01_BF = clampedValue;
 
                 if (_logProgressChange)
                 {
                     _logBuilder.Clear();
                     _logBuilder.Append(_logMessagePrefix);
                     _logBuilder.Append("Progress ");
-                    _logBuilder.Append(_progress * 100f);
-                    _logBuilder.Append('%');
+                    _logBuilder.Append(_progress01_BF.ToString("P", CultureInfo.InvariantCulture));
                     Debug.Log(_logBuilder.ToString());
                 }
+                
+                Changed?.Invoke(_progress01_BF, prevValue);
             }
         }
         
@@ -48,6 +51,11 @@ namespace Game.Utils
             {
                 _logBuilder = new StringBuilder();
             }
+        }
+
+        public void Reset()
+        {
+            _progress01_BF = 0f;
         }
     }
 }

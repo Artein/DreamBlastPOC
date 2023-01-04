@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace Game.Utils
 {
@@ -6,7 +7,7 @@ namespace Game.Utils
     {
         private Action _action;
 
-        public DisposableAction(Action action)
+        public DisposableAction([CanBeNull] Action action)
         {
             _action = action;
         }

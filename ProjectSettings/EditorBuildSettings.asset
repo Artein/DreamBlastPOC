@@ -8,5 +8,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Bootstrap.unity
     guid: 6795b01a693714f37924184549725fbd
+  - enabled: 1
+    path: Assets/Scenes/Loading.unity
+    guid: 30fbcbbb401d44d0fa465e750b48a70c
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 20c830158dd494aa481b20baba3b5625, type: 2}

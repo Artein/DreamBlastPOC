@@ -1,29 +1,30 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Game.Utils;
+using Game.Utils.Progression;
 using UnityEngine.Assertions;
-using Progress = Game.Utils.Progress;
+using Progress = Game.Utils.Progression.Progress;
 
-namespace Game.Loading
+namespace Game.Loading.Tasks
 {
     public abstract class BaseLoadingTask : ILoadingTask
     {
         private readonly Progress _progress;
         
-        public bool IsLoading { get; private set; }
+        public bool IsExecuting { get; private set; }
         public IProgressProvider Progress => _progress;
 
         protected BaseLoadingTask()
         {
-            _progress = new Progress(true, $"{GetType().Name}: ");
+            _progress = new Progress();
+            // _progress = new Progress(true, $"{GetType().Name}: ");
         }
         
         public async UniTask<bool> ExecuteAsync(CancellationToken cancellationToken)
         {
-            Assert.IsFalse(IsLoading);
-            IsLoading = true;
+            Assert.IsFalse(IsExecuting);
+            IsExecuting = true;
             var success = await ExecuteAsync_Implementation(cancellationToken);
-            IsLoading = false;
+            IsExecuting = false;
 
             return success;
         }

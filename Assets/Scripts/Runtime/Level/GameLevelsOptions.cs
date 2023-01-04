@@ -1,6 +1,7 @@
 using System;
 using Cysharp.Threading.Tasks;
 using Game.Loading;
+using Game.Loading.Tasks;
 using Game.Utils;
 using Game.Utils.Addressable;
 using JetBrains.Annotations;

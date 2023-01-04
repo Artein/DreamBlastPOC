@@ -16,7 +16,9 @@
         "Unity.Addressables",
         "UniTask.Addressables",
         "Unity.ResourceManager",
-        "Extenject-Async"
+        "Extenject-Async",
+        "Unity.TextMeshPro",
+        "UniTask.TextMeshPro"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

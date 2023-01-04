@@ -1,4 +1,4 @@
-namespace Game.Utils
+namespace Game.Utils.Progression
 {
     public interface IProgressProvider
     {

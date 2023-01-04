@@ -2,7 +2,7 @@ using System.Threading;
 using Game.Chips;
 using Game.Input;
 using Game.Level;
-using Game.Loading;
+using Game.Loading.Tasks;
 using Game.Platform;
 using Game.Utils;
 using Game.Utils.Addressable;
@@ -43,7 +43,6 @@ namespace Game
         public override void InstallBindings()
         {
             SignalBusInstaller.Install(Container);
-            ProjectLoadingInstaller.Install(Container);
             
             Container.Bind<ICancellationTokenProvider>().FromInstance(new CancellationTokenProvider(_lifetimeCTS)).AsSingle();
             Container.Bind<ProjectInstallerAddressablesLoadingTask>().AsSingle();

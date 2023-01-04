@@ -19,5 +19,10 @@ namespace Game
         {
             Level,
         }
+
+        public enum SceneReference : byte
+        {
+            Loading
+        }
     }
 }

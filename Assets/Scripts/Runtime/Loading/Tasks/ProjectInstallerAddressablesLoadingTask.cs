@@ -4,7 +4,7 @@ using Game.Chips;
 using Game.Level;
 using JetBrains.Annotations;
 
-namespace Game.Loading
+namespace Game.Loading.Tasks
 {
     [UsedImplicitly]
     public class ProjectInstallerAddressablesLoadingTask : BaseLoadingTask

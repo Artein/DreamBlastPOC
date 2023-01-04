@@ -6,7 +6,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 
-namespace Game.Loading
+namespace Game.Loading.Tasks
 {
     [UsedImplicitly]
     public class SceneLoadingTask : BaseLoadingTask
