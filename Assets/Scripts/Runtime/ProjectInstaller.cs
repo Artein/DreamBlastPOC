@@ -1,6 +1,5 @@
 using System.Threading;
 using Game.Chips;
-using Game.Helpers;
 using Game.Input;
 using Game.Level;
 using Game.Loading;
@@ -56,7 +55,6 @@ namespace Game
             BindLevels();
 
             Container.BindInstance(_levelSceneRef).WithId(InjectionIds.AssetReferenceScene.Level).AsSingle().NonLazy();
-            Container.Bind<LoadLevelsSceneCommand>().AsSingle();
         }
 
         private void BindOptions()

@@ -1,6 +1,8 @@
 using System;
 using Cysharp.Threading.Tasks;
-using Game.Helpers;
+using Game.Loading;
+using Game.Utils;
+using Game.Utils.Addressable;
 using JetBrains.Annotations;
 using ModestTree;
 using SRDebugger;
@@ -13,10 +15,14 @@ namespace Game.Level
     [UsedImplicitly]
     public class GameLevelsOptions : IInitializable, IDisposable
     {
-        [Inject] private LoadLevelsSceneCommand _loadLevelsSceneCommand;
         [Inject] private IDebugService _debugService;
         [Inject] private LevelsController _levelsController;
         [Inject] private AddressableInject<LevelsConfig> _levelsConfigAddressable;
+        [Inject] private ICancellationTokenProvider _lifetimeCTProvider;
+
+        [Inject(Id = InjectionIds.AssetReferenceScene.Level)]
+        private AssetReferenceScene _levelSceneRef;
+        
         private DynamicOptionContainer _container;
 
         private LevelsConfig LevelsConfig => _levelsConfigAddressable.Result;
@@ -62,7 +68,10 @@ namespace Game.Level
 
             _levelsController.SetCurrentLevelIdx(levelIdx);
             _debugService.HideDebugPanel();
-            _loadLevelsSceneCommand.ExecuteAsync().Forget();
+
+            // TODO: Use LoadingManager or smth
+            var sceneLoadingTask = new SceneLoadingTask(_levelSceneRef);
+            sceneLoadingTask.ExecuteAsync(_lifetimeCTProvider.Token).Forget();
         }
     }
 }
