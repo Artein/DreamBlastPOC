@@ -37,6 +37,7 @@ namespace Game.Chips.Activation
             var touchedChipView = gameobject.GetComponentInParent<ChipView>();
             Assert.IsNotNull(touchedChipView);
             UnityEngine.Debug.Log($"Touched chip '{gameobject.name}'", touchedChipView);
+            Assert.IsTrue(_levelModel.ChipModels.Any(chipModel => chipModel.View == touchedChipView));
             var touchedChipModel = _levelModel.ChipModels.First(chipModel => chipModel.View == touchedChipView);
             bool isActivated = touchedChipModel.ActivationExecutor.TryActivate(touchedChipModel);
         }

@@ -28,9 +28,11 @@ namespace Game.Chips
 
         public void Destroy()
         {
+            // TODO: This actually should be ChipDestroyController
+            View.gameObject.layer = _ignoreRaycastsLayer;
+            
             using var destroyDI = new DeferredInvocation(() =>
             {
-                View.gameObject.layer = _ignoreRaycastsLayer;
                 Object.Destroy(View.gameObject);
                 Destroyed?.Invoke();
                 
