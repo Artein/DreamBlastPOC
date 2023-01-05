@@ -90,6 +90,7 @@ namespace Game.Loading
 
         private async UniTask WaitLoadingStartingAsync(CancellationToken cancellationToken)
         {
+            // TODO GC: Cache and use Locker.Reset()
             var locker = new Locker(false);
             Starting?.Invoke(locker);
 
@@ -98,6 +99,7 @@ namespace Game.Loading
 
         private async UniTask WaitLoadingFinishingAsync(CancellationToken cancellationToken)
         {
+            // TODO GC: Cache and use Locker.Reset()
             var locker = new Locker(false);
             Finishing?.Invoke(locker);
 
