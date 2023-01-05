@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Game.Loading;
 using Game.Loading.Tasks;
@@ -27,15 +28,20 @@ namespace Game.Bootstrap
             _preloadAddressableLabelTask = new PreloadAddressableLabelTask(preLoadAssetLabel);
             _projectInstallerAddressablesLoadingTask = projectInstallerAddressablesLoadingTask;
         }
-        
+
         public void Initialize()
         {
             _loader.Reset();
-            _loader.Enqueue(10, new AddressablesInitializationTask())
-                .Enqueue(10, _projectInstallerAddressablesLoadingTask) // TODO: start in parallel with _preloadAddressableLabelTask
-                .Enqueue(10, _preloadAddressableLabelTask)
+            _loader
+                .Enqueue(10, new AddressablesInitializationTask())
+                .Enqueue(20,
+                    new CompositeLoadingTask(new List<Loader.WeightedTask>
+                    {
+                        new(_projectInstallerAddressablesLoadingTask),
+                        new(_preloadAddressableLabelTask),
+                    }))
                 .Enqueue(70, _sceneLoadingTask);
-            
+
             _loader.StartAsync(_lifetimeCTProvider.Token).Forget();
         }
     }

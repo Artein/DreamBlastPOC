@@ -36,7 +36,7 @@ namespace Game.Loading
         public async UniTask<bool> StartAsync(CancellationToken cancellationToken, bool resetOnFinish = true)
         {
             Assert.IsTrue(_tasks.Count > 0);
-            var tasksWeight = CalculateTasksWeight();
+            var tasksWeight = CalculateTasksWeight(_tasks);
             _progress = new WeightedProgress(tasksWeight, true, "[Loading] ");
             
             await WaitLoadingStartingAsync(cancellationToken);
@@ -104,22 +104,28 @@ namespace Game.Loading
             await UniTask.WaitWhile(() => locker.IsLocked, cancellationToken: cancellationToken);
         }
 
-        private float CalculateTasksWeight()
+        public static float CalculateTasksWeight(IReadOnlyList<WeightedTask> tasks)
         {
             float tasksWeight = 0f;
-            for (int i = 0; i < _tasks.Count; i += 1)
+            for (int i = 0; i < tasks.Count; i += 1)
             {
-                var task = _tasks[i];
+                var task = tasks[i];
                 tasksWeight += task.Weight;
             }
 
             return tasksWeight;
         }
 
-        private struct WeightedTask
+        public struct WeightedTask
         {
             public int Weight;
             public ILoadingTask Task;
+
+            public WeightedTask(ILoadingTask task)
+            {
+                Weight = 1;
+                Task = task;
+            }
         }
         
         public delegate void StartingHandler(ILocker startLocker);
