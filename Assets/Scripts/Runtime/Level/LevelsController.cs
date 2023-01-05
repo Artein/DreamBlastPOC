@@ -11,8 +11,7 @@ namespace Game.Level
     {
         private const string CurrentLevelIdxKey = "LevelsState.CurrentLevelIdx";
         [Inject] private AddressableInject<LevelsConfig> _levelsConfigAddressable;
-        private LevelsConfig _levelsConfig;
-        private IReadOnlyList<LevelConfig> Levels => _levelsConfig.Levels;
+        private IReadOnlyList<LevelConfig> Levels => _levelsConfigAddressable.Result.Levels;
         
         public int CurrentLevelIdx => PlayerPrefs.GetInt(CurrentLevelIdxKey, 0);
         
@@ -60,7 +59,7 @@ namespace Game.Level
 
         public async void Initialize()
         {
-            _levelsConfig = await _levelsConfigAddressable;
+            await _levelsConfigAddressable;
             
             ValidateInitialState();
             Debug.Log($"Levels initialization, {nameof(CurrentLevelIdx)}={CurrentLevelIdx}, CurrentLevel.name='{CurrentLevel.name}'");
