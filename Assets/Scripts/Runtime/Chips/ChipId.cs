@@ -9,6 +9,6 @@ namespace Game.Chips
     {
         [SerializeField] private List<ChipTag> _tags;
 
-        public IReadOnlyList<ChipTag> Tags => _tags;
+        public IReadOnlyList<ChipTag> Tags => _tags.AsReadOnly();
     }
 }

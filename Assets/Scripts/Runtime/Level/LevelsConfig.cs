@@ -8,7 +8,7 @@ namespace Game.Level
     {
         [SerializeField] private List<LevelConfig> _levels;
 
-        public IReadOnlyList<LevelConfig> Levels => _levels;
+        public IReadOnlyList<LevelConfig> Levels => _levels.AsReadOnly();
 
         private void OnValidate()
         {
