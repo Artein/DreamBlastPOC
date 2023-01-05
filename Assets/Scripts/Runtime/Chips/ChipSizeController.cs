@@ -1,7 +1,7 @@
 using System.ComponentModel;
-using Game.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityUtils.Invocation;
 using Zenject;
 
 namespace Game.Chips

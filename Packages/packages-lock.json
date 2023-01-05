@@ -317,6 +317,13 @@
         "com.unity.modules.imgui": "1.0.0"
       }
     },
+    "elapotp.unityutils": {
+      "version": "git+https://github.com/Artein/UnityUtils.git?path=Assets/Scripts#0.1.2",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "1024a8974d70dfd6503f56bdda8b531d306a6fe3"
+    },
     "org.nuget.system.buffers": {
       "version": "4.5.1",
       "depth": 3,

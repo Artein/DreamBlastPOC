@@ -18,7 +18,8 @@
         "Unity.ResourceManager",
         "Extenject-Async",
         "Unity.TextMeshPro",
-        "UniTask.TextMeshPro"
+        "UniTask.TextMeshPro",
+        "UnityUtils"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

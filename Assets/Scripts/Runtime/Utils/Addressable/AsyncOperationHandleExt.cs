@@ -2,6 +2,7 @@ using System;
 using JetBrains.Annotations;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityUtils.Invocation;
 
 namespace Game.Utils.Addressable
 {

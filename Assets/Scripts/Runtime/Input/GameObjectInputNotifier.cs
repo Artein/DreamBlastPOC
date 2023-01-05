@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Game.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
+using UnityUtils.Invocation;
 using Zenject;
 
 namespace Game.Input

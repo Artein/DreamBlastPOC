@@ -1,6 +1,7 @@
 using System;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityUtils.Invocation;
 
 namespace Game.Utils
 {

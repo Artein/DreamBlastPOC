@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Game.Loading.Tasks;
-using Game.Utils;
+using Game.Utils.Locking;
 using Game.Utils.Progression;
 using JetBrains.Annotations;
 using UnityEngine.Assertions;
@@ -90,18 +90,18 @@ namespace Game.Loading
 
         private async UniTask WaitLoadingStartingAsync(CancellationToken cancellationToken)
         {
-            var di = new DeferredInvocation(null, false);
-            Starting?.Invoke(di);
+            var locker = new Locker(false);
+            Starting?.Invoke(locker);
 
-            await UniTask.WaitWhile(() => di.IsLocked, cancellationToken: cancellationToken);
+            await UniTask.WaitWhile(() => locker.IsLocked, cancellationToken: cancellationToken);
         }
 
         private async UniTask WaitLoadingFinishingAsync(CancellationToken cancellationToken)
         {
-            var di = new DeferredInvocation(null, false);
-            Finishing?.Invoke(di);
+            var locker = new Locker(false);
+            Finishing?.Invoke(locker);
 
-            await UniTask.WaitWhile(() => di.IsLocked, cancellationToken: cancellationToken);
+            await UniTask.WaitWhile(() => locker.IsLocked, cancellationToken: cancellationToken);
         }
 
         private float CalculateTasksWeight()
@@ -122,8 +122,8 @@ namespace Game.Loading
             public ILoadingTask Task;
         }
         
-        public delegate void StartingHandler(IDeferredInvocation loadingStartDI);
-        public delegate void FinishingHandler(IDeferredInvocation loadingFinishDI);
+        public delegate void StartingHandler(ILocker startLocker);
+        public delegate void FinishingHandler(ILocker finishLocker);
         public delegate void FinishedHandler(bool success);
     }
 }

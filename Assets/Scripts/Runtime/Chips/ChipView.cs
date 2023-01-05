@@ -1,7 +1,7 @@
 using Cysharp.Threading.Tasks;
-using Game.Utils;
 using MoreMountains.Feedbacks;
 using UnityEngine;
+using UnityUtils.Invocation;
 using Zenject;
 
 namespace Game.Chips
@@ -24,7 +24,7 @@ namespace Game.Chips
                 return;
             }
 
-            var handle = destroyDI.Lock();
+            var handle = destroyDI.LockInvocation();
             _destroyPlayer.PlayFeedbacksTask(transform.position)
                 .AsUniTask()
                 .ContinueWith(() => { handle.Dispose(); })
