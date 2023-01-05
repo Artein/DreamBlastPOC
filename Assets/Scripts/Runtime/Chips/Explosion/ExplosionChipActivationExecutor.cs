@@ -19,6 +19,8 @@ namespace Game.Chips.Explosion
         [Inject] private IInstantiator _instantiator;
         [Inject] private ICancellationTokenProvider _lifetimeCTProvider;
         
+        private readonly List<ChipModel> _hitChips = new();
+
         // TODO Optimization: Use jobs
         public bool TryActivate(ChipModel pivotChipModel)
         {
@@ -48,17 +50,22 @@ namespace Game.Chips.Explosion
             await UniTask.WaitUntil(() => explosiveChipDestroyed, cancellationToken: cancellationToken);
             cancellationToken.ThrowIfCancellationRequested();
             
-            List<ChipModel> hitChips = new();
+            _hitChips.Clear();
             var chipsCollector = (IExplosionChipsCollector)_instantiator.Instantiate(explosionConfig.ChipsCollectorType, new[] { explosionConfig });
-            chipsCollector.Collect(explosionPivotPosition, hitChips);
+            chipsCollector.Collect(explosionPivotPosition, _hitChips);
 
-            foreach (var hitChip in hitChips)
+            for (int i = 0; i < _hitChips.Count; i += 1)
             {
-                _levelModel.ChipModels.Remove(hitChip);
+                var hitChip = _hitChips[i];
+                if (hitChip.State == ChipModel.ChipState.Default)
+                {
+                    _levelModel.ChipModels.Remove(hitChip);
                     
-                // TODO: Usually we would like to Impact those chips. After impact it might be activated too, but for now just Destroy
-                hitChip.Destroy();
+                    // TODO: Usually we would like to Impact those chips. After impact it might be activated too, but for now just Destroy
+                    hitChip.Destroy();
+                }
             }
+            _hitChips.Clear();
         }
     }
 }

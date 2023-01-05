@@ -1,8 +1,8 @@
 using System;
 using Game.Chips.Activation;
+using Game.Utils;
 using JetBrains.Annotations;
 using UnityUtils.Invocation;
-using Zenject;
 using Object = UnityEngine.Object;
 
 namespace Game.Chips
@@ -10,12 +10,18 @@ namespace Game.Chips
     [UsedImplicitly]
     public class ChipModel
     {
+        public enum ChipState : byte
+        {
+            Default,
+            Activating,
+            Destroying,
+            Destroyed,
+        }
+        
         public ChipId ChipId { get; }
         public ChipView View { get; set; }
         public IChipActivationExecutor ActivationExecutor { get; }
-        
-        [Inject(Id = InjectionIds.Int.IgnoreRaycastsLayer)]
-        private int _ignoreRaycastsLayer;
+        public ReactiveProperty<ChipState> State { get; } = new();
 
         public event DestroyingHandle Destroying;
         public event Action Destroyed;
@@ -26,10 +32,14 @@ namespace Game.Chips
             ActivationExecutor = activationExecutor;
         }
 
+        public void Activate()
+        {
+            State.Value = ChipState.Activating;
+        }
+
         public void Destroy()
         {
-            // TODO: This actually should be ChipDestroyController
-            View.gameObject.layer = _ignoreRaycastsLayer;
+            State.Value = ChipState.Destroying;
             
             using var destroyDI = new DeferredInvocation(() =>
             {
@@ -37,6 +47,7 @@ namespace Game.Chips
                 Destroyed?.Invoke();
                 
                 View = null; // TODO: Actually would be better to NULL all the values
+                State.Value = ChipState.Destroyed;
             });
             Destroying?.Invoke(this, destroyDI);
         }

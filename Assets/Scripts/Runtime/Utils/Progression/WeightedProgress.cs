@@ -27,7 +27,7 @@ namespace Game.Utils.Progression
             }
         }
         public float Progress01 => _progress.Progress01;
-        public event IProgressProvider.ChangedHandler Changed
+        public event ValueChangeHandler<float> Changed
         {
             add => _progress.Changed += value;
             remove => _progress.Changed += value;

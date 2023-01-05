@@ -3,7 +3,6 @@ namespace Game.Utils.Progression
     public interface IProgressProvider
     {
         float Progress01 { get; }
-        event ChangedHandler Changed;
-        public delegate void ChangedHandler(float value, float prevValue);
+        event ValueChangeHandler<float> Changed;
     }
 }

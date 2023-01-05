@@ -10,6 +10,8 @@ namespace Game.Chips
     {
         [SerializeField] private MMF_Player _destroyPlayer;
         
+        [Inject(Id = InjectionIds.Int.IgnoreRaycastsLayer)]
+        private int _ignoreRaycastsLayer;
         [Inject] private ChipModel _chipModel;
 
         private void OnEnable()
@@ -19,16 +21,16 @@ namespace Game.Chips
 
         private void OnChipDestroying(ChipModel _, IDeferredInvocation destroyDI)
         {
-            if (_destroyPlayer == null)
+            gameObject.layer = _ignoreRaycastsLayer;
+            
+            if (_destroyPlayer != null)
             {
-                return;
+                var handle = destroyDI.LockInvocation();
+                _destroyPlayer.PlayFeedbacksTask(transform.position)
+                    .AsUniTask()
+                    .ContinueWith(() => { handle.Dispose(); })
+                    .AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
             }
-
-            var handle = destroyDI.LockInvocation();
-            _destroyPlayer.PlayFeedbacksTask(transform.position)
-                .AsUniTask()
-                .ContinueWith(() => { handle.Dispose(); })
-                .AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
         }
     }
 }

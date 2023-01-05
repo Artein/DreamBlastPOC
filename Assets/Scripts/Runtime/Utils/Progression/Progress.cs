@@ -39,7 +39,7 @@ namespace Game.Utils.Progression
             }
         }
         
-        public event IProgressProvider.ChangedHandler Changed;
+        public event ValueChangeHandler<float> Changed;
 
         public Progress() : this(logProgressChange: false, logMessagePrefix: null) { }
 
