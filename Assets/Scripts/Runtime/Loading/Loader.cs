@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Game.Loading.Tasks;
@@ -13,6 +14,8 @@ namespace Game.Loading
     public class Loader
     {
         private readonly List<WeightedLoadingTask> _tasks = new();
+        private readonly Stopwatch _totalStopwatch = new();
+        private readonly Stopwatch _taskStopwatch = new();
         private WeightedProgress _progress;
 
         [CanBeNull] public IProgressProvider Progress => _progress;
@@ -36,6 +39,8 @@ namespace Game.Loading
         public async UniTask<bool> StartAsync(CancellationToken cancellationToken, bool resetOnFinish = true)
         {
             Assert.IsTrue(_tasks.Count > 0);
+            UnityEngine.Debug.Log($"[Loader] Starting loading of {_tasks.Count} tasks");
+            _totalStopwatch.Restart();
             var tasksWeight = CalculateTasksWeight(_tasks);
             _progress = new WeightedProgress(tasksWeight, true, "[Loading] ");
             
@@ -67,6 +72,8 @@ namespace Game.Loading
                 Reset();
             }
 
+            _totalStopwatch.Stop();
+            UnityEngine.Debug.Log($"[Loader] Loading finished [{_totalStopwatch.ElapsedMilliseconds}ms]");
             return success;
         }
 
@@ -74,7 +81,11 @@ namespace Game.Loading
         {
             task.Task.Progress.Changed += ProgressChanged;
 
+            UnityEngine.Debug.Log($"[Loader] Starting executing '{task.Task}' task");
+            _taskStopwatch.Restart();
             var success = await task.Task.ExecuteAsync(cancellationToken);
+            _taskStopwatch.Stop();
+            UnityEngine.Debug.Log($"[Loader] Ended execution of '{task.Task}' task (success={success})[{_taskStopwatch.ElapsedMilliseconds}ms]");
             cancellationToken.ThrowIfCancellationRequested();
             
             task.Task.Progress.Changed -= ProgressChanged;

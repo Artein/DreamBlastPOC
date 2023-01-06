@@ -21,6 +21,11 @@ namespace Game.Loading.Tasks
             _coloredChipsActivationConfigAddressable = coloredChipsActivationConfigAddressable;
             _chipViewsConfigAddressable = chipViewsConfigAddressable;
         }
+        
+        public override string ToString()
+        {
+            return $"{nameof(ProjectInstallerAddressablesLoadingTask)}";
+        }
 
         protected override async UniTask<bool> ExecuteAsync_Implementation(CancellationToken cancellationToken)
         {

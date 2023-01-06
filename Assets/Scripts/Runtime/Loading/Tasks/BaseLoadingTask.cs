@@ -16,7 +16,6 @@ namespace Game.Loading.Tasks
         protected BaseLoadingTask()
         {
             _progress = new Progress();
-            // _progress = new Progress(true, $"{GetType().Name}: ");
         }
         
         public async UniTask<bool> ExecuteAsync(CancellationToken cancellationToken)

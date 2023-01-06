@@ -19,6 +19,11 @@ namespace Game.Loading.Tasks
             _activateOnLoad = activateOnLoad;
             _sceneRef = sceneRef;
         }
+        
+        public override string ToString()
+        {
+            return $"{nameof(SceneLoadingTask)}({_sceneRef.SceneName})";
+        }
 
         protected override async UniTask<bool> ExecuteAsync_Implementation(CancellationToken cancellationToken)
         {

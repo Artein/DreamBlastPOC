@@ -15,6 +15,11 @@ namespace Game.Loading.Tasks
         {
             _assetLabelReference = assetLabelReference;
         }
+        
+        public override string ToString()
+        {
+            return $"{nameof(PreloadAddressableLabelTask)}({_assetLabelReference.labelString})";
+        }
 
         protected override async UniTask<bool> ExecuteAsync_Implementation(CancellationToken cancellationToken)
         {

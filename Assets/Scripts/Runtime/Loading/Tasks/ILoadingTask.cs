@@ -1,6 +1,5 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Game.Utils;
 using Game.Utils.Progression;
 
 namespace Game.Loading.Tasks

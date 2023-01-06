@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Game.Utils.Progression;
@@ -51,6 +52,11 @@ namespace Game.Loading.Tasks
             IsExecuting = false;
 
             return true;
+        }
+
+        public override string ToString()
+        {
+            return $"CompositeLoadingTask of {_tasks.Count} ({string.Join(", ", _tasks.Select(t => t.Task.ToString()))})";
         }
 
         private void TaskProgressChanged(float value, float prevValue)
