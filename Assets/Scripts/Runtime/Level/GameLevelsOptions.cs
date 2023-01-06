@@ -20,6 +20,7 @@ namespace Game.Level
         [Inject] private LevelsController _levelsController;
         [Inject] private AddressableInject<LevelsConfig> _levelsConfigAddressable;
         [Inject] private ICancellationTokenProvider _lifetimeCTProvider;
+        [Inject] private Loader _loader;
 
         [Inject(Id = InjectionIds.AssetReferenceScene.Level)]
         private AssetReferenceScene _levelSceneRef;
@@ -70,9 +71,9 @@ namespace Game.Level
             _levelsController.SetCurrentLevelIdx(levelIdx);
             _debugService.HideDebugPanel();
 
-            // TODO: Use LoadingManager or smth
-            var sceneLoadingTask = new SceneLoadingTask(_levelSceneRef);
-            sceneLoadingTask.ExecuteAsync(_lifetimeCTProvider.Token).Forget();
+            _loader.Reset();
+            _loader.Enqueue(new WeightedLoadingTask(new SceneLoadingTask(_levelSceneRef)));
+            _loader.StartAsync(_lifetimeCTProvider.Token).Forget();
         }
     }
 }

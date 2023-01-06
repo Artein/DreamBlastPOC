@@ -30,6 +30,12 @@ namespace Game.Loading
             return this;
         }
 
+        public Loader Enqueue(WeightedLoadingTask task)
+        {
+            _tasks.Add(task);
+            return this;
+        }
+
         public void Reset()
         {
             _tasks.Clear();
