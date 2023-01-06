@@ -9,13 +9,13 @@ namespace Game.Loading.Tasks
     // Tasks passed to CompositeLoadingTask invokes in parallel to each other
     public class CompositeLoadingTask : ILoadingTask
     {
-        private readonly List<Loader.WeightedTask> _tasks;
+        private readonly List<WeightedLoadingTask> _tasks;
         private readonly WeightedProgress _progress;
         
         public bool IsExecuting { get; private set; }
         public IProgressProvider Progress => _progress;
 
-        public CompositeLoadingTask(List<Loader.WeightedTask> tasks)
+        public CompositeLoadingTask(List<WeightedLoadingTask> tasks)
         {
             _tasks = tasks;
             var tasksWeight = Loader.CalculateTasksWeight(tasks);

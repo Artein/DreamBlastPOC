@@ -12,7 +12,7 @@ namespace Game.Loading
     [UsedImplicitly]
     public class Loader
     {
-        private readonly List<WeightedTask> _tasks = new();
+        private readonly List<WeightedLoadingTask> _tasks = new();
         private WeightedProgress _progress;
 
         [CanBeNull] public IProgressProvider Progress => _progress;
@@ -23,7 +23,7 @@ namespace Game.Loading
         
         public Loader Enqueue(int weight, ILoadingTask task)
         {
-            _tasks.Add(new WeightedTask { Weight = weight, Task = task });
+            _tasks.Add(new WeightedLoadingTask { Weight = weight, Task = task });
             return this;
         }
 
@@ -70,7 +70,7 @@ namespace Game.Loading
             return success;
         }
 
-        private async UniTask<bool> ExecuteTaskAsync(WeightedTask task, CancellationToken cancellationToken)
+        private async UniTask<bool> ExecuteTaskAsync(WeightedLoadingTask task, CancellationToken cancellationToken)
         {
             task.Task.Progress.Changed += ProgressChanged;
 
@@ -106,7 +106,7 @@ namespace Game.Loading
             await UniTask.WaitWhile(() => locker.IsLocked, cancellationToken: cancellationToken);
         }
 
-        public static float CalculateTasksWeight(IReadOnlyList<WeightedTask> tasks)
+        public static float CalculateTasksWeight(IReadOnlyList<WeightedLoadingTask> tasks)
         {
             float tasksWeight = 0f;
             for (int i = 0; i < tasks.Count; i += 1)
@@ -116,18 +116,6 @@ namespace Game.Loading
             }
 
             return tasksWeight;
-        }
-
-        public struct WeightedTask
-        {
-            public int Weight;
-            public ILoadingTask Task;
-
-            public WeightedTask(ILoadingTask task)
-            {
-                Weight = 1;
-                Task = task;
-            }
         }
         
         public delegate void StartingHandler(ILocker startLocker);

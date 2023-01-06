@@ -35,7 +35,7 @@ namespace Game.Bootstrap
             _loader
                 .Enqueue(10, new AddressablesInitializationTask())
                 .Enqueue(20,
-                    new CompositeLoadingTask(new List<Loader.WeightedTask>
+                    new CompositeLoadingTask(new List<WeightedLoadingTask>
                     {
                         new(_projectInstallerAddressablesLoadingTask),
                         new(_preloadAddressableLabelTask),
