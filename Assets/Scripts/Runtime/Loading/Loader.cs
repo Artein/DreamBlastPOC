@@ -3,10 +3,10 @@ using System.Diagnostics;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Game.Loading.Tasks;
-using Game.Utils.Locking;
 using Game.Utils.Progression;
 using JetBrains.Annotations;
 using UnityEngine.Assertions;
+using UnityUtils.State.Locking;
 
 namespace Game.Loading
 {
@@ -16,6 +16,8 @@ namespace Game.Loading
         private readonly List<WeightedLoadingTask> _tasks = new();
         private readonly Stopwatch _totalStopwatch = new();
         private readonly Stopwatch _taskStopwatch = new();
+        private readonly Locker _loadingStartLocker = new(false);
+        private readonly Locker _loadingFinishLocker = new(false);
         private WeightedProgress _progress;
 
         [CanBeNull] public IProgressProvider Progress => _progress;
@@ -107,20 +109,18 @@ namespace Game.Loading
 
         private async UniTask WaitLoadingStartingAsync(CancellationToken cancellationToken)
         {
-            // TODO GC: Cache and use Locker.Reset()
-            var locker = new Locker(false);
-            Starting?.Invoke(locker);
+            _loadingStartLocker.Reset();
+            Starting?.Invoke(_loadingStartLocker);
 
-            await UniTask.WaitWhile(() => locker.IsLocked, cancellationToken: cancellationToken);
+            await UniTask.WaitWhile(() => _loadingStartLocker.IsLocked, cancellationToken: cancellationToken);
         }
 
         private async UniTask WaitLoadingFinishingAsync(CancellationToken cancellationToken)
         {
-            // TODO GC: Cache and use Locker.Reset()
-            var locker = new Locker(false);
-            Finishing?.Invoke(locker);
+            _loadingFinishLocker.Reset();
+            Finishing?.Invoke(_loadingFinishLocker);
 
-            await UniTask.WaitWhile(() => locker.IsLocked, cancellationToken: cancellationToken);
+            await UniTask.WaitWhile(() => _loadingFinishLocker.IsLocked, cancellationToken: cancellationToken);
         }
 
         public static float CalculateTasksWeight(IReadOnlyList<WeightedLoadingTask> tasks)
