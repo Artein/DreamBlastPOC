@@ -28,6 +28,7 @@ namespace Game.Loading.Tasks
         protected override async UniTask<bool> ExecuteAsync_Implementation(CancellationToken cancellationToken)
         {
             // TODO: Use operation to unload scene when will be Additive mode + Loading scene
+            // TODO: When unloading scene that was loaded Additive, call Resources.UnloadUnusedAssets() manually
             var operation = _sceneRef.LoadSceneAsync(LoadSceneMode.Single, _activateOnLoad);
             // releasing a scene is unloading it, so we don't do that
             // using var operationReleaseHandle = operation.ReleaseInScope();
