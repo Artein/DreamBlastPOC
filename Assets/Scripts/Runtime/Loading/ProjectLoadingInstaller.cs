@@ -15,7 +15,7 @@ namespace Game.Loading
         {
             Container.BindInstance(_loadingScene).WithId(InjectionIds.SceneReference.Loading).AsTransient();
             Container.Bind<Loader>().AsSingle();
-            Container.Bind<LoaderPresenter>().AsSingle();
+            Container.BindInterfacesTo<LoaderPresenter>().AsSingle();
             Container.Bind<LoadAddressableSceneTask>().AsTransient();
         }
     }
