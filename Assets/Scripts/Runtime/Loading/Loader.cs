@@ -44,13 +44,25 @@ namespace Game.Loading
             _progress = null;
         }
 
+        public static float CalculateTasksWeight(IReadOnlyList<WeightedLoadingTask> tasks)
+        {
+            float tasksWeight = 0f;
+            for (int i = 0; i < tasks.Count; i += 1)
+            {
+                var task = tasks[i];
+                tasksWeight += task.Weight;
+            }
+
+            return tasksWeight;
+        }
+
         public async UniTask<bool> StartAsync(CancellationToken cancellationToken, bool resetOnFinish = true)
         {
             Assert.IsTrue(_tasks.Count > 0);
             UnityEngine.Debug.Log($"[Loader] Starting loading of {_tasks.Count} tasks");
             _totalStopwatch.Restart();
             var tasksWeight = CalculateTasksWeight(_tasks);
-            _progress = new WeightedProgress(tasksWeight, true, "[Loading] ");
+            InitializeProgress(tasksWeight);
             
             await WaitLoadingStartingAsync(cancellationToken);
             cancellationToken.ThrowIfCancellationRequested();
@@ -123,18 +135,18 @@ namespace Game.Loading
             await UniTask.WaitWhile(() => _loadingFinishLocker.IsLocked, cancellationToken: cancellationToken);
         }
 
-        public static float CalculateTasksWeight(IReadOnlyList<WeightedLoadingTask> tasks)
+        private void InitializeProgress(float tasksWeight)
         {
-            float tasksWeight = 0f;
-            for (int i = 0; i < tasks.Count; i += 1)
+            if (_progress != null)
             {
-                var task = tasks[i];
-                tasksWeight += task.Weight;
+                _progress.Reset(tasksWeight);
             }
-
-            return tasksWeight;
+            else
+            {
+                _progress = new WeightedProgress(tasksWeight, true, "[Loading] ");
+            }
         }
-        
+
         public delegate void StartingHandler(ILocker startLocker);
         public delegate void FinishingHandler(ILocker finishLocker);
         public delegate void FinishedHandler(bool success);

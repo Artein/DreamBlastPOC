@@ -8,7 +8,7 @@ namespace Game.Utils.Progression
     public class WeightedProgress : IProgressProvider
     {
         private readonly Progress _progress;
-        private readonly float _targetWeight;
+        private float _targetWeight;
         private float _weight_BF;
 
         public float Weight
@@ -35,15 +35,7 @@ namespace Game.Utils.Progression
 
         public WeightedProgress(float targetWeight, bool logProgressChange = false, string logMessagePrefix = null)
         {
-            if (Mathf.Approximately(targetWeight, 0f))
-            {
-                throw new ArgumentOutOfRangeException(nameof(targetWeight), "Cannot be 0");
-            }
-
-            if (targetWeight < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(targetWeight), "Cannot be negative");
-            }
+            ValidateTargetWeightArgument(targetWeight);
             
             _targetWeight = targetWeight;
             _progress = new Progress(logProgressChange, logMessagePrefix);
@@ -53,6 +45,26 @@ namespace Game.Utils.Progression
         {
             _progress.Reset();
             _weight_BF = 0f;
+        }
+
+        public void Reset(float targetWeight)
+        {
+            ValidateTargetWeightArgument(targetWeight);
+            _targetWeight = targetWeight;
+            Reset();
+        }
+
+        private void ValidateTargetWeightArgument(float targetWeight)
+        {
+            if (Mathf.Approximately(targetWeight, 0f))
+            {
+                throw new ArgumentOutOfRangeException(nameof(targetWeight), "Cannot be 0");
+            }
+
+            if (targetWeight < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(targetWeight), "Cannot be negative");
+            }
         }
     }
 }
