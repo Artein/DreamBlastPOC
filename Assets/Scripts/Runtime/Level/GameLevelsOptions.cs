@@ -55,11 +55,13 @@ namespace Game.Level
 
         void IDisposable.Dispose()
         {
-            Assert.IsNotNull(_container);
-            _debugService.RemoveOptionContainer(_container);
-            _container = null;
+            if (_container != null)
+            {
+                _debugService.RemoveOptionContainer(_container);
+                _container = null;
 
-            _debugService.RemoveOptionContainer(this);
+                _debugService.RemoveOptionContainer(this);
+            }
         }
 
         private void LevelSelected(int levelIdx)
