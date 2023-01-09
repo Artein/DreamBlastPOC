@@ -9,27 +9,27 @@ using UnityEngine.SceneManagement;
 namespace Game.Loading.Tasks
 {
     [UsedImplicitly]
-    public class SceneLoadingTask : BaseLoadingTask
+    public class LoadAddressableSceneTask : BaseLoadingTask
     {
         private readonly AssetReferenceScene _sceneRef;
         private readonly bool _activateOnLoad;
+        private readonly LoadSceneMode _loadSceneMode;
 
-        public SceneLoadingTask(AssetReferenceScene sceneRef, bool activateOnLoad = true)
+        public LoadAddressableSceneTask(AssetReferenceScene sceneRef, LoadSceneMode loadSceneMode, bool activateOnLoad = true)
         {
+            _loadSceneMode = loadSceneMode;
             _activateOnLoad = activateOnLoad;
             _sceneRef = sceneRef;
         }
         
         public override string ToString()
         {
-            return $"{nameof(SceneLoadingTask)}({_sceneRef.SceneName})";
+            return $"{nameof(LoadAddressableSceneTask)}({_sceneRef.SceneName})";
         }
 
         protected override async UniTask<bool> ExecuteAsync_Implementation(CancellationToken cancellationToken)
         {
-            // TODO: Use operation to unload scene when will be Additive mode + Loading scene
-            // TODO: When unloading scene that was loaded Additive, call Resources.UnloadUnusedAssets() manually
-            var operation = _sceneRef.LoadSceneAsync(LoadSceneMode.Single, _activateOnLoad);
+            var operation = _sceneRef.LoadSceneAsync(_loadSceneMode, _activateOnLoad);
             // releasing a scene is unloading it, so we don't do that
             // using var operationReleaseHandle = operation.ReleaseInScope();
             SetProgress(ref operation);
@@ -47,7 +47,7 @@ namespace Game.Loading.Tasks
         // ideally I would use in-keyword but the warning is shown
         private void SetProgress(ref AsyncOperationHandle<SceneInstance> handle)
         {
-            SetProgress(handle.GetDownloadStatus().Percent * handle.PercentComplete);
+            SetProgress01(handle.GetDownloadStatus().Percent * handle.PercentComplete);
         }
     }
 }

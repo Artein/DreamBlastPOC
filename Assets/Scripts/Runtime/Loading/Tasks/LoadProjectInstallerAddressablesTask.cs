@@ -7,13 +7,13 @@ using JetBrains.Annotations;
 namespace Game.Loading.Tasks
 {
     [UsedImplicitly]
-    public class ProjectInstallerAddressablesLoadingTask : BaseLoadingTask
+    public class LoadProjectInstallerAddressablesTask : BaseLoadingTask
     {
         private readonly AddressableInject<ColoredChipsActivationConfig> _coloredChipsActivationConfigAddressable;
         private readonly AddressableInject<ChipViewsConfig> _chipViewsConfigAddressable;
         private readonly AddressableInject<LevelsConfig> _levelsConfigAddressable;
 
-        public ProjectInstallerAddressablesLoadingTask(AddressableInject<ChipViewsConfig> chipViewsConfigAddressable,
+        public LoadProjectInstallerAddressablesTask(AddressableInject<ChipViewsConfig> chipViewsConfigAddressable,
             AddressableInject<ColoredChipsActivationConfig> coloredChipsActivationConfigAddressable,
             AddressableInject<LevelsConfig> levelsConfigAddressable)
         {
@@ -24,18 +24,18 @@ namespace Game.Loading.Tasks
         
         public override string ToString()
         {
-            return $"{nameof(ProjectInstallerAddressablesLoadingTask)}";
+            return $"{nameof(LoadProjectInstallerAddressablesTask)}";
         }
 
         protected override async UniTask<bool> ExecuteAsync_Implementation(CancellationToken cancellationToken)
         {
-            SetProgress(0f);
+            SetProgress01(0f);
             await _chipViewsConfigAddressable;
-            SetProgress(0.33f);
+            SetProgress01(0.33f);
             await _coloredChipsActivationConfigAddressable;
-            SetProgress(0.66f);
+            SetProgress01(0.66f);
             await _levelsConfigAddressable;
-            SetProgress(1f);
+            SetProgress01(1f);
 
             return true;
         }

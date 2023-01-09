@@ -22,7 +22,7 @@ namespace Game.Loading.Tasks
             {
                 await UniTask.DelayFrame(1, cancellationToken: cancellationToken);
                 
-                SetProgress(operationHandle.PercentComplete);
+                SetProgress01(operationHandle.PercentComplete);
             }
 
             var foundKeysCount = operationHandle.Result.Keys.Count();

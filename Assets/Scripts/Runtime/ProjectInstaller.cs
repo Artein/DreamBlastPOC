@@ -1,4 +1,5 @@
 using System.Threading;
+using Eflatun.SceneReference;
 using Game.Chips;
 using Game.Input;
 using Game.Level;
@@ -20,6 +21,7 @@ namespace Game
         [SerializeField] private AssetReferenceT<ColoredChipsActivationConfig> _coloredChipsActivationConfigRef;
         [SerializeField] private AssetReferenceT<LevelsConfig> _levelsConfigRef;
         [SerializeField] private AssetReferenceScene _levelSceneRef;
+        [SerializeField] private SceneReference _bootstrapSceneRef;
         [SerializeField, Layer] private int _ignoreRaycastsLayer;
         [SerializeField, Layer] private int _chipLayer;
         
@@ -45,7 +47,7 @@ namespace Game
             SignalBusInstaller.Install(Container);
             
             Container.Bind<ICancellationTokenProvider>().FromInstance(new CancellationTokenProvider(_lifetimeCTS)).AsSingle();
-            Container.Bind<ProjectInstallerAddressablesLoadingTask>().AsSingle();
+            Container.Bind<LoadProjectInstallerAddressablesTask>().AsSingle();
             Container.BindInterfacesTo<TargetFPSController>().AsSingle();
             
             BindOptions();
@@ -54,7 +56,8 @@ namespace Game
             BindChipsConfigs();
             BindLevels();
 
-            Container.BindInstance(_levelSceneRef).WithId(InjectionIds.AssetReferenceScene.Level).AsSingle().NonLazy();
+            Container.BindInstance(_levelSceneRef).WithId(InjectionIds.AssetReferenceScene.Level).AsCached().NonLazy();
+            Container.BindInstance(_bootstrapSceneRef).WithId(InjectionIds.SceneReference.Bootstrap).AsCached().NonLazy();
         }
 
         private void BindOptions()

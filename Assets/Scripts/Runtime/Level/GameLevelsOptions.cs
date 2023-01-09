@@ -9,6 +9,7 @@ using ModestTree;
 using SRDebugger;
 using SRDebugger.Services;
 using SRF.Helpers;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace Game.Level
@@ -72,7 +73,7 @@ namespace Game.Level
             _debugService.HideDebugPanel();
 
             _loader.Reset();
-            _loader.Enqueue(new WeightedLoadingTask(new SceneLoadingTask(_levelSceneRef)));
+            _loader.Enqueue(new WeightedLoadingTask(new LoadAddressableSceneTask(_levelSceneRef, LoadSceneMode.Single)));
             _loader.StartAsync(_lifetimeCTProvider.Token).Forget();
         }
     }

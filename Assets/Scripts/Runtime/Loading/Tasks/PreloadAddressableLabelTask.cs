@@ -38,13 +38,13 @@ namespace Game.Loading.Tasks
             {
                 var downloadDependenciesHandle = Addressables.DownloadDependenciesAsync(_assetLabelReference);
                 using var downloadDependenciesReleaseHandle = downloadDependenciesHandle.ReleaseInScope();
-                SetProgress(downloadDependenciesHandle.GetDownloadStatus().Percent);
+                SetProgress01(downloadDependenciesHandle.GetDownloadStatus().Percent);
                     
                 while (!downloadDependenciesHandle.IsDone)
                 {
                     await UniTask.DelayFrame(1, cancellationToken: cancellationToken);
                     
-                    SetProgress(downloadDependenciesHandle.GetDownloadStatus().Percent);
+                    SetProgress01(downloadDependenciesHandle.GetDownloadStatus().Percent);
                 }
                     
                 if (downloadDependenciesHandle.Status == AsyncOperationStatus.Failed)

@@ -30,7 +30,7 @@ namespace Game.Loading.Tasks
 
         protected abstract UniTask<bool> ExecuteAsync_Implementation(CancellationToken cancellationToken);
 
-        protected void SetProgress(float value)
+        protected void SetProgress01(float value)
         {
             _progress.Progress01 = value;
         }
