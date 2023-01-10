@@ -22,11 +22,13 @@ namespace Game.Loading.Tasks
 
         protected override async UniTask<bool> ExecuteAsync_Implementation(CancellationToken cancellationToken)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             var unloadSceneOperation = SceneManager.UnloadSceneAsync(_sceneReference.Name);
             SetProgress01(unloadSceneOperation.progress * 0.5f);
             
             while (!unloadSceneOperation.isDone)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 await UniTask.DelayFrame(1, cancellationToken: cancellationToken);
                 
                 SetProgress01(unloadSceneOperation.progress * 0.5f);
@@ -37,13 +39,13 @@ namespace Game.Loading.Tasks
             
             while (!unloadOperation.isDone)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 await UniTask.DelayFrame(1, cancellationToken: cancellationToken);
                 
                 SetProgress01(0.5f + unloadOperation.progress * 0.5f);
             }
             
             SetProgress01(1f);
-
             return true;
         }
     }

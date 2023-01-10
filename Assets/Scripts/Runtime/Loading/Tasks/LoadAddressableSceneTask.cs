@@ -29,6 +29,7 @@ namespace Game.Loading.Tasks
 
         protected override async UniTask<bool> ExecuteAsync_Implementation(CancellationToken cancellationToken)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             var operation = _sceneRef.LoadSceneAsync(_loadSceneMode, _activateOnLoad);
             // releasing a scene is unloading it, so we don't do that
             // using var operationReleaseHandle = operation.ReleaseInScope();
@@ -36,6 +37,7 @@ namespace Game.Loading.Tasks
 
             while (!operation.IsDone)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 await UniTask.DelayFrame(1, cancellationToken: cancellationToken);
                 
                 SetProgress(ref operation);

@@ -20,6 +20,7 @@ namespace Game.Loading.Tasks
         
         public async UniTask<bool> ExecuteAsync(CancellationToken cancellationToken)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             Assert.IsFalse(IsExecuting);
             IsExecuting = true;
             var success = await ExecuteAsync_Implementation(cancellationToken);

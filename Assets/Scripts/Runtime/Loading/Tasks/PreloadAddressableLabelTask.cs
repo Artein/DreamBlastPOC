@@ -23,6 +23,7 @@ namespace Game.Loading.Tasks
 
         protected override async UniTask<bool> ExecuteAsync_Implementation(CancellationToken cancellationToken)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             var getDownloadSizeHandle = Addressables.GetDownloadSizeAsync(_assetLabelReference);
             using var getDownloadSizeReleaseHandle = getDownloadSizeHandle.ReleaseInScope();
                 
@@ -42,6 +43,7 @@ namespace Game.Loading.Tasks
                     
                 while (!downloadDependenciesHandle.IsDone)
                 {
+                    cancellationToken.ThrowIfCancellationRequested();
                     await UniTask.DelayFrame(1, cancellationToken: cancellationToken);
                     
                     SetProgress01(downloadDependenciesHandle.GetDownloadStatus().Percent);

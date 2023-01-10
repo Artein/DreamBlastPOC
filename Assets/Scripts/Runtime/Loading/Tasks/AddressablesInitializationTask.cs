@@ -14,12 +14,14 @@ namespace Game.Loading.Tasks
 
         protected override async UniTask<bool> ExecuteAsync_Implementation(CancellationToken cancellationToken)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             var operationHandle = Addressables.InitializeAsync(); // does autorelease operationHandle
             // At first value is 1, but next frame 0, and only then 1 again
             // SetProgress(operationHandle.PercentComplete);
                 
             while (!operationHandle.IsDone)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 await UniTask.DelayFrame(1, cancellationToken: cancellationToken);
                 
                 SetProgress01(operationHandle.PercentComplete);

@@ -30,13 +30,18 @@ namespace Game.Loading.Tasks
         protected override async UniTask<bool> ExecuteAsync_Implementation(CancellationToken cancellationToken)
         {
             SetProgress01(0f);
+            cancellationToken.ThrowIfCancellationRequested();
             await _chipViewsConfigAddressable;
+            
             SetProgress01(0.33f);
+            cancellationToken.ThrowIfCancellationRequested();
             await _coloredChipsActivationConfigAddressable;
+            
             SetProgress01(0.66f);
+            cancellationToken.ThrowIfCancellationRequested();
             await _levelsConfigAddressable;
+            
             SetProgress01(1f);
-
             return true;
         }
     }
