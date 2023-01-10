@@ -121,18 +121,22 @@ namespace Game.Loading
 
         private async UniTask WaitLoadingStartingAsync(CancellationToken cancellationToken)
         {
+            UnityEngine.Debug.Log($"[Loader] Begin waiting loading Start");
             _loadingStartLocker.Reset();
             Starting?.Invoke(_loadingStartLocker);
 
             await UniTask.WaitWhile(() => _loadingStartLocker.IsLocked, cancellationToken: cancellationToken);
+            UnityEngine.Debug.Log($"[Loader] Ended waiting loading Start");
         }
 
         private async UniTask WaitLoadingFinishingAsync(CancellationToken cancellationToken)
         {
+            UnityEngine.Debug.Log($"[Loader] Begin waiting loading Finish");
             _loadingFinishLocker.Reset();
             Finishing?.Invoke(_loadingFinishLocker);
 
             await UniTask.WaitWhile(() => _loadingFinishLocker.IsLocked, cancellationToken: cancellationToken);
+            UnityEngine.Debug.Log($"[Loader] Ended waiting loading Finish");
         }
 
         private void InitializeProgress(float tasksWeight)

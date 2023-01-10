@@ -47,9 +47,12 @@ namespace Game.Loading
             var startLockHandle = startLocker.Lock();
             _loader.Progress!.Changed += OnLoadingProgressChanged;
             
-            // TODO: Animate canvas alpha
             LoadLoadingSceneAsync(_lifetimeCTProvider.Token)
-                .ContinueWith(() => { startLockHandle.Dispose(); })
+                .ContinueWith(() =>
+                {
+                    _loadingSceneView.SetCanvasAlpha(1f);
+                    startLockHandle.Dispose();
+                })
                 .Forget();
         }
 
@@ -58,8 +61,8 @@ namespace Game.Loading
             var finishLockHandle = finishLocker.Lock();
             _loader.Progress!.Changed -= OnLoadingProgressChanged;
             
-            // TODO: Animate canvas alpha
-            UnloadLoadingSceneAsync(_lifetimeCTProvider.Token)
+            _loadingSceneView.StartPlayingDisappearAnimationAsync(_lifetimeCTProvider.Token)
+                .ContinueWith(() => UnloadLoadingSceneAsync(_lifetimeCTProvider.Token))
                 .ContinueWith(() =>
                 {
                     _loadingBarView = null;
@@ -71,6 +74,7 @@ namespace Game.Loading
 
         private async UniTask LoadLoadingSceneAsync(CancellationToken cancellationToken)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             var operation = SceneManager.LoadSceneAsync(_loadingSceneRef.Name, LoadSceneMode.Additive);
             operation.allowSceneActivation = false;
 
@@ -81,8 +85,8 @@ namespace Game.Loading
                     operation.allowSceneActivation = true;
                 }
                 
-                await UniTask.DelayFrame(1, cancellationToken: cancellationToken);
                 cancellationToken.ThrowIfCancellationRequested();
+                await UniTask.DelayFrame(1, cancellationToken: cancellationToken);
             }
             
             InitializeViews();
@@ -99,12 +103,13 @@ namespace Game.Loading
 
         private async UniTask UnloadLoadingSceneAsync(CancellationToken cancellationToken)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             var operation = SceneManager.UnloadSceneAsync(_loadingSceneRef.Name);
             
             while (!operation.isDone)
             {
-                await UniTask.DelayFrame(1, cancellationToken: cancellationToken);
                 cancellationToken.ThrowIfCancellationRequested();
+                await UniTask.DelayFrame(1, cancellationToken: cancellationToken);
             }
         }
 
