@@ -5,10 +5,10 @@ using Game.Loading.Tasks;
 using Game.Utils;
 using Game.Utils.Addressable;
 using JetBrains.Annotations;
-using ModestTree;
 using SRDebugger;
 using SRDebugger.Services;
 using SRF.Helpers;
+using UnityEngine.Assertions;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -91,7 +91,7 @@ namespace Game.Level
         private WeightedLoadingTask CreateReleasePreviouslyLoadedLevelSceneTask()
         {
             var handle = _addressableScenesStorage.TakeLoadOperation(_levelSceneRef);
-            UnityEngine.Assertions.Assert.IsTrue(handle.HasValue);
+            Assert.IsTrue(handle.HasValue);
             var task = new ReleaseAddressableHandleTask<SceneInstance>(handle.Value);
             return new WeightedLoadingTask(task);
         }
