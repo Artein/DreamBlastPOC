@@ -22,6 +22,7 @@ namespace Game.Loading
 
         [CanBeNull] public IProgressProvider Progress => _progress;
         public bool IsLoading { get; private set; }
+        public bool LoggingEnabled { get; set; }
 
         public event StartingHandler Starting;
         public event FinishingHandler Finishing;
@@ -61,7 +62,7 @@ namespace Game.Loading
         {
             Assert.IsFalse(IsLoading);
             Assert.IsTrue(_tasks.Count > 0);
-            UnityEngine.Debug.Log($"[Loader] Starting loading of {_tasks.Count} tasks");
+            Log($"Starting loading of {_tasks.Count} tasks");
             _totalStopwatch.Restart();
 
             IsLoading = true;
@@ -102,7 +103,7 @@ namespace Game.Loading
             {
                 _totalStopwatch.Stop();
                 IsLoading = false;
-                UnityEngine.Debug.Log($"[Loader] Loading finished [{_totalStopwatch.ElapsedMilliseconds}ms]");
+                Log($"Loading finished. Success={success} [{_totalStopwatch.ElapsedMilliseconds}ms]");
             }
 
             return success;
@@ -112,11 +113,11 @@ namespace Game.Loading
         {
             task.Task.Progress.Changed += ProgressChanged;
 
-            UnityEngine.Debug.Log($"[Loader] Starting executing '{task.Task}' task");
+            Log($"Starting executing '{task.Task}' task");
             _taskStopwatch.Restart();
             var success = await task.Task.ExecuteAsync(cancellationToken);
             _taskStopwatch.Stop();
-            UnityEngine.Debug.Log($"[Loader] Ended execution of '{task.Task}' task (success={success})[{_taskStopwatch.ElapsedMilliseconds}ms]");
+            Log($"Ended execution of '{task.Task}' task (success={success})[{_taskStopwatch.ElapsedMilliseconds}ms]");
             cancellationToken.ThrowIfCancellationRequested();
             
             task.Task.Progress.Changed -= ProgressChanged;
@@ -132,22 +133,22 @@ namespace Game.Loading
 
         private async UniTask WaitLoadingStartingAsync(CancellationToken cancellationToken)
         {
-            UnityEngine.Debug.Log($"[Loader] Begin waiting loading Start");
+            Log("Begin waiting loading Start");
             _loadingStartLocker.Reset();
             Starting?.Invoke(_loadingStartLocker);
 
             await UniTask.WaitWhile(() => _loadingStartLocker.IsLocked, cancellationToken: cancellationToken);
-            UnityEngine.Debug.Log($"[Loader] Ended waiting loading Start");
+            Log("Ended waiting loading Start");
         }
 
         private async UniTask WaitLoadingFinishingAsync(CancellationToken cancellationToken)
         {
-            UnityEngine.Debug.Log($"[Loader] Begin waiting loading Finish");
+            Log("Begin waiting loading Finish");
             _loadingFinishLocker.Reset();
             Finishing?.Invoke(_loadingFinishLocker);
 
             await UniTask.WaitWhile(() => _loadingFinishLocker.IsLocked, cancellationToken: cancellationToken);
-            UnityEngine.Debug.Log($"[Loader] Ended waiting loading Finish");
+            Log("Ended waiting loading Finish");
         }
 
         private void InitializeProgress(float tasksWeight)
@@ -158,7 +159,15 @@ namespace Game.Loading
             }
             else
             {
-                _progress = new WeightedProgress(tasksWeight, true, "[Loading] ");
+                _progress = new WeightedProgress(tasksWeight, LoggingEnabled, "[Loading] ");
+            }
+        }
+
+        private void Log(string message)
+        {
+            if (LoggingEnabled)
+            {
+                UnityEngine.Debug.Log($"[{nameof(Loader)}] {message}");
             }
         }
 

@@ -16,8 +16,6 @@ namespace Game.Loading.Tasks
         {
             cancellationToken.ThrowIfCancellationRequested();
             var operationHandle = Addressables.InitializeAsync(); // does autorelease operationHandle
-            // At first value is 1, but next frame 0, and only then 1 again
-            // SetProgress(operationHandle.PercentComplete);
                 
             while (!operationHandle.IsDone)
             {
