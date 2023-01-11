@@ -3,18 +3,16 @@ using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Game.Utils.Progression;
-using UnityEngine.Assertions;
 
 namespace Game.Loading.Tasks
 {
     // Tasks passed to CompositeLoadingTask invokes in parallel to each other
-    public class CompositeLoadingTask : ILoadingTask
+    public class CompositeLoadingTask : BaseLoadingTask
     {
         private readonly List<WeightedLoadingTask> _tasks;
         private readonly WeightedProgress _progress;
         
-        public bool IsExecuting { get; private set; }
-        public IProgressProvider Progress => _progress;
+        public override IProgressProvider Progress => _progress;
 
         public CompositeLoadingTask(List<WeightedLoadingTask> tasks)
         {
@@ -22,13 +20,11 @@ namespace Game.Loading.Tasks
             var tasksWeight = Loader.CalculateTasksWeight(tasks);
             _progress = new WeightedProgress(tasksWeight);
         }
-        
-        public async UniTask<bool> ExecuteAsync(CancellationToken cancellationToken)
+
+        protected override async UniTask<bool> ExecuteAsync_Implementation(CancellationToken cancellationToken)
         {
             _progress.Reset();
-            Assert.IsFalse(IsExecuting);
-            IsExecuting = true;
-
+            
             var executingTasks = new List<UniTask<bool>>(_tasks.Count);
 
             for (int i = 0; i < _tasks.Count; i += 1)
@@ -48,9 +44,7 @@ namespace Game.Loading.Tasks
                 var task = _tasks[i];
                 task.Task.Progress.Changed -= TaskProgressChanged;
             }
-
-            IsExecuting = false;
-
+            
             return true;
         }
 
