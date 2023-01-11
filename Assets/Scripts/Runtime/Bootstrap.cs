@@ -1,44 +1,36 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using Eflatun.SceneReference;
 using Game.Loading;
 using Game.Loading.Tasks;
 using Game.Utils;
 using Game.Utils.Addressable;
 using JetBrains.Annotations;
-using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
-using Zenject;
 
-namespace Game.Bootstrap
+namespace Game
 {
     [UsedImplicitly]
-    public class BootstrapExecutor : IInitializable
+    public class Bootstrap
     {
         private readonly Loader _loader;
         private readonly ICancellationTokenProvider _lifetimeCTProvider;
         private readonly LoadAddressableSceneTask _loadTargetSceneTask;
-        private readonly UnloadBuiltInSceneTask _unloadBootstrapSceneTask;
         private readonly PreloadAddressableLabelTask _preloadAddressableLabelTask;
         private readonly LoadProjectInstallerAddressablesTask _loadProjectInstallerAddressablesTask;
-        private readonly List<GameObject> _disableGameObjectsOnLoading;
 
-        public BootstrapExecutor(AssetReferenceScene targetSceneRef, ICancellationTokenProvider lifetimeCTProvider, Loader loader,
+        public Bootstrap(AssetReferenceScene targetSceneRef, ICancellationTokenProvider lifetimeCTProvider, Loader loader,
             AssetLabelReference preLoadAssetLabel, LoadProjectInstallerAddressablesTask loadProjectInstallerAddressablesTask,
-            [Inject(Id = InjectionIds.SceneReference.Bootstrap)] SceneReference bootstrapSceneRef,
-            List<GameObject> disableGameObjectsOnLoading, AddressableScenesStorage addressableScenesStorage)
+            AddressableScenesStorage addressableScenesStorage)
         {
             _loader = loader;
             _lifetimeCTProvider = lifetimeCTProvider;
             _loadTargetSceneTask = new LoadAddressableSceneTask(addressableScenesStorage, targetSceneRef, LoadSceneMode.Additive);
-            _unloadBootstrapSceneTask = new UnloadBuiltInSceneTask(bootstrapSceneRef);
             _preloadAddressableLabelTask = new PreloadAddressableLabelTask(preLoadAssetLabel);
             _loadProjectInstallerAddressablesTask = loadProjectInstallerAddressablesTask;
-            _disableGameObjectsOnLoading = disableGameObjectsOnLoading;
         }
 
-        public void Initialize()
+        public void Execute()
         {
             _loader.Reset();
             _loader
@@ -49,21 +41,9 @@ namespace Game.Bootstrap
                         new(_loadProjectInstallerAddressablesTask),
                         new(_preloadAddressableLabelTask),
                     }))
-                .Enqueue(70, _loadTargetSceneTask)
-                .Enqueue(10, _unloadBootstrapSceneTask);
-            
-            DisableComponentsOnLoading();
+                .Enqueue(70, _loadTargetSceneTask);
 
             _loader.StartAsync(_lifetimeCTProvider.Token).Forget();
-        }
-
-        private void DisableComponentsOnLoading()
-        {
-            for (int i = 0; i < _disableGameObjectsOnLoading.Count; i += 1)
-            {
-                var gameObject = _disableGameObjectsOnLoading[i];
-                gameObject.SetActive(false);
-            }
         }
     }
 }

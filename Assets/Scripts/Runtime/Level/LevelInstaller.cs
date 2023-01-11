@@ -10,7 +10,6 @@ namespace Game.Level
     public class LevelInstaller : MonoInstaller<LevelInstaller>
     {
         [SerializeField] private Transform _levelContainer;
-        [SerializeField] private Transform _cameraRig;
 
         [Inject] private LevelsController _levelsController;
         
@@ -28,7 +27,6 @@ namespace Game.Level
             Container.Bind<ICancellationTokenProvider>().FromInstance(new CancellationTokenProvider(_lifetimeCTS)).AsSingle();
             Container.BindInstance(_levelsController.CurrentLevel).AsSingle();
             Container.BindInstance(_levelContainer).WithId(InjectionIds.Transform.LevelContainer);
-            Container.BindInstance(_cameraRig).WithId(InjectionIds.Transform.CameraRig);
             Container.Bind(typeof(LevelOptions), typeof(IInitializable), typeof(IDisposable)).To<LevelOptions>().AsSingle();
             Container.Bind(typeof(ILevelConfig), typeof(IInitializable), typeof(IDisposable)).To<LevelConfigProxy>().AsSingle();
             Container.Bind<LevelModel>().AsSingle();

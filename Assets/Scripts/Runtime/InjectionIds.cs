@@ -22,7 +22,7 @@ namespace Game
 
         public enum SceneReference : byte
         {
-            Bootstrap,
+            Core,
             Loading,
         }
     }

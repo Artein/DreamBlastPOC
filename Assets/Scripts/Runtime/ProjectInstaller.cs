@@ -1,5 +1,4 @@
 using System.Threading;
-using Eflatun.SceneReference;
 using Game.Chips;
 using Game.Input;
 using Game.Level;
@@ -10,6 +9,7 @@ using Game.Utils.Addressable;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Assertions;
 using Zenject;
 
 namespace Game
@@ -21,7 +21,7 @@ namespace Game
         [SerializeField] private AssetReferenceT<ColoredChipsActivationConfig> _coloredChipsActivationConfigRef;
         [SerializeField] private AssetReferenceT<LevelsConfig> _levelsConfigRef;
         [SerializeField] private AssetReferenceScene _levelSceneRef;
-        [SerializeField] private SceneReference _bootstrapSceneRef;
+        [SerializeField] private AssetLabelReference _preLoadAssetLabel;
         [SerializeField, Layer] private int _ignoreRaycastsLayer;
         [SerializeField, Layer] private int _chipLayer;
         
@@ -31,6 +31,7 @@ namespace Game
         {
             _coloredChipsActivationConfigRef.RuntimeKeyIsValid();
             _chipViewsConfigRef.RuntimeKeyIsValid();
+            _preLoadAssetLabel.RuntimeKeyIsValid();
             _levelsConfigRef.RuntimeKeyIsValid();
             _levelSceneRef.RuntimeKeyIsValid();
         }
@@ -41,7 +42,13 @@ namespace Game
             _lifetimeCTS.Dispose();
             _lifetimeCTS = null;
         }
-        
+
+        public override void Start()
+        {
+            var bootstrap = Container.Instantiate<Bootstrap>(new object[]{ _levelSceneRef, _preLoadAssetLabel });
+            bootstrap.Execute();
+        }
+
         public override void InstallBindings()
         {
             SignalBusInstaller.Install(Container);
@@ -55,9 +62,9 @@ namespace Game
             BindLayers();
             BindChipsConfigs();
             BindLevels();
+            BindCameraRig();
 
             Container.BindInstance(_levelSceneRef).WithId(InjectionIds.AssetReferenceScene.Level).AsCached().NonLazy();
-            Container.BindInstance(_bootstrapSceneRef).WithId(InjectionIds.SceneReference.Bootstrap).AsCached().NonLazy();
         }
 
         private void BindOptions()
@@ -88,6 +95,13 @@ namespace Game
         {
             Container.BindInstance(_chipLayer).WithId(InjectionIds.Int.ChipsLayer);
             Container.BindInstance(_ignoreRaycastsLayer).WithId(InjectionIds.Int.IgnoreRaycastsLayer);
+        }
+
+        private void BindCameraRig()
+        {
+            var cameraRig = GameObject.FindWithTag("CameraRig");
+            Assert.IsNotNull(cameraRig);
+            Container.BindInstance(cameraRig).WithId(InjectionIds.Transform.CameraRig);
         }
     }
 }
