@@ -101,7 +101,7 @@ namespace Game
         {
             var cameraRig = GameObject.FindWithTag("CameraRig");
             Assert.IsNotNull(cameraRig);
-            Container.BindInstance(cameraRig).WithId(InjectionIds.Transform.CameraRig);
+            Container.BindInstance(cameraRig.transform).WithId(InjectionIds.Transform.CameraRig);
         }
     }
 }

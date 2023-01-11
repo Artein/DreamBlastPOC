@@ -6,6 +6,7 @@ namespace Game.Level.Stages
     {
         public override void InstallBindings()
         {
+            LevelCameraInstaller.Install(Container);
             Container.Bind<LevelStagesController>().AsSingle();
         }
     }
