@@ -27,11 +27,11 @@ namespace Game.Bootstrap
         public BootstrapExecutor(AssetReferenceScene targetSceneRef, ICancellationTokenProvider lifetimeCTProvider, Loader loader,
             AssetLabelReference preLoadAssetLabel, LoadProjectInstallerAddressablesTask loadProjectInstallerAddressablesTask,
             [Inject(Id = InjectionIds.SceneReference.Bootstrap)] SceneReference bootstrapSceneRef,
-            List<GameObject> disableGameObjectsOnLoading)
+            List<GameObject> disableGameObjectsOnLoading, AddressableScenesStorage addressableScenesStorage)
         {
             _loader = loader;
             _lifetimeCTProvider = lifetimeCTProvider;
-            _loadTargetSceneTask = new LoadAddressableSceneTask(targetSceneRef, LoadSceneMode.Additive);
+            _loadTargetSceneTask = new LoadAddressableSceneTask(addressableScenesStorage, targetSceneRef, LoadSceneMode.Additive);
             _unloadBootstrapSceneTask = new UnloadBuiltInSceneTask(bootstrapSceneRef);
             _preloadAddressableLabelTask = new PreloadAddressableLabelTask(preLoadAssetLabel);
             _loadProjectInstallerAddressablesTask = loadProjectInstallerAddressablesTask;

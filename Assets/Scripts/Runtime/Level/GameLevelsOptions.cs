@@ -9,6 +9,7 @@ using ModestTree;
 using SRDebugger;
 using SRDebugger.Services;
 using SRF.Helpers;
+using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 using Zenject;
 
@@ -17,11 +18,12 @@ namespace Game.Level
     [UsedImplicitly]
     public class GameLevelsOptions : IInitializable, IDisposable
     {
+        [Inject] private Loader _loader;
         [Inject] private IDebugService _debugService;
         [Inject] private LevelsController _levelsController;
-        [Inject] private AddressableInject<LevelsConfig> _levelsConfigAddressable;
         [Inject] private ICancellationTokenProvider _lifetimeCTProvider;
-        [Inject] private Loader _loader;
+        [Inject] private AddressableScenesStorage _addressableScenesStorage;
+        [Inject] private AddressableInject<LevelsConfig> _levelsConfigAddressable;
 
         [Inject(Id = InjectionIds.AssetReferenceScene.Level)]
         private AssetReferenceScene _levelSceneRef;
@@ -44,7 +46,7 @@ namespace Game.Level
             {
                 var level = LevelsConfig.Levels[i];
                 var i1 = i;
-                var optionDefinition = new OptionDefinition(level.name, "Levels", 0, new MethodReference(args =>
+                var optionDefinition = new OptionDefinition(level.name, "Levels", 0, new MethodReference(_ =>
                                                                                                          {
                                                                                                              LevelSelected(i1);
                                                                                                              return null;
@@ -75,8 +77,23 @@ namespace Game.Level
             _debugService.HideDebugPanel();
 
             _loader.Reset();
-            _loader.Enqueue(new WeightedLoadingTask(new LoadAddressableSceneTask(_levelSceneRef, LoadSceneMode.Single)));
-            _loader.StartAsync(_lifetimeCTProvider.Token).Forget();
+            _loader.Enqueue(CreateReleasePreviouslyLoadedLevelSceneTask())
+                .Enqueue(CreateLoadLevelSceneTask())
+                .StartAsync(_lifetimeCTProvider.Token).Forget();
+        }
+
+        private WeightedLoadingTask CreateLoadLevelSceneTask()
+        {
+            var task = new LoadAddressableSceneTask(_addressableScenesStorage, _levelSceneRef, LoadSceneMode.Additive);
+            return new WeightedLoadingTask(task);
+        }
+
+        private WeightedLoadingTask CreateReleasePreviouslyLoadedLevelSceneTask()
+        {
+            var handle = _addressableScenesStorage.TakeLoadOperation(_levelSceneRef);
+            UnityEngine.Assertions.Assert.IsTrue(handle.HasValue);
+            var task = new ReleaseAddressableHandleTask<SceneInstance>(handle.Value);
+            return new WeightedLoadingTask(task);
         }
     }
 }

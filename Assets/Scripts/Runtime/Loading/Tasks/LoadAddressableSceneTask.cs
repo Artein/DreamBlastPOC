@@ -1,10 +1,12 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Game.Utils.Addressable;
+using Game.Utils.Progression;
 using JetBrains.Annotations;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
+using Progress = Game.Utils.Progression.Progress;
 
 namespace Game.Loading.Tasks
 {
@@ -14,14 +16,19 @@ namespace Game.Loading.Tasks
         private readonly AssetReferenceScene _sceneRef;
         private readonly bool _activateOnLoad;
         private readonly LoadSceneMode _loadSceneMode;
+        private readonly Progress _progress = new();
+        private readonly AddressableScenesStorage _addressableScenesStorage;
 
-        public LoadAddressableSceneTask(AssetReferenceScene sceneRef, LoadSceneMode loadSceneMode, bool activateOnLoad = true)
+        public override IProgressProvider Progress => _progress;
+
+        public LoadAddressableSceneTask(AddressableScenesStorage addressableScenesStorage, AssetReferenceScene sceneRef, LoadSceneMode loadSceneMode, bool activateOnLoad = true)
         {
+            _addressableScenesStorage = addressableScenesStorage;
             _loadSceneMode = loadSceneMode;
             _activateOnLoad = activateOnLoad;
             _sceneRef = sceneRef;
         }
-        
+
         public override string ToString()
         {
             return $"{nameof(LoadAddressableSceneTask)}({_sceneRef.SceneName})";
@@ -31,8 +38,7 @@ namespace Game.Loading.Tasks
         {
             cancellationToken.ThrowIfCancellationRequested();
             var operation = _sceneRef.LoadSceneAsync(_loadSceneMode, _activateOnLoad);
-            // releasing a scene is unloading it, so we don't do that
-            // using var operationReleaseHandle = operation.ReleaseInScope();
+            _addressableScenesStorage.AddLoadOperation(_sceneRef, operation);
             SetProgress(ref operation);
 
             while (!operation.IsDone)
@@ -49,7 +55,7 @@ namespace Game.Loading.Tasks
         // ideally I would use in-keyword but the warning is shown
         private void SetProgress(ref AsyncOperationHandle<SceneInstance> handle)
         {
-            SetProgress01(handle.GetDownloadStatus().Percent * handle.PercentComplete);
+            _progress.Progress01 = handle.GetDownloadStatus().Percent * handle.PercentComplete;
         }
     }
 }

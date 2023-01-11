@@ -17,6 +17,7 @@ namespace Game.Loading
             Container.Bind<Loader>().AsSingle();
             Container.BindInterfacesTo<LoaderPresenter>().AsSingle();
             Container.Bind<LoadAddressableSceneTask>().AsTransient();
+            Container.Bind<AddressableScenesStorage>().AsSingle();
         }
     }
 }
