@@ -10,8 +10,13 @@ namespace Game.Loading.UI
     public class LoadingBarView : MonoBehaviour
     {
         [SerializeField] private Slider _slider;
+        [SerializeField, Range(0.1f, 1f), Tooltip("The smaller value, the faster animation is")] 
+        private float _smoothAnimationTime;
+        
         [SerializeField] private bool _showDownloadProgress;
         [SerializeField] private TMP_Text _downloadProgressText;
+
+        public float SmoothAnimationTime => _smoothAnimationTime;
 
         private void Awake()
         {

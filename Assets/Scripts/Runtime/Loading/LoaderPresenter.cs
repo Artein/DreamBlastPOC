@@ -5,6 +5,7 @@ using Eflatun.SceneReference;
 using Game.Loading.UI;
 using Game.Utils;
 using JetBrains.Annotations;
+using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
 using UnityUtils.State.Locking;
@@ -14,13 +15,15 @@ using Object = UnityEngine.Object;
 namespace Game.Loading
 {
     [UsedImplicitly]
-    public class LoaderPresenter : IInitializable, IDisposable
+    public class LoaderPresenter : IInitializable, ITickable, IDisposable
     {
         private readonly ICancellationTokenProvider _lifetimeCTProvider;
         private readonly SceneReference _loadingSceneRef;
         private readonly Loader _loader;
         private LoadingBarView _loadingBarView;
         private LoadingSceneView _loadingSceneView;
+        private float _smoothedProgress01;
+        private float _smoothedProgress01Velocity;
 
         public LoaderPresenter(Loader loader, [Inject(Id = InjectionIds.SceneReference.Loading)] SceneReference loadingSceneRef,
             ICancellationTokenProvider lifetimeCTProvider)
@@ -42,10 +45,20 @@ namespace Game.Loading
             _loader.Starting -= OnLoadingStarting;
         }
 
+        void ITickable.Tick()
+        {
+            if (_loader.IsLoading && _loadingBarView != null)
+            {
+                _smoothedProgress01 = Mathf.SmoothDamp(
+                    _smoothedProgress01, _loader.Progress!.Progress01, ref _smoothedProgress01Velocity, _loadingBarView.SmoothAnimationTime);
+                _loadingBarView.SetBarValue(_smoothedProgress01);
+            }
+        }
+
         private void OnLoadingStarting(ILocker startLocker)
         {
             var startLockHandle = startLocker.Lock();
-            _loader.Progress!.Changed += OnLoadingProgressChanged;
+            _smoothedProgress01 = 0f;
             
             LoadLoadingSceneAsync(_lifetimeCTProvider.Token)
                 .ContinueWith(() =>
@@ -59,7 +72,6 @@ namespace Game.Loading
         private void OnLoadingFinishing(ILocker finishLocker)
         {
             var finishLockHandle = finishLocker.Lock();
-            _loader.Progress!.Changed -= OnLoadingProgressChanged;
             
             _loadingSceneView.StartPlayingDisappearAnimationAsync(_lifetimeCTProvider.Token)
                 .ContinueWith(() => UnloadLoadingSceneAsync(_lifetimeCTProvider.Token))
@@ -110,14 +122,6 @@ namespace Game.Loading
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 await UniTask.DelayFrame(1, cancellationToken: cancellationToken);
-            }
-        }
-
-        private void OnLoadingProgressChanged(float value, float prevValue)
-        {
-            if (_loadingBarView != null)
-            {
-                _loadingBarView.SetBarValue(value);
             }
         }
     }

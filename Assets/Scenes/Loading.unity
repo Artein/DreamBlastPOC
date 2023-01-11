@@ -327,6 +327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slider: {fileID: 1808859649}
+  _smoothAnimationTime: 0.5
   _showDownloadProgress: 0
   _downloadProgressText: {fileID: 364089165}
 --- !u!1 &589571164

@@ -21,6 +21,7 @@ namespace Game.Loading
         private WeightedProgress _progress;
 
         [CanBeNull] public IProgressProvider Progress => _progress;
+        public bool IsLoading { get; private set; }
 
         public event StartingHandler Starting;
         public event FinishingHandler Finishing;
@@ -58,42 +59,52 @@ namespace Game.Loading
 
         public async UniTask<bool> StartAsync(CancellationToken cancellationToken, bool resetOnFinish = true)
         {
+            Assert.IsFalse(IsLoading);
             Assert.IsTrue(_tasks.Count > 0);
             UnityEngine.Debug.Log($"[Loader] Starting loading of {_tasks.Count} tasks");
             _totalStopwatch.Restart();
+
+            IsLoading = true;
+            var success = false;
             var tasksWeight = CalculateTasksWeight(_tasks);
             InitializeProgress(tasksWeight);
-            
-            await WaitLoadingStartingAsync(cancellationToken);
-            cancellationToken.ThrowIfCancellationRequested();
 
-            var success = false;
-            for (int i = 0; i < _tasks.Count; i += 1)
+            try
             {
-                var task = _tasks[i];
-                success = await ExecuteTaskAsync(task, cancellationToken);
-                if (!success)
+                await WaitLoadingStartingAsync(cancellationToken);
+                cancellationToken.ThrowIfCancellationRequested();
+
+                for (int i = 0; i < _tasks.Count; i += 1)
                 {
-                    break;
+                    var task = _tasks[i];
+                    success = await ExecuteTaskAsync(task, cancellationToken);
+                    if (!success)
+                    {
+                        break;
+                    }
+                }
+
+                if (success)
+                {
+                    _progress.Weight = tasksWeight;
+                }
+
+                await WaitLoadingFinishingAsync(cancellationToken);
+                cancellationToken.ThrowIfCancellationRequested();
+
+                Finished?.Invoke(success);
+                if (resetOnFinish)
+                {
+                    Reset();
                 }
             }
-
-            if (success)
+            finally
             {
-                _progress.Weight = tasksWeight;
+                _totalStopwatch.Stop();
+                IsLoading = false;
+                UnityEngine.Debug.Log($"[Loader] Loading finished [{_totalStopwatch.ElapsedMilliseconds}ms]");
             }
 
-            await WaitLoadingFinishingAsync(cancellationToken);
-            cancellationToken.ThrowIfCancellationRequested();
-
-            Finished?.Invoke(success);
-            if (resetOnFinish)
-            {
-                Reset();
-            }
-
-            _totalStopwatch.Stop();
-            UnityEngine.Debug.Log($"[Loader] Loading finished [{_totalStopwatch.ElapsedMilliseconds}ms]");
             return success;
         }
 

@@ -1,7 +1,6 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using MoreMountains.Feedbacks;
-using NaughtyAttributes;
 using UnityEngine;
 
 namespace Game.Loading.UI
@@ -27,12 +26,6 @@ namespace Game.Loading.UI
         public void SetCanvasAlpha(float alpha)
         {
             _canvasGroup.alpha = alpha;
-        }
-        
-        [Button("TEST PLAY")]
-        private void TestPlay()
-        {
-            _disappearAnimationPlayer.PlayFeedbacks();
         }
     }
 }
