@@ -11,11 +11,13 @@ namespace Game.Loading.Tasks
     {
         private readonly List<WeightedLoadingTask> _tasks;
         private readonly WeightedProgress _progress;
-        
+        private readonly bool _failIfAnyTaskFailed;
+
         public override IProgressProvider Progress => _progress;
 
-        public CompositeLoadingTask(List<WeightedLoadingTask> tasks)
+        public CompositeLoadingTask(List<WeightedLoadingTask> tasks, bool failIfAnyTaskFailed = false)
         {
+            _failIfAnyTaskFailed = failIfAnyTaskFailed;
             _tasks = tasks;
             var tasksWeight = Loader.CalculateTasksWeight(tasks);
             _progress = new WeightedProgress(tasksWeight);
@@ -36,16 +38,20 @@ namespace Game.Loading.Tasks
                 executingTasks.Add(executingTask);
             }
 
-            // TODO: Handle a task fail state. Is whole composite should fail as well?
-            await UniTask.WhenAll(executingTasks);
+            var results = await UniTask.WhenAll(executingTasks);
 
             for (int i = 0; i < _tasks.Count; i += 1)
             {
                 var task = _tasks[i];
                 task.Task.Progress.Changed -= TaskProgressChanged;
             }
-            
-            return true;
+
+            bool success = true;
+            if (_failIfAnyTaskFailed)
+            {
+                success = results.All(taskSucceeded => taskSucceeded);
+            }
+            return success;
         }
 
         public override string ToString()
