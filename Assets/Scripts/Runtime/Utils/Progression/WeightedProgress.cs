@@ -33,12 +33,12 @@ namespace Game.Utils.Progression
             remove => _progress.Changed += value;
         }
 
-        public WeightedProgress(float targetWeight, bool logProgressChange = false, string logMessagePrefix = null)
+        public WeightedProgress(float targetWeight, bool logProgressChange = false, string logTag = null)
         {
             ValidateTargetWeightArgument(targetWeight);
             
             _targetWeight = targetWeight;
-            _progress = new Progress(logProgressChange, logMessagePrefix);
+            _progress = new Progress(logProgressChange, logTag);
         }
 
         public void Reset()

@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using JetBrains.Annotations;
 using UnityEngine;
 using Zenject;
+using Debug = UnityEngine.Debug;
 
 namespace Game.Level
 {
@@ -24,7 +26,8 @@ namespace Game.Level
                     return Levels[CurrentLevelIdx];
                 }
 
-                Debug.LogError($"[{nameof(LevelsController)}]: Attempt to get non existing level, {nameof(CurrentLevelIdx)}={CurrentLevelIdx}, LevelsCount={Levels.Count}");
+                Debug.unityLogger.Log(LogType.Error, nameof(LevelsController), 
+                    $"Attempt to get non existing level, {nameof(CurrentLevelIdx)}={CurrentLevelIdx}, LevelsCount={Levels.Count}");
                 SetCurrentLevelIdx(0);
                 return Levels[CurrentLevelIdx];
             }
@@ -54,25 +57,27 @@ namespace Game.Level
             PlayerPrefs.SetInt(CurrentLevelIdxKey, levelIdx);
             PlayerPrefs.Save();
             
-            Debug.Log($"Level index changed to {CurrentLevelIdx} ({CurrentLevel.name})");
+            Debug.unityLogger.Log(nameof(LevelsController), $"Level index changed to {CurrentLevelIdx} ({CurrentLevel.name})");
         }
 
+        // TODO: Fix awaiting in async void (exception will not be caught)
         public async void Initialize()
         {
             await _levelsConfigAddressable;
             
             ValidateInitialState();
-            Debug.Log($"Levels initialization, {nameof(CurrentLevelIdx)}={CurrentLevelIdx}, CurrentLevel.name='{CurrentLevel.name}'");
+            Debug.unityLogger.Log(
+                nameof(LevelsController), 
+                $"Levels initialization, {nameof(CurrentLevelIdx)}={CurrentLevelIdx}, CurrentLevel.name='{CurrentLevel.name}'");
         }
 
+        [Conditional("DEVELOPMENT_BUILD")]
         private void ValidateInitialState()
         {
-            foreach (var level in Levels)
+            for (var i = 0; i < Levels.Count; i++)
             {
-                if (level == null)
-                {
-                    Debug.LogError($"NULL level found in {nameof(LevelsConfig)}");
-                }
+                var level = Levels[i];
+                Debug.Assert(level != null, $"{nameof(LevelsController)}: NULL level found in {nameof(LevelsConfig)}");
             }
         }
     }

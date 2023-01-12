@@ -9,7 +9,7 @@ namespace Game.Utils.Progression
     {
         private float _progress01_BF;
         private readonly bool _logProgressChange;
-        private readonly string _logMessagePrefix;
+        private readonly string _logTag;
         private readonly StringBuilder _logBuilder;
         
         public float Progress01
@@ -29,10 +29,9 @@ namespace Game.Utils.Progression
                 if (_logProgressChange)
                 {
                     _logBuilder.Clear();
-                    _logBuilder.Append(_logMessagePrefix);
                     _logBuilder.Append("Progress ");
                     _logBuilder.Append(_progress01_BF.ToString("P", CultureInfo.InvariantCulture));
-                    Debug.Log(_logBuilder.ToString());
+                    Debug.unityLogger.Log(_logTag, _logBuilder.ToString());
                 }
                 
                 Changed?.Invoke(_progress01_BF, prevValue);
@@ -41,14 +40,14 @@ namespace Game.Utils.Progression
         
         public event ValueChangeHandler<float> Changed;
 
-        public Progress() : this(logProgressChange: false, logMessagePrefix: null) { }
+        public Progress() : this(logProgressChange: false, logTag: null) { }
 
-        public Progress(bool logProgressChange, string logMessagePrefix)
+        public Progress(bool logProgressChange, string logTag)
         {
-            _logMessagePrefix = logMessagePrefix;
             _logProgressChange = logProgressChange;
             if (_logProgressChange)
             {
+                _logTag = logTag;
                 _logBuilder = new StringBuilder();
             }
         }

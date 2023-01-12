@@ -36,7 +36,7 @@ namespace Game.Chips.Activation
         {
             var touchedChipView = gameobject.GetComponentInParent<ChipView>();
             Assert.IsNotNull(touchedChipView);
-            UnityEngine.Debug.Log($"Touched chip '{gameobject.name}'", touchedChipView);
+            Debug.unityLogger.Log(nameof(ChipByUserInputActivator), $"Touched chip '{gameobject.name}'", touchedChipView);
             Assert.IsTrue(_levelModel.ChipModels.Any(chipModel => chipModel.View == touchedChipView));
             var touchedChipModel = _levelModel.ChipModels.First(chipModel => chipModel.View == touchedChipView);
             // TODO: ChipModel might be a Facade with all possible interactions about chip, or extract ActionExecutor into outer container and call from it

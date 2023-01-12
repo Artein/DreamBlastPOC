@@ -23,6 +23,11 @@ namespace Game.Loading.Tasks
             _progress = new WeightedProgress(tasksWeight);
         }
 
+        public override string ToString()
+        {
+            return $"{nameof(CompositeLoadingTask)} of {_tasks.Count} ({string.Join(", ", _tasks.Select(t => t.Task.ToString()))})";
+        }
+
         protected override async UniTask<bool> ExecuteAsync_Implementation(CancellationToken cancellationToken)
         {
             _progress.Reset();
@@ -38,12 +43,18 @@ namespace Game.Loading.Tasks
                 executingTasks.Add(executingTask);
             }
 
-            var results = await UniTask.WhenAll(executingTasks);
-
-            for (int i = 0; i < _tasks.Count; i += 1)
+            bool[] results;
+            try
             {
-                var task = _tasks[i];
-                task.Task.Progress.Changed -= TaskProgressChanged;
+                results = await UniTask.WhenAll(executingTasks);
+            }
+            finally
+            {
+                for (int i = 0; i < _tasks.Count; i += 1)
+                {
+                    var task = _tasks[i];
+                    task.Task.Progress.Changed -= TaskProgressChanged;
+                }
             }
 
             bool success = true;
@@ -52,11 +63,6 @@ namespace Game.Loading.Tasks
                 success = results.All(taskSucceeded => taskSucceeded);
             }
             return success;
-        }
-
-        public override string ToString()
-        {
-            return $"CompositeLoadingTask of {_tasks.Count} ({string.Join(", ", _tasks.Select(t => t.Task.ToString()))})";
         }
 
         private void TaskProgressChanged(float value, float prevValue)

@@ -32,15 +32,14 @@ namespace Game.Loading.Tasks
             var getDownloadSizeHandle = Addressables.GetDownloadSizeAsync(_assetLabelReference);
             using var getDownloadSizeReleaseHandle = getDownloadSizeHandle.ReleaseInScope();
                 
-            await getDownloadSizeHandle;
+            var bytesToDownload = await getDownloadSizeHandle;
 
-            if (getDownloadSizeHandle.Status == AsyncOperationStatus.Failed)
+            if (LogIfFailed(getDownloadSizeHandle))
             {
-                Debug.LogException(getDownloadSizeHandle.OperationException);
                 return false;
             }
                 
-            if (getDownloadSizeHandle.Result > 0)
+            if (bytesToDownload > 0)
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 var downloadDependenciesHandle = Addressables.DownloadDependenciesAsync(_assetLabelReference);
@@ -54,15 +53,32 @@ namespace Game.Loading.Tasks
                     
                     _progress.Progress01 = downloadDependenciesHandle.GetDownloadStatus().Percent;
                 }
-                    
-                if (downloadDependenciesHandle.Status == AsyncOperationStatus.Failed)
+                
+                if (LogIfFailed(downloadDependenciesHandle))
                 {
-                    Debug.LogException(downloadDependenciesHandle.OperationException);
                     return false;
                 }
             }
 
             return true;
+        }
+
+        private static bool LogIfFailed(AsyncOperationHandle operationHandle)
+        {
+            if (operationHandle.Status == AsyncOperationStatus.Failed)
+            {
+                if (operationHandle.TryGetDownloadError(out var errorMessage))
+                {
+                    Debug.unityLogger.LogError(nameof(PreloadAddressableLabelTask), errorMessage);
+                }
+                else
+                {
+                    Debug.unityLogger.LogException(operationHandle.OperationException);
+                }
+                return true;
+            }
+
+            return false;
         }
     }
 }

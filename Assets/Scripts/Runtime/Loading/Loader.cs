@@ -7,6 +7,7 @@ using Game.Utils.Progression;
 using JetBrains.Annotations;
 using UnityEngine.Assertions;
 using UnityUtils.State.Locking;
+using Debug = UnityEngine.Debug;
 
 namespace Game.Loading
 {
@@ -22,7 +23,7 @@ namespace Game.Loading
 
         [CanBeNull] public IProgressProvider Progress => _progress;
         public bool IsLoading { get; private set; }
-        public bool LoggingEnabled { get; set; }
+        public bool LoggingEnabled { get; set; } = true;
 
         public event StartingHandler Starting;
         public event FinishingHandler Finishing;
@@ -159,7 +160,7 @@ namespace Game.Loading
             }
             else
             {
-                _progress = new WeightedProgress(tasksWeight, LoggingEnabled, "[Loading] ");
+                _progress = new WeightedProgress(tasksWeight, LoggingEnabled, nameof(Loader));
             }
         }
 
@@ -167,7 +168,7 @@ namespace Game.Loading
         {
             if (LoggingEnabled)
             {
-                UnityEngine.Debug.Log($"[{nameof(Loader)}] {message}");
+                Debug.unityLogger.Log(nameof(Loader), message);
             }
         }
 
