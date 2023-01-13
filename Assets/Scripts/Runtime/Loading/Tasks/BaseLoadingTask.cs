@@ -13,12 +13,19 @@ namespace Game.Loading.Tasks
         public async UniTask<bool> ExecuteAsync(CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
+            
             Assert.IsFalse(IsExecuting);
             IsExecuting = true;
-            var success = await ExecuteAsync_Implementation(cancellationToken);
-            IsExecuting = false;
+            try
+            {
+                var success = await ExecuteAsync_Implementation(cancellationToken);
 
-            return success;
+                return success;
+            }
+            finally
+            {
+                IsExecuting = false;
+            }
         }
 
         protected abstract UniTask<bool> ExecuteAsync_Implementation(CancellationToken cancellationToken);

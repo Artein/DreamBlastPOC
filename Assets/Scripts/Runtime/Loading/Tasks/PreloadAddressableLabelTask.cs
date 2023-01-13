@@ -31,21 +31,21 @@ namespace Game.Loading.Tasks
             cancellationToken.ThrowIfCancellationRequested();
             var getDownloadSizeHandle = Addressables.GetDownloadSizeAsync(_assetLabelReference);
             using var getDownloadSizeReleaseHandle = getDownloadSizeHandle.ReleaseInScope();
-                
+            
             var bytesToDownload = await getDownloadSizeHandle;
 
             if (LogIfFailed(getDownloadSizeHandle))
             {
                 return false;
             }
-                
+            
             if (bytesToDownload > 0)
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 var downloadDependenciesHandle = Addressables.DownloadDependenciesAsync(_assetLabelReference);
                 using var downloadDependenciesReleaseHandle = downloadDependenciesHandle.ReleaseInScope();
                 _progress.Progress01 = downloadDependenciesHandle.GetDownloadStatus().Percent;
-                    
+                
                 while (!downloadDependenciesHandle.IsDone)
                 {
                     cancellationToken.ThrowIfCancellationRequested();

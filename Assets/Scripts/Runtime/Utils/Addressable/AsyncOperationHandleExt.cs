@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -19,6 +21,30 @@ namespace Game.Utils.Addressable
         public static IDisposable ReleaseInScope(this AsyncOperationHandle handle)
         {
             return new DisposableAction(() => Addressables.Release(handle));
+        }
+
+        public static void Release<T>(this List<AsyncOperationHandle<T>> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                var handle = list[i];
+                if (handle.IsValid())
+                {
+                    Addressables.Release(handle);
+                }
+            }
+        }
+        
+        public static void Release(this List<AsyncOperationHandle> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                var handle = list[i];
+                if (handle.IsValid())
+                {
+                    Addressables.Release(handle);
+                }
+            }
         }
 
         [MustUseReturnValue]
@@ -50,6 +76,30 @@ namespace Game.Utils.Addressable
             
             error = null;
             return false;
+        }
+
+        [MustUseReturnValue]
+        public static List<UniTask<T>> ToUniTask<T>(this List<AsyncOperationHandle<T>> list)
+        {
+            var result = new List<UniTask<T>>(list.Count);
+            for (int i = 0; i < list.Count; i += 1)
+            {
+                result.Add(list[i].ToUniTask());
+            }
+
+            return result;
+        }
+        
+        [MustUseReturnValue]
+        public static List<UniTask> ToUniTask(this List<AsyncOperationHandle> list)
+        {
+            var result = new List<UniTask>(list.Count);
+            for (int i = 0; i < list.Count; i += 1)
+            {
+                result.Add(list[i].ToUniTask());
+            }
+
+            return result;
         }
     }
 }

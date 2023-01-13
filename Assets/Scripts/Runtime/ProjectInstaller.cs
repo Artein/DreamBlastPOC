@@ -45,7 +45,7 @@ namespace Game
 
         public override void Start()
         {
-            var bootstrap = Container.Instantiate<Bootstrap>(new object[]{ _levelSceneRef, _preLoadAssetLabel });
+            var bootstrap = Container.Instantiate<Bootstrap>(new object[]{ _levelSceneRef });
             bootstrap.Execute();
         }
 
