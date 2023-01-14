@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
+using Game.Utils;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
@@ -9,7 +9,7 @@ using Zenject;
 
 namespace Game.Input
 {
-    [UsedImplicitly]
+    [ZenjectBound]
     public class GameObjectInputNotifier : IInitializable, IDisposable
     {
         [Inject] private TouchInputNotifier _inputNotifier;

@@ -1,12 +1,12 @@
 using System;
 using System.ComponentModel;
-using JetBrains.Annotations;
+using Game.Utils;
 using UnityEngine;
 using Zenject;
 
 namespace Game.Level
 {
-    [UsedImplicitly]
+    [ZenjectBound]
     public class LevelConfigProxy : ILevelConfig, IInitializable, IDisposable
     {
         public int TotalChipsAmount => _options.OverrideLevelConfig ? _options.TotalChipsAmount : _config.TotalChipsAmount;

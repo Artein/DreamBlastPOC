@@ -5,13 +5,12 @@ using Game.Chips.Activation;
 using Game.Chips.Explosion.ChipsCollecting;
 using Game.Level;
 using Game.Utils;
-using JetBrains.Annotations;
 using UnityEngine;
 using Zenject;
 
 namespace Game.Chips.Explosion
 {
-    [UsedImplicitly]
+    [ZenjectBound]
     public class ExplosionChipActivationExecutor : IChipActivationExecutor
     {
         [Inject] private ExplosionChipsConfig _explosionChipsConfig;

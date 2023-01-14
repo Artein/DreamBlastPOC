@@ -1,8 +1,8 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Game.Utils;
 using Game.Utils.Addressable;
 using Game.Utils.Progression;
-using JetBrains.Annotations;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
@@ -10,7 +10,7 @@ using Progress = Game.Utils.Progression.Progress;
 
 namespace Game.Loading.Tasks
 {
-    [UsedImplicitly]
+    [ZenjectBound]
     public class LoadAddressableSceneTask : BaseLoadingTask
     {
         private readonly AssetReferenceScene _sceneRef;

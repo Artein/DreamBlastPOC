@@ -2,13 +2,13 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Game.Chips;
 using Game.Level;
+using Game.Utils;
 using Game.Utils.Progression;
-using JetBrains.Annotations;
 using Progress = Game.Utils.Progression.Progress;
 
 namespace Game.Loading.Tasks
 {
-    [UsedImplicitly]
+    [ZenjectBound]
     public class LoadProjectInstallerAddressablesTask : BaseLoadingTask
     {
         private readonly AddressableInject<ColoredChipsActivationConfig> _coloredChipsActivationConfigAddressable;

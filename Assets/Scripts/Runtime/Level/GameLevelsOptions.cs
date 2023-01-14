@@ -4,7 +4,6 @@ using Game.Loading;
 using Game.Loading.Tasks;
 using Game.Utils;
 using Game.Utils.Addressable;
-using JetBrains.Annotations;
 using SRDebugger;
 using SRDebugger.Services;
 using SRF.Helpers;
@@ -15,7 +14,7 @@ using Zenject;
 
 namespace Game.Level
 {
-    [UsedImplicitly]
+    [ZenjectBound]
     public class GameLevelsOptions : IInitializable, IDisposable
     {
         [Inject] private Loader _loader;
@@ -32,6 +31,7 @@ namespace Game.Level
 
         private LevelsConfig LevelsConfig => _levelsConfigAddressable.Result;
 
+        // TODO: Fix usage of async void methods (will not throw exception if any)
         async void IInitializable.Initialize()
         {
             await _levelsConfigAddressable;

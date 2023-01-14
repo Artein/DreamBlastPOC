@@ -1,13 +1,12 @@
 using System;
 using Game.Chips.Activation;
 using Game.Utils;
-using JetBrains.Annotations;
 using UnityUtils.Invocation;
 using Object = UnityEngine.Object;
 
 namespace Game.Chips
 {
-    [UsedImplicitly]
+    [ZenjectBound]
     public class ChipModel
     {
         public enum ChipState : byte

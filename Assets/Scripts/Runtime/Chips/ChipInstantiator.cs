@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Game.Chips.Activation;
-using JetBrains.Annotations;
+using Game.Utils;
 using Unity.Mathematics;
 using Unity.Profiling;
 using UnityEngine;
@@ -10,7 +10,7 @@ using Zenject;
 
 namespace Game.Chips
 {
-    [UsedImplicitly]
+    [ZenjectBound]
     public class ChipInstantiator
     {
         [Inject] private AddressableInject<ChipViewsConfig> _chipViewsConfigAddressable;

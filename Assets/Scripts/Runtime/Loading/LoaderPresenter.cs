@@ -4,7 +4,6 @@ using Cysharp.Threading.Tasks;
 using Eflatun.SceneReference;
 using Game.Loading.UI;
 using Game.Utils;
-using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
@@ -14,7 +13,7 @@ using Object = UnityEngine.Object;
 
 namespace Game.Loading
 {
-    [UsedImplicitly]
+    [ZenjectBound]
     public class LoaderPresenter : IInitializable, ITickable, IDisposable
     {
         private readonly ICancellationTokenProvider _lifetimeCTProvider;

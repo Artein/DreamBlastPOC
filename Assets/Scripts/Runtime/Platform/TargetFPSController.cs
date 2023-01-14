@@ -1,10 +1,10 @@
-using JetBrains.Annotations;
+using Game.Utils;
 using UnityEngine;
 using Zenject;
 
 namespace Game.Platform
 {
-    [UsedImplicitly]
+    [ZenjectBound]
     public class TargetFPSController : IInitializable
     {
         private const int ProductionTargetFPS = 60;

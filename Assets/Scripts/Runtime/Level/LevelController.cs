@@ -4,13 +4,12 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using Game.Chips;
 using Game.Utils;
-using JetBrains.Annotations;
 using UnityEngine;
 using Zenject;
 
 namespace Game.Level
 {
-    [UsedImplicitly]
+    [ZenjectBound]
     public class LevelController : IInitializable
     {
         [Inject] private LevelModel _levelModel;

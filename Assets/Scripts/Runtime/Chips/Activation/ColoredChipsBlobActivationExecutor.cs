@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Game.Level;
-using JetBrains.Annotations;
+using Game.Utils;
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -9,7 +9,7 @@ using Zenject;
 
 namespace Game.Chips.Activation
 {
-    [UsedImplicitly]
+    [ZenjectBound]
     public class ColoredChipsBlobActivationExecutor : IChipActivationExecutor
     {
         [Inject] private SignalBus _signalBus;

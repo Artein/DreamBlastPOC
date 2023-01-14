@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using Game.Level;
-using JetBrains.Annotations;
+using Game.Utils;
 using UnityEngine;
 using Zenject;
 
 namespace Game.Chips.Explosion.ChipsCollecting
 {
-    [UsedImplicitly]
+    [ZenjectBound]
     public class CrossExplosionChipsCollector : IExplosionChipsCollector
     {
         [Inject] private LevelModel _levelModel;

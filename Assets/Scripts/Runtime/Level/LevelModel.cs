@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using Game.Chips;
-using JetBrains.Annotations;
+using Game.Utils;
 
 namespace Game.Level
 {
-    [UsedImplicitly]
+    [ZenjectBound]
     public class LevelModel
     {
         public readonly List<ChipModel> ChipModels = new();

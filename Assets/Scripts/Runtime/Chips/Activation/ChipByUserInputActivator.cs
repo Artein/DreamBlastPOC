@@ -2,14 +2,14 @@ using System;
 using System.Linq;
 using Game.Input;
 using Game.Level;
-using JetBrains.Annotations;
+using Game.Utils;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Zenject;
 
 namespace Game.Chips.Activation
 {
-    [UsedImplicitly]
+    [ZenjectBound]
     public class ChipByUserInputActivator : IInitializable, IDisposable
     {
         [Inject] private GameObjectInputNotifier _layeredInputNotifier;

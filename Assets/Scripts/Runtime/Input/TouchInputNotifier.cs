@@ -1,10 +1,10 @@
-using JetBrains.Annotations;
+using Game.Utils;
 using UnityEngine;
 using Zenject;
 
 namespace Game.Input
 {
-    [UsedImplicitly]
+    [ZenjectBound]
     public class TouchInputNotifier : ITickable
     {
         public event TouchBeganHandler TouchBegan;

@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Game.Utils;
 using JetBrains.Annotations;
 using SRDebugger.Services;
 using UnityEngine;
@@ -8,7 +9,7 @@ using Zenject;
 
 namespace Game.Physics
 {
-    [UsedImplicitly]
+    [ZenjectBound]
     public class PhysicsOptions : IInitializable, IDisposable, INotifyPropertyChanged
     {
         [Inject] private IDebugService _debugService;

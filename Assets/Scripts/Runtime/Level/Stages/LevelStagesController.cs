@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Game.Utils;
 using JetBrains.Annotations;
 using UnityEngine.Assertions;
 using UnityUtils.Invocation;
 
 namespace Game.Level.Stages
 {
-    [UsedImplicitly]
+    [ZenjectBound]
     public class LevelStagesController
     {
         private readonly Dictionary<int, List<ILevelStageGoal>> _stagedGoals = new();

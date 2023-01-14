@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using JetBrains.Annotations;
+using Game.Utils;
 using UnityEngine;
 using Zenject;
 using Debug = UnityEngine.Debug;
 
 namespace Game.Level
 {
-    [UsedImplicitly]
+    [ZenjectBound]
     public class LevelsController : IInitializable
     {
         private const string CurrentLevelIdxKey = "LevelsState.CurrentLevelIdx";

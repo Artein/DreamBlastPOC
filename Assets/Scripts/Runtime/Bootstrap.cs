@@ -3,12 +3,11 @@ using Game.Loading;
 using Game.Loading.Tasks;
 using Game.Utils;
 using Game.Utils.Addressable;
-using JetBrains.Annotations;
 using UnityEngine.SceneManagement;
 
 namespace Game
 {
-    [UsedImplicitly]
+    [ZenjectBound]
     public class Bootstrap
     {
         private readonly Loader _loader;

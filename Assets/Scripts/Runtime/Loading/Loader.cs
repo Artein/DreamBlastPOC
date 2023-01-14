@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Game.Loading.Tasks;
+using Game.Utils;
 using Game.Utils.Progression;
 using JetBrains.Annotations;
 using UnityEngine.Assertions;
@@ -11,7 +12,7 @@ using Debug = UnityEngine.Debug;
 
 namespace Game.Loading
 {
-    [UsedImplicitly]
+    [ZenjectBound]
     public class Loader
     {
         private readonly List<WeightedLoadingTask> _tasks = new();

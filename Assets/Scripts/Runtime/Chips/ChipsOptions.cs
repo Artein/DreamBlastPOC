@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Game.Utils;
 using JetBrains.Annotations;
 using SRDebugger;
 using SRDebugger.Services;
@@ -8,7 +9,7 @@ using Zenject;
 
 namespace Game.Chips
 {
-    [UsedImplicitly]
+    [ZenjectBound]
     public class ChipsOptions : IInitializable, IDisposable, INotifyPropertyChanged
     {
         [Inject] private IDebugService _debugService;

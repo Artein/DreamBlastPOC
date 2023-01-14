@@ -1,12 +1,12 @@
 using System.ComponentModel;
-using JetBrains.Annotations;
+using Game.Utils;
 using UnityEngine;
 using UnityUtils.Invocation;
 using Zenject;
 
 namespace Game.Chips
 {
-    [UsedImplicitly]
+    [ZenjectBound]
     public class ChipSizeController : IInitializable
     {
         [Inject] private ChipsOptions _chipsOptions;

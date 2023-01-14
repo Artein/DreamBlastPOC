@@ -1,12 +1,12 @@
 using Eflatun.SceneReference;
 using Game.Loading.Tasks;
-using JetBrains.Annotations;
+using Game.Utils;
 using UnityEngine;
 using Zenject;
 
 namespace Game.Loading
 {
-    [UsedImplicitly]
+    [ZenjectBound]
     public class ProjectLoadingInstaller : MonoInstaller<ProjectLoadingInstaller>
     {
         [SerializeField] private SceneReference _loadingScene;
