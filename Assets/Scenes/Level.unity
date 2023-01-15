@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 36066137}
   - component: {fileID: 36066136}
   m_Layer: 0
-  m_Name: SceneContext
+  m_Name: Context
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -174,7 +174,8 @@ MonoBehaviour:
       m_Calls: []
   _parentNewObjectsUnderSceneContext: 0
   _contractNames: []
-  _parentContractNames: []
+  _parentContractNames:
+  - Core
 --- !u!4 &36066137
 Transform:
   m_ObjectHideFlags: 0

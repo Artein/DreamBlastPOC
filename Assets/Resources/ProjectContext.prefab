@@ -64,14 +64,9 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-    _sceneName: 
-  _bootstrapSceneRef:
-    sceneAsset: {fileID: 102900000, guid: 6795b01a693714f37924184549725fbd, type: 3}
-    sceneAssetGuidHex: 6795b01a693714f37924184549725fbd
+    _sceneName: Level
   _preLoadAssetLabel:
     m_LabelString: preload_Bootstrap
-  _ignoreRaycastsLayer: 2
-  _chipLayer: 6
 --- !u!1 &7924851729995010760
 GameObject:
   m_ObjectHideFlags: 0

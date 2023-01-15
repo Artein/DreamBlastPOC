@@ -6,10 +6,8 @@ using Game.Loading.Tasks;
 using Game.Platform;
 using Game.Utils;
 using Game.Utils.Addressable;
-using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Assertions;
 using Zenject;
 
 namespace Game
@@ -22,8 +20,6 @@ namespace Game
         [SerializeField] private AssetReferenceT<LevelsConfig> _levelsConfigRef;
         [SerializeField] private AssetReferenceScene _levelSceneRef;
         [SerializeField] private AssetLabelReference _preLoadAssetLabel;
-        [SerializeField, Layer] private int _ignoreRaycastsLayer;
-        [SerializeField, Layer] private int _chipLayer;
         
         private CancellationTokenSource _lifetimeCTS = new();
 
@@ -59,10 +55,8 @@ namespace Game
             
             BindOptions();
             BindInput();
-            BindLayers();
             BindChipsConfigs();
             BindLevels();
-            BindCameraRig();
 
             Container.BindInstance(_levelSceneRef).WithId(InjectionIds.AssetReferenceScene.Level).AsCached().NonLazy();
         }
@@ -90,19 +84,6 @@ namespace Game
         {
             Container.BindInterfacesAndSelfTo<LevelsController>().AsSingle();
             Container.BindAsync<LevelsConfig>().FromAssetReferenceT(_levelsConfigRef).AsCached();
-        }
-
-        private void BindLayers()
-        {
-            Container.BindInstance(_chipLayer).WithId(InjectionIds.Int.ChipsLayer);
-            Container.BindInstance(_ignoreRaycastsLayer).WithId(InjectionIds.Int.IgnoreRaycastsLayer);
-        }
-
-        private void BindCameraRig()
-        {
-            var cameraRig = GameObject.FindWithTag("CameraRig");
-            Assert.IsNotNull(cameraRig);
-            Container.BindInstance(cameraRig.transform).WithId(InjectionIds.Transform.CameraRig);
         }
     }
 }
