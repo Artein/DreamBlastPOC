@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Game.Loading;
 using Game.Loading.Tasks;
@@ -31,10 +32,15 @@ namespace Game.Level
 
         private LevelsConfig LevelsConfig => _levelsConfigAddressable.Result;
 
-        // TODO: Fix usage of async void methods (will not throw exception if any)
-        async void IInitializable.Initialize()
+        void IInitializable.Initialize()
+        {
+            InitializeAsync(_lifetimeCTProvider.Token).Forget();
+        }
+
+        private async UniTask InitializeAsync(CancellationToken cancellationToken)
         {
             await _levelsConfigAddressable;
+            cancellationToken.ThrowIfCancellationRequested();
             
             _debugService.AddOptionContainer(this);
 
@@ -46,11 +52,12 @@ namespace Game.Level
             {
                 var level = LevelsConfig.Levels[i];
                 var i1 = i;
-                var optionDefinition = new OptionDefinition(level.name, "Levels", 0, new MethodReference(_ =>
-                                                                                                         {
-                                                                                                             LevelSelected(i1);
-                                                                                                             return null;
-                                                                                                         }));
+                var methodRef = new MethodReference(_ =>
+                {
+                    LevelSelected(i1);
+                    return null;
+                });
+                var optionDefinition = new OptionDefinition(level.name, "Levels", 0, methodRef);
                 _container.AddOption(optionDefinition);
             }
         }

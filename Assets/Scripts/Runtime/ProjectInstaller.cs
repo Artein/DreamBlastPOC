@@ -70,6 +70,7 @@ namespace Game
         private void BindOptions()
         {
             Container.BindInstance(SRDebug.Instance).AsSingle();
+            Container.BindInterfacesTo<ProjectOptions>().AsSingle();
             Container.BindInterfacesTo<GameLevelsOptions>().AsSingle();
         }
 

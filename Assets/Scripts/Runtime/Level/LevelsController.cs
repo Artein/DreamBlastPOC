@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using Game.Utils;
 using UnityEngine;
 using Zenject;
@@ -13,6 +15,7 @@ namespace Game.Level
     {
         private const string CurrentLevelIdxKey = "LevelsState.CurrentLevelIdx";
         [Inject] private AddressableInject<LevelsConfig> _levelsConfigAddressable;
+        [Inject] private ICancellationTokenProvider _lifetimeCTProvider;
         private IReadOnlyList<LevelConfig> Levels => _levelsConfigAddressable.Result.Levels;
         
         public int CurrentLevelIdx => PlayerPrefs.GetInt(CurrentLevelIdxKey, 0);
@@ -60,10 +63,15 @@ namespace Game.Level
             Debug.unityLogger.Log(nameof(LevelsController), $"Level index changed to {CurrentLevelIdx} ({CurrentLevel.name})");
         }
 
-        // TODO: Fix awaiting in async void (exception will not be caught)
-        public async void Initialize()
+        public void Initialize()
+        {
+            InitializeAsync(_lifetimeCTProvider.Token).Forget();
+        }
+
+        private async UniTask InitializeAsync(CancellationToken cancellationToken)
         {
             await _levelsConfigAddressable;
+            cancellationToken.ThrowIfCancellationRequested();
             
             ValidateInitialState();
             Debug.unityLogger.Log(
