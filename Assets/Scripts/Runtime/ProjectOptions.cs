@@ -31,6 +31,8 @@ namespace Game
             Debug.unityLogger.Log(nameof(ProjectOptions), $"Clicked '{nameof(RestartApplication)}' button");
             _debugService.HideDebugPanel();
             SceneManager.LoadScene(_coreSceneRef.Name, LoadSceneMode.Single);
+            Resources.UnloadUnusedAssets();
+            GC.Collect();
         }
     }
 }

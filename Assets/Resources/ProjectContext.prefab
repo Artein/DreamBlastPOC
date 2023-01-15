@@ -44,21 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8cb825fee254027ad7d5380a329c0c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _chipViewsConfigRef:
-    m_AssetGUID: 78b896260a8e94357a8cb323969ede7a
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  _coloredChipsActivationConfigRef:
-    m_AssetGUID: 2ab64903c4c70423ca2481dc4704cf2e
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  _levelsConfigRef:
-    m_AssetGUID: f2a1dd1ca12534943a1883d26a9e7c57
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
   _coreSceneRef:
     sceneAsset: {fileID: 102900000, guid: 7b70141e6515740cb98404be2bf9af0d, type: 3}
     sceneAssetGuidHex: 7b70141e6515740cb98404be2bf9af0d

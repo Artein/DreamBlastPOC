@@ -1,7 +1,10 @@
+using Game.Chips;
 using Game.Level;
+using Game.Loading.Tasks;
 using Game.Utils.Addressable;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.Assertions;
 using Zenject;
 
@@ -10,6 +13,9 @@ namespace Game
     public class CoreInstaller : MonoInstaller<CoreInstaller>
     {
         [SerializeField] private Transform _cameraRigTransform;
+        [SerializeField] private AssetReferenceT<LevelsConfig> _levelsConfigRef;
+        [SerializeField] private AssetReferenceT<ChipViewsConfig> _chipViewsConfigRef;
+        [SerializeField] private AssetReferenceT<ColoredChipsActivationConfig> _coloredChipsActivationConfigRef;
         [SerializeField, Layer] private int _ignoreRaycastsLayer;
         [SerializeField, Layer] private int _chipLayer;
         
@@ -18,6 +24,9 @@ namespace Game
         private void OnValidate()
         {
             Assert.IsNotNull(_cameraRigTransform, "_cameraRigTransform != null");
+            _coloredChipsActivationConfigRef.RuntimeKeyIsValid();
+            _chipViewsConfigRef.RuntimeKeyIsValid();
+            _levelsConfigRef.RuntimeKeyIsValid();
         }
 
         public override void Start()
@@ -28,9 +37,13 @@ namespace Game
         
         public override void InstallBindings()
         {
+            Container.Bind<LoadProjectInstallerAddressablesTask>().AsSingle();
+            
             BindCameraRig();
             BindLayers();
             BindOptions();
+            BindChipsConfigs();
+            BindLevels();
         }
 
         private void BindOptions()
@@ -47,6 +60,18 @@ namespace Game
         {
             Container.BindInstance(_chipLayer).WithId(InjectionIds.Int.ChipsLayer);
             Container.BindInstance(_ignoreRaycastsLayer).WithId(InjectionIds.Int.IgnoreRaycastsLayer);
+        }
+
+        private void BindChipsConfigs()
+        {
+            Container.BindAsync<ChipViewsConfig>().FromAssetReferenceT(_chipViewsConfigRef).AsCached();
+            Container.BindAsync<ColoredChipsActivationConfig>().FromAssetReferenceT(_coloredChipsActivationConfigRef).AsCached();
+        }
+
+        private void BindLevels()
+        {
+            Container.BindInterfacesAndSelfTo<LevelsController>().AsSingle();
+            Container.BindAsync<LevelsConfig>().FromAssetReferenceT(_levelsConfigRef).AsCached();
         }
     }
 }
