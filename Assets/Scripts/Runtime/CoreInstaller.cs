@@ -1,3 +1,5 @@
+using Game.Level;
+using Game.Utils.Addressable;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -11,15 +13,29 @@ namespace Game
         [SerializeField, Layer] private int _ignoreRaycastsLayer;
         [SerializeField, Layer] private int _chipLayer;
         
+        [Inject(Id = InjectionIds.AssetReferenceScene.Level)] private AssetReferenceScene _levelSceneRef;
+        
         private void OnValidate()
         {
             Assert.IsNotNull(_cameraRigTransform, "_cameraRigTransform != null");
+        }
+
+        public override void Start()
+        {
+            var bootstrap = Container.Instantiate<Bootstrap>(new object[]{ _levelSceneRef });
+            bootstrap.Execute();
         }
         
         public override void InstallBindings()
         {
             BindCameraRig();
             BindLayers();
+            BindOptions();
+        }
+
+        private void BindOptions()
+        {
+            Container.BindInterfacesTo<GameLevelsOptions>().AsSingle();
         }
 
         private void BindCameraRig()

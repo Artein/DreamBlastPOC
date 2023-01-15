@@ -24,7 +24,7 @@ namespace Game.Loading
 
         [CanBeNull] public IProgressProvider Progress => _progress;
         public bool IsLoading { get; private set; }
-        public bool LoggingEnabled { get; set; } = true;
+        public bool LoggingEnabled { get; set; }
 
         public event StartingHandler Starting;
         public event FinishingHandler Finishing;
